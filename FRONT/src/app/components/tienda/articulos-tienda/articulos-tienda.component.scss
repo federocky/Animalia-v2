@@ -1,0 +1,102 @@
+.articles {
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 14px;
+    margin-top: 30px;
+
+    article{
+
+        display: grid;
+        text-align: center;
+        font-family: 'Poppins', sans-serif;
+        box-shadow: 5px 5px 18px rgba($color: #000000, $alpha: 0.5);
+
+        //si solo hay un articulo no sera una bestia de grande
+        max-width: 400px;
+        position: relative;
+
+        //para que no se salga la img
+        overflow: hidden;
+
+        img{
+            width:100%;
+            transition: all 500ms ease-out;           
+        }
+
+        .contenido{
+            background-color: #fff;
+            padding-top: 12px;
+
+            .stars {
+                color: yellow;
+                text-shadow: 0 0 3px #000;
+            }
+
+            p{
+                font-family: 'Courgette', cursive !important;
+                font-size: 30px;
+            }
+        }
+
+        //CAPA HOVER
+        .descripcion {
+            position: absolute;
+            background-color: rgba($color: #ccc, $alpha: 0.5);
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0; 
+            transition: all 500ms ease-out;
+
+            p{
+                margin: 2px;
+                text-shadow: 1px 1px 6px #fff;
+                text-shadow: 1px 1px 6px #fff inset;
+                font-weight: bold;
+                //display: none; pensar si quieres texto o no creo que mejor no, no se lee bien
+            }
+
+            button{
+                padding: 6px;
+                border-radius: 16px;
+                width: 80%;
+                margin: 4px 0px;
+                color: #fff;
+                border: none;
+                box-shadow: 1px 1px 6px #333;
+                box-shadow: 1px 1px 1px #000;
+                transition: all 1s;
+                
+                &:hover{
+                    box-shadow: 1px 1px 6px #333;
+                    text-shadow: 1px 1px 4px #333;
+                }
+                
+            }
+            
+            button:nth-child(1){
+                background-color: #03A9F4;
+            }
+            button:nth-child(2){
+                background-color: #EB9524;
+            }
+
+        }
+        &:hover > .descripcion{
+            opacity: 1;
+        }
+
+        &:hover > img{
+            transform: scale(1.1);
+        }
+
+    }
+}
+
+.altura{
+    height: 500px; // esto es momentaneo para tener un hueco abajo
+}

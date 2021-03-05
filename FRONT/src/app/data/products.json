@@ -1,0 +1,234 @@
+{ "producto" : [
+{
+    "id": 1,
+    "nombre": "Bufanda roja gato",
+    "descripcion": "Una bufanda bien calentita, es roja y de lana 100%, altamente recomendada.",
+    "precio": 5.99,
+    "marca": "Bufandilla",
+    "stock": 100,
+    "categoria": "Complementos",
+    "id_proveedor": 1,
+    "ruta": "../assets/img/productos/editadas/bufanda-gato-perro.jpg"
+},
+{
+    "id": 2,
+    "nombre": "Bufanda grid gato",
+    "descripcion": "Una bufanda bien calentita, es gris y de lana 100%, altamente recomendada.",
+    "precio": 6.99,
+    "marca": "Bufandilla",
+    "stock": 100,
+    "categoria": "Complementos",
+    "id_proveedor": 1,
+    "ruta": "../assets/img/productos/editadas/bufanda-mascota.jpg"
+},
+{
+    "id": 3,
+    "nombre": "Cajita para perro",
+    "descripcion": "Una cajita con la que tu perro podra jugar y pasarlo bomba",
+    "precio": 1.00,
+    "marca": "Diver",
+    "stock": 100,
+    "categoria": "Juguetes",
+    "id_proveedor": 1,
+    "ruta": "../assets/img/productos/editadas/cama-invierno-mascota.jpg"
+},
+{
+    "id": 4,
+    "nombre": "Cama de mascota",
+    "descripcion": "Cama para perro o gato ideal para invierno o verano, muy comoda y realmente bonita.",
+    "precio": 24.99,
+    "marca": "Confi",
+    "stock": 100,
+    "categoria": "Descanso",
+    "id_proveedor": 1,
+    "ruta": "../assets/img/productos/editadas/cama-mascota2.jpg"
+},
+{
+    "id": 5,
+    "nombre": "Cama roja para mascota",
+    "descripcion": "Cama para perro o gato ideal para invierno o verano, muy comoda y realmente bonita.",
+    "precio": 23.55,
+    "marca": "Confi",
+    "stock": 100,
+    "categoria": "Descanso",
+    "id_proveedor": 1,
+    "ruta": "../assets/img/productos/editadas/cama-mascota.jpg"
+},
+{
+    "id": 6,
+    "nombre": "Carrito de peluches",
+    "descripcion": "Un carrito ideal para tus mascotas o peluches, podras sacarlos a pasear o dejarlos ahi",
+    "precio": 49.95,
+    "marca": "Bufandilla",
+    "stock": 100,
+    "categoria": "Complementos",
+    "id_proveedor": 1,
+    "ruta": "../assets/img/productos/editadas/carrito-gato.jpg"
+},
+{
+    "id": 7,
+    "nombre": "Cojin rojo",
+    "descripcion": "Un cojín bien suave, imprescindible para tu mascota si no quieres que se siente en el frío suelo",
+    "precio": 16.50,
+    "marca": "Confi",
+    "stock": 100,
+    "categoria": "Descanso",
+    "id_proveedor": 1,
+    "ruta": "../assets/img/productos/editadas/cojin.jpg"
+},
+{
+    "id": 8,
+    "nombre": "Peluche Spider-Man",
+    "descripcion": "Un peluche super divertido para tu mascota, aunque también puede ser util para tus hijos.",
+    "precio": 12.95,
+    "marca": "Diver",
+    "stock": 100,
+    "categoria": "Juguetes",
+    "id_proveedor": 1,
+    "ruta": "../assets/img/productos/editadas/correa-perro.jpg"
+},
+{
+    "id": 9,
+    "nombre": "Gafas Gato",
+    "descripcion": "Gafas bien modernas para que tu gato luzca fashion durante todo el año.",
+    "precio": 5.99,
+    "marca": "Style",
+    "stock": 100,
+    "categoria": "complementos",
+    "id_proveedor": 1,
+    "ruta": "../assets/img/productos/editadas/gafas-gato.jpg"
+},
+{
+    "id": 10,
+    "nombre": "Muñequito azul",
+    "descripcion": "Un muñequito azul con cuerda para jugar con tu gato cuando no tengas otra cosa mejor que hacer",
+    "precio": 3.40,
+    "marca": "Diver",
+    "stock": 100,
+    "categoria": "Juguetes",
+    "id_proveedor": 1,
+    "ruta": "../assets/img/productos/editadas/gusanito-azul.jpg"
+},
+{
+    "id": 11,
+    "nombre": "Gusanito azul Diver",
+    "descripcion": "Un gusanito azul muy gracioso para que puedas jugar con tu gato al pillalo pillalo",
+    "precio": 3.75,
+    "marca": "Diver",
+    "stock": 100,
+    "categoria": "Juguetes",
+    "id_proveedor": 1,
+    "ruta": "../assets/img/productos/editadas/gusanito-azul2.jpg"
+},
+{
+    "id": 12,
+    "nombre": "Mantita perro invierno",
+    "descripcion": "Mantita 100% algodon, bien gordita e ideal para arropar a tus mascotas.",
+    "precio": 12.00,
+    "marca": "Bufandilla",
+    "stock": 100,
+    "categoria": "complementos",
+    "id_proveedor": 1,
+    "ruta": "../assets/img/productos/editadas/manta-perro.jpg"
+},
+{
+    "id": 13,
+    "nombre": "Manta multicolor",
+    "descripcion": "Mantita 99% algodon, bien gordita e ideal para arropar a tus mascotas.",
+    "precio": 18.45,
+    "marca": "Bufandilla",
+    "stock": 100,
+    "categoria": "complementos",
+    "id_proveedor": 1,
+    "ruta": "manta-perro-gato-invierno"
+},
+{
+    "id": 14,
+    "nombre": "Muñequito rosa perro",
+    "descripcion": "Muñequito para tu perro o mascota, hace pitiditos y es de un plastico muy resistente",
+    "precio": 4.99,
+    "marca": "Diver",
+    "stock": 100,
+    "categoria": "Juguetes",
+    "id_proveedor": 1,
+    "ruta": ""
+},
+{
+    "id": 15,
+    "nombre": "Peluche para mascota",
+    "descripcion": "Peluche de tono marrón para que tu mascota no pare de divertirse durante toda su vida",
+    "precio": 99.99,
+    "marca": "Diver",
+    "stock": 100,
+    "categoria": "Juguetes",
+    "id_proveedor": 1,
+    "ruta": ""
+},
+{
+    "id": 16,
+    "nombre": "Peluche para gato",
+    "descripcion": "Peluche de tono marrón para que tu mascota no pare de divertirse durante toda su vida",
+    "precio": 12.00,
+    "marca": "Diver",
+    "stock": 100,
+    "categoria": "Juguetes",
+    "id_proveedor": 1,
+    "ruta": ""
+},
+{
+    "id": 17,
+    "nombre": "Pareja de peluches",
+    "descripcion": "Pareja de peluches, blanco y marrón para tus mascotas o para ti, juega y dejales jugar",
+    "precio": 150.25,
+    "marca": "Diver",
+    "stock": 100,
+    "categoria": "Diver",
+    "id_proveedor": 1,
+    "ruta": ""
+},
+{
+    "id": 18,
+    "nombre": "Pelota de hule",
+    "descripcion": "Pelota roja para jugar y pasar ratos en el parque con tu perro o mascota",
+    "precio": 12.00,
+    "marca": "Style",
+    "stock": 100,
+    "categoria": "Juguetes",
+    "id_proveedor": 1,
+    "ruta": ""
+},
+{
+    "id": 19,
+    "nombre": "Comedero-Bebedero perro",
+    "descripcion": "Un comedero o bebedero para mascota plateado",
+    "precio": 7.95,
+    "marca": "Art-attack",
+    "stock": 100,
+    "categoria": "Articulos",
+    "id_proveedor": 1,
+    "ruta": ""
+},
+{
+    "id": 20,
+    "nombre": "Rascador de dos pisos",
+    "descripcion": "Rascador de dos pisos con bolita colgando para que tu gato deje de destruir todos tus muebles",
+    "precio": 250.25,
+    "marca": "Art-attack",
+    "stock": 100,
+    "categoria": "Articulos",
+    "id_proveedor": 1,
+    "ruta": ""
+},
+{
+    "id": 21,
+    "nombre": "Tubo rojo para gato",
+    "descripcion": "Un tubo bastante bueno para tu gato, dejalo que se meta ahi dentro y que viva la vida",
+    "precio": 22.10,
+    "marca": "Art-attack",
+    "stock": 100,
+    "categoria": "Articulos",
+    "id_proveedor": 1,
+    "ruta": ""
+}
+
+]}

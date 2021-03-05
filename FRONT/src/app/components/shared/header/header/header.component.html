@@ -1,0 +1,56 @@
+<header>
+
+    <div class="header container">
+
+        
+        
+            <img src="assets/icons/logo-pagina.png" alt="logo-animalia" title="logo">
+        
+        <a href="#" class="h1">
+            <h1>Mimascota<span>.com</span></h1>
+        </a>
+        
+        
+        <div class="contenedor-menu">
+
+            <div class="contenedor-carro">
+
+                
+                <input type="checkbox" id="cart-input" name="menubar">
+                <label class="cart-icon" for="cart-input"><i class="fas fa-shopping-cart"></i></label>
+                
+                <div class="cart-container">
+                    <app-carro></app-carro>
+                </div>
+            </div>
+            
+            <input type="checkbox" id="menu-bar" name="menubar">
+			<label class="icon-menu" for="menu-bar"><i class="fas fa-bars"></i></label>
+            
+            <nav class="menu">
+                <a href="#">Iniciar sesión</a>
+                <a href="#">Registrarse</a>
+                <a href="#">Inicio</a>
+                <a href="#">Guardería</a>
+                <a href="#">Paseos</a>
+                <a href="#">Peluquería</a>
+                <a href="#">Tienda</a>
+                <a href="#">Contacto</a>
+            </nav>
+
+            <div class="contenedor-menu-usuario">
+                <i class="fas fa-user user-icon"></i>
+
+                <div class="menu-usuario">
+                    <app-menu-user></app-menu-user>
+                </div>
+            </div>
+
+        </div>
+
+    </div>    
+
+    <app-nav-bar></app-nav-bar>
+
+</header>
+

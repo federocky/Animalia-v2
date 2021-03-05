@@ -1,0 +1,15 @@
+main{
+    background-color: #E0E0E0;
+    
+    .main{
+        display: grid;
+        grid-template-columns: 1fr;
+        padding: 0px 18px;
+
+        h2{
+            font-family: 'Courgette', cursive;
+            text-align: center;
+            margin-top: 16px;
+        }
+    }
+}

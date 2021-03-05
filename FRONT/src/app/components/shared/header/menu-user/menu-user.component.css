@@ -1,0 +1,25 @@
+.contenedor-menu {
+  width: 200px;
+  background-color: #fff;
+  color: #585858;
+  padding: 8px;
+  display: -ms-grid;
+  display: grid;
+  grid-gap: 6px;
+  border-radius: 6px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+}
+
+.contenedor-menu p {
+  cursor: pointer;
+}
+
+.contenedor-menu p i {
+  padding-right: 12px;
+}
+
+.contenedor-menu p:hover {
+  text-decoration: underline;
+}
+/*# sourceMappingURL=menu-user.component.css.map */

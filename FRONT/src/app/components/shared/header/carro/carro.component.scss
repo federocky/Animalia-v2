@@ -1,0 +1,70 @@
+.contenedor-articulos {
+
+    font-family: 'Poppins', sans-serif;
+    padding: 6px;
+
+    article {
+
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+
+        img{
+            width: 100%;
+            height: 70px;
+            border-radius: 4px;
+        }
+
+        .informacion {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            align-items: center;
+            padding: 6px;
+
+            .nombre-item {
+                font-size: 16px;
+            }
+
+            .papelera {
+                justify-self: end;
+                cursor: pointer;
+            }
+
+            .precio {
+                color: red;
+                font-weight: bolder;
+            }
+        }
+    }
+}
+
+section {
+    background-color: #B3E5FC;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 8px;
+    justify-items: center;
+    font-size: 21px;
+    color: #747474;
+    margin-top: 12px;
+}
+
+button {
+    padding: 10px 0px;
+    margin: 14px 14px;
+    background-color: #EB9524;
+    border: none;
+    border-radius: 9px;
+    color: #fff;
+    font-size: 16px;
+    letter-spacing: 2px;
+    cursor: pointer;
+
+    i{
+        font-size: 21px;
+    }
+}
+
+.contenedor-principal {
+    display: grid;
+    justify-content: center;
+}

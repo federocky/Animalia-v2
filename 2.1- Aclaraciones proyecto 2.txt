@@ -1,0 +1,10 @@
+Fuentes descargadas:
+Fuente principal para el logo: https://fonts.google.com/specimen/Russo+One?query=russo
+
+Imagenes descargadas desde https://pixabay.com/
+
+Para los colores me he inspirado en la siguiente paleta
+https://www.lancetalent.com/blog/wp-content/uploads/Captura-de-pantalla-2016-01-26-a-las-13.06.03.png
+http://colrd.com/palette/18859/
+
+y alguos extra que me facilita la aplicacion jpicker al seleccionar uno de los colores de la paleta

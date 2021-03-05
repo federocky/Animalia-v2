@@ -1,0 +1,81 @@
+.contenedor-articulos {
+  font-family: 'Poppins', sans-serif;
+  padding: 6px;
+}
+
+.contenedor-articulos article {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 3fr;
+      grid-template-columns: 1fr 3fr;
+}
+
+.contenedor-articulos article img {
+  width: 100%;
+  height: 70px;
+  border-radius: 4px;
+}
+
+.contenedor-articulos article .informacion {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 3fr 1fr;
+      grid-template-columns: 3fr 1fr;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 6px;
+}
+
+.contenedor-articulos article .informacion .nombre-item {
+  font-size: 16px;
+}
+
+.contenedor-articulos article .informacion .papelera {
+  -ms-grid-column-align: end;
+      justify-self: end;
+  cursor: pointer;
+}
+
+.contenedor-articulos article .informacion .precio {
+  color: red;
+  font-weight: bolder;
+}
+
+section {
+  background-color: #B3E5FC;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  padding: 8px;
+  justify-items: center;
+  font-size: 21px;
+  color: #747474;
+  margin-top: 12px;
+}
+
+button {
+  padding: 10px 0px;
+  margin: 14px 14px;
+  background-color: #EB9524;
+  border: none;
+  border-radius: 9px;
+  color: #fff;
+  font-size: 16px;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+button i {
+  font-size: 21px;
+}
+
+.contenedor-principal {
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+/*# sourceMappingURL=carro.component.css.map */

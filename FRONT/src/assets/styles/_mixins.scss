@@ -1,0 +1,12 @@
+@mixin escritorio {
+    @media only screen and (min-width: #{$escritorio}) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media only screen and (min-width: #{$tablet}) {
+        @content;
+    }
+}
+

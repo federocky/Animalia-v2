@@ -1,0 +1,54 @@
+.contenedor-filtros{
+    
+    font-family: 'Poppins', sans-serif;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 8px;
+
+    select{
+
+        border-radius: 9px;
+        background-image: url('../../../../assets/icons/flecha-select.png');
+        background-size: 41px;
+        background-repeat: no-repeat;
+        background-position: right;
+        cursor: pointer;
+        padding: 2px 10px;
+        border-color: #707070;
+
+        /*quitamos la flechita por defecto*/
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+
+    }
+
+    select:nth-child(2){
+        min-width: 100px;
+        justify-self: end;
+    }
+
+    //teoricamente quita la flecha pero sin esto tampoco esta
+    //lo dejo ya que puede ser valido en otros navegadores.
+    select::-ms-expand {
+        display: none;
+    }
+
+    input{
+        grid-column: 1 / 3;
+        border-radius: 9px;
+        border: 1px solid #707070;
+        padding: 4px 10px;
+        background-image: url(../../../../assets/icons/lupa-input.png);
+        background-repeat: no-repeat;
+        background-position: right;
+        background-size: 40px;
+
+        &:focus{
+            border: none;
+        }
+    }
+
+    
+}
+ 
