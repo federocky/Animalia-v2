@@ -18,7 +18,7 @@ const database_1 = __importDefault(require("../database"));
 class ProductsController {
     index(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const products = yield database_1.default.query('SELECT * FROM games');
+            const products = yield database_1.default.query('SELECT * FROM product');
             res.json({ ok: true, data: products });
         });
     }

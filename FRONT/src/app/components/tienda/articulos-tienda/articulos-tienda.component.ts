@@ -1,5 +1,7 @@
+import { Variables } from './../../../common/utils';
+import { ProductService } from './../../../services/product.service';
 import { Component, OnInit } from '@angular/core';
-import { ProductoService } from 'src/app/services/producto.service';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-articulos-tienda',
@@ -8,19 +10,20 @@ import { ProductoService } from 'src/app/services/producto.service';
 })
 export class ArticulosTiendaComponent implements OnInit {
 
-  productos;
+  products: Product [] = [];
+  imgRoute: string = Variables.imgRoute;
 
 
 
-  constructor( private productoService: ProductoService) { }
+  constructor( private productService: ProductService ) { }
 
   ngOnInit(): void {
 
-    this.productoService.getProductos()
+    this.productService.getProducts()
       .subscribe( (res:any) => {
-        this.productos = res;
-        console.log(res);
-      })
+        this.products = res.data;
+        console.log(this.products);
+      });
   }
 
   

@@ -1,12 +1,12 @@
 <section class="articles">
 
-    <article *ngFor="let item of productos">
+    <article *ngFor="let product of products">
         
-        <img [src]="item.ruta" alt="">
+        <img [src]="imgRoute + product.img" alt="">
         
 
         <div class="contenido">
-            <h5>{{ item.nombre }}</h5>
+            <h5>{{ product.name }}</h5>
 
             <div class="stars">
                 <i class="fas fa-star"></i>
@@ -16,11 +16,11 @@
                 <i class="far fa-star"></i>
             </div>
 
-            <p>{{ item.precio }}</p>
+            <p>{{ product.price }}</p>
         </div>
 
         <div class="descripcion">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A magni, facere adipisci, placeat cupiditate corporis laborum f</p>
+            <p>{{ product.description }}</p>
             <div class="botones">
                 <button>Más información</button>
                 <button>Añadir al carro</button>

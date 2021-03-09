@@ -42,7 +42,7 @@
         //CAPA HOVER
         .descripcion {
             position: absolute;
-            background-color: rgba($color: #ccc, $alpha: 0.5);
+            background-color: rgba($color: rgb(224, 224, 224), $alpha: 0.8);
             height: 100%;
             width: 100%;
             display: flex;
@@ -56,7 +56,7 @@
                 margin: 2px;
                 text-shadow: 1px 1px 6px #fff;
                 text-shadow: 1px 1px 6px #fff inset;
-                font-weight: bold;
+                font-weight: bolder;
                 //display: none; pensar si quieres texto o no creo que mejor no, no se lee bien
             }
 

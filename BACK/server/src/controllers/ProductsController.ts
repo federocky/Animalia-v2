@@ -6,13 +6,13 @@ import db from '../database';
 class ProductsController {
 
     public async index (req: Request, res: Response) {
-        const products = await db.query('SELECT * FROM games');
+        const products = await db.query('SELECT * FROM product');
         
-        res.json({ok:true, data: products});
+        res.status(200).json({ok:true, data: products});
     }
     
     public async store (req: Request, res: Response) {
-
+    
     }
 
     public async show (req: Request, res: Response) {
