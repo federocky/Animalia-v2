@@ -20,6 +20,12 @@ import { MainIndexComponent } from './components/index/main-index/main-index.com
 //RUTAS
 import { app_routing } from './app.routes';
 
+//PAGINACION
+import {NgxPaginationModule} from 'ngx-pagination';
+
+//para el [(ngModel)]
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -41,7 +47,9 @@ import { app_routing } from './app.routes';
     BrowserModule,
     FontAwesomeModule,
     HttpClientModule,
-    app_routing
+    app_routing,
+    NgxPaginationModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

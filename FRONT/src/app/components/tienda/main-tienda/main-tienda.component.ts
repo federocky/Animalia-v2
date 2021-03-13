@@ -7,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainTiendaComponent implements OnInit {
 
+  //cantidad de articulos en el filtro select
+  qtyProducts: string = '12';
+
+  order: string = 'ordenar';
+
   constructor() { }
 
   ngOnInit(): void {

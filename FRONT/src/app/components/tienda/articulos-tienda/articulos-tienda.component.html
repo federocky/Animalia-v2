@@ -1,6 +1,7 @@
 <section class="articles">
 
-    <article *ngFor="let product of products">
+    <!--UTILIZAMOS LA NAVEGACION DE ngx-pagination-->
+    <article *ngFor="let product of products | paginate: { itemsPerPage: qtyPerPage, currentPage: curPage }">
         
         <img [src]="imgRoute + product.img" alt="">
         
@@ -35,4 +36,6 @@
     </article>
 
 </section>
+
+<pagination-controls (pageChange)="curPage = $event" class="pagination"></pagination-controls>
 
