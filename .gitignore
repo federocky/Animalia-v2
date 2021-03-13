@@ -4,6 +4,9 @@
 /FRONT/dist
 /FRONT/tmp
 /FRONT/out-tsc
+
+/BACK/server/build
+
 # Only exists if Bazel was run
 /bazel-out
 
