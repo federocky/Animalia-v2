@@ -74,7 +74,18 @@ header {
         }
 
         //para que el desplegable se coloque en funcion a el
-        .contenedor-carro {position: relative;}
+        .contenedor-carro {
+            position: relative;
+
+            .cart-icon small{
+                background-color: #8BC34A;
+                padding: 4px 6px;
+                border-radius: 6px 0px 6px 6px;
+                color: #fff;
+                font-weight: bold;
+                font-size: 16px;
+            }
+        }
         
     }
 }
@@ -166,7 +177,7 @@ header {
         @include escritorio {
             position: absolute;
             right: 12px;
-            top: 25px;
+            top: 23px;
         }
     }
 

@@ -6,6 +6,10 @@ export interface Product {
     img: string;
     brand: string;
     active: boolean;
+    category: string;
     category_id: number;
     provider_id: number;
+    rating_average: number;
+    stock: number;
+    number_votes: number;
 }

@@ -1,3 +1,5 @@
+DROP DATABASE mimascota
+
 CREATE DATABASE mimascota
 
 USE mimascota;
@@ -69,6 +71,14 @@ CREATE TABLE user_address(
 );
 
 
+CREATE TABLE product_rating (
+	id INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	product_id INT(10),
+	rating DECIMAL(2,1),
+	date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
 
 
 
@@ -87,6 +97,11 @@ add constraint user_address foreign key (user_id) references user (id);
 alter table user_address 
 add constraint user_address_address foreign key (address_id) references address (id);
 
+alter table product_rating
+add constraint product_rating foreign key (product_id) references product (id);
+
+
+
 
 
 
@@ -99,11 +114,15 @@ insert into user (name, surname, email, password, is_admin) values
 
 
 
+
+
 insert into category (name, description) values
 	("Complementos", "Todo tipo de complementos para mascotas"),
 	("Juguetes", "Todo tipo de complementos para mascotas"),
 	("Descanso", "Todo tipo de complementos para mascotas"),
 	("Articulos", "Todo tipo de complementos para mascotas");
+
+
 
 
 insert into provider (name, contact_name, tlf) values 
@@ -113,14 +132,21 @@ insert into provider (name, contact_name, tlf) values
 	("Confi", "Jorgue Brandon", 654254256);
 
 
+
+
+
 insert into address (street_name, stree_number, floor, letter, province, locality, town, postcode, details) values
 	("San Mateo", "3", "3", "A",  "Málaga", "Mijas", "Las Lagunas", 29651, ""),
 	("Random", "5", "35", "izq",  "Málaga", "Málaga", "Campanillas", 29004, "");
 
 
+
+
+
 insert into user_address (user_id, address_id, main_address) values
 	(1, 1, 1),
 	(2, 2, 1);
+
 
 
 insert into product (name, description, price, brand, img,  stock, category_id, provider_id) values
@@ -196,24 +222,19 @@ insert into product (name, description, price, brand, img,  stock, category_id, 
 		22.10, "Art-attack", "tubo-gato.jpg", 100, 1, 4);
 
 
-
-
-
---1- complementos
---2- juguetes
---3- descanso
---4- articulos
-
---1 art-atack
---2syle
---3 Diver
---4confi
-
-
-
-
-
-("Chile", "152", "baja", "",  "Madrid", "Torrejon de Ardoz", "Torrejón de Ardoz", 28850, ""),
-	("Avenida de Madrid", "325", "2", "a",  "León", "Agnurtis", "algo", 20154, ""),
-	("Dievinueve", "33", "7", "A",  "Guadalajara", "Azuqueca de Henares", "Alovera", 26587, ""),
-	("San Marcos", "12", "baja", "B", "Sevilla", "Alanís", "Alanís", 41380, "");
+insert into product_rating (product_id, rating) values 
+	(1, 5),
+	(1, 3.5),
+	(1, 1),
+	(1, 5),
+	(2, 2.5),
+	(2, 3),
+	(2, 1.5),
+	(3, 5),
+	(3, 4.5),
+	(4, 4),
+	(4, 3.5),
+	(5, 5),
+	(6, 4),
+	(7, 4),
+	(8, 4);

@@ -15,8 +15,10 @@ import { FiltrosTiendaComponent } from './components/tienda/filtros-tienda/filtr
 import { ArticulosTiendaComponent } from './components/tienda/articulos-tienda/articulos-tienda.component';
 import { ArticuloCardTiendaComponent } from './components/tienda/articulo-card-tienda/articulo-card-tienda.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MainIndexComponent } from './components/index/main-index/main-index.component';
 
-
+//RUTAS
+import { app_routing } from './app.routes';
 
 
 @NgModule({
@@ -32,12 +34,14 @@ import { HttpClientModule } from '@angular/common/http';
     MainTiendaComponent,
     FiltrosTiendaComponent,
     ArticulosTiendaComponent,
-    ArticuloCardTiendaComponent
+    ArticuloCardTiendaComponent,
+    MainIndexComponent
   ],
   imports: [
     BrowserModule,
     FontAwesomeModule,
-    HttpClientModule
+    HttpClientModule,
+    app_routing
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,3 +1,3 @@
 export class Variables {
-    public static imgRoute: string = '../assets/img/productos/editadas/';
+    public static imgRouteProducts: string = './assets/img/productos/editadas/';
 }

@@ -1,3 +1,5 @@
+import { CartService } from './../../../../services/cart.service';
+import { BehaviorSubject } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,10 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  itemCount: BehaviorSubject<number>;
 
-  constructor() { }
+  constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
+    this.itemCount = this.cartService.getCartItemCount();
   }
 
 }

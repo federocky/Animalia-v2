@@ -8,15 +8,21 @@
         <div class="contenido">
             <h5>{{ product.name }}</h5>
 
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-                <i class="far fa-star"></i>
+           <!--SI TIENE VALORACIONES-->
+            <div class="star-container" *ngIf="product.rating_average != null">
+                <div class="stars" *ngFor="let i of cantidadEstrellas">
+                        <i *ngIf="i <= product.rating_average" class="fas fa-star"></i>
+                        <i *ngIf="i > product.rating_average && i-1 < product.rating_average" class="fas fa-star-half-alt"></i>
+                        <i *ngIf="i > product.rating_average && i-1 >= product.rating_average" class="far fa-star"></i>
+                </div>
+                <small class="ms-1">({{ product.number_votes }})</small>
             </div>
 
-            <p>{{ product.price }}</p>
+
+            <!--SI NO TIENE VALORACIONES-->
+            <small *ngIf="product.rating_average == null">Producto sin valoraciones</small>
+
+            <p>€{{ product.price.toFixed(2) }}</p>
         </div>
 
         <div class="descripcion">
@@ -28,86 +34,5 @@
         </div>
     </article>
 
-    <!-- <article>
-        <img src="../../../../assets/img/productos/editadas/carrito-gato.jpg" alt="">
-
-        <div class="contenido">
-            <h5>Nombre Juguete</h5>
-
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-                <i class="far fa-star"></i>
-            </div>
-
-            <p>2.78€</p>
-        </div>
-
-        <div class="descripcion">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A magni, facere adipisci, placeat cupiditate corporis laborum f</p>
-            <div class="botones">
-                <button>Más información</button>
-                <button>Añadir al carro</button>
-            </div>
-        </div>
-    </article>
-
-    <article>
-        <img src="../../../../assets/img/productos/editadas/bufanda-gato-perro.jpg" alt="">
-
-        <div class="contenido">
-            <h5>Nombre Juguete</h5>
-
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-                <i class="far fa-star"></i>
-            </div>
-
-            <p>2.78€</p>
-        </div>
-
-        <div class="descripcion">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A magni, facere adipisci, placeat cupiditate corporis laborum f</p>
-            <div class="botones">
-                <button>Más información</button>
-                <button>Añadir al carro</button>
-            </div>
-        </div>
-    </article>
-
-    <article>
-        <img src="../../../../assets/img/productos/editadas/cojin.jpg" alt="">
-
-        <div class="contenido">
-            <h5>Nombre Juguete</h5>
-
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-                <i class="far fa-star"></i>
-            </div>
-
-            <p>2.78€</p>
-        </div>
-
-        <div class="descripcion">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A magni, facere adipisci, placeat cupiditate corporis laborum f</p>
-            <div class="botones">
-                <button>Más información</button>
-                <button>Añadir al carro</button>
-            </div>
-        </div>
-    </article> -->
-
-
-
 </section>
 
-<div class="altura"></div>

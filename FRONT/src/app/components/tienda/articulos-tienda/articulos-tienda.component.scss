@@ -1,7 +1,7 @@
 .articles {
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-gap: 14px;
     margin-top: 30px;
 
@@ -28,9 +28,17 @@
             background-color: #fff;
             padding-top: 12px;
 
-            .stars {
-                color: yellow;
-                text-shadow: 0 0 3px #000;
+            .star-container{
+
+                display: flex;
+                justify-content: center;
+                color: gray;
+
+                .stars {
+                    color: yellow;
+                    text-shadow: 0 0 3px #000;
+                }
+
             }
 
             p{

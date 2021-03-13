@@ -18,8 +18,15 @@ const database_1 = __importDefault(require("../database"));
 class ProductsController {
     index(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const products = yield database_1.default.query('SELECT * FROM product');
-            res.json({ ok: true, data: products });
+            //const products = await db.query('SELECT * FROM product');
+            const products = yield database_1.default.query(`SELECT  p.* , AVG(pr.rating) AS rating_average,  COUNT(pr.rating) AS number_votes
+                                            FROM product p
+                                            LEFT JOIN product_rating pr
+                                            ON pr.product_id = p.id
+                                            WHERE p.active = 1
+                                            GROUP BY p.id`);
+            res.status(200).json({ ok: true, data: products });
+            //TODO: meter control errores
         });
     }
     store(req, res) {

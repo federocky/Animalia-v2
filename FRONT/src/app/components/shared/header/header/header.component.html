@@ -4,7 +4,7 @@
 
         
         
-            <img src="assets/icons/logo-pagina.png" alt="logo-animalia" title="logo">
+        <img src="assets/icons/logo-pagina.png" alt="logo-animalia" title="logo">
         
         <a href="#" class="h1">
             <h1>Mimascota<span>.com</span></h1>
@@ -17,7 +17,7 @@
 
                 
                 <input type="checkbox" id="cart-input" name="menubar">
-                <label class="cart-icon" for="cart-input"><i class="fas fa-shopping-cart"></i></label>
+                <label class="cart-icon" for="cart-input"> <small>{{ itemCount |async }}</small><i class="fas fa-shopping-cart"></i></label>
                 
                 <div class="cart-container">
                     <app-carro></app-carro>
@@ -30,11 +30,11 @@
             <nav class="menu">
                 <a href="#">Iniciar sesión</a>
                 <a href="#">Registrarse</a>
-                <a href="#">Inicio</a>
+                <a [routerLink]="['index']">Inicio</a>
                 <a href="#">Guardería</a>
                 <a href="#">Paseos</a>
                 <a href="#">Peluquería</a>
-                <a href="#">Tienda</a>
+                <a [routerLink]="['tienda']">Tienda</a>
                 <a href="#">Contacto</a>
             </nav>
 
