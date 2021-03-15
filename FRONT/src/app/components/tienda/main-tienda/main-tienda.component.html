@@ -20,11 +20,11 @@
                 <option value="500">Todos</option>
             </select>
         
-            <input type="search" placeholder="Buscar juguetes, camas...">
+            <input type="search" placeholder="Buscar juguetes, camas..." [(ngModel)]="toSearch">
         </div>
 
         <!--ARTICULOS-->
-        <app-articulos-tienda [qtyPerPage]="qtyProducts" [orderBy]="order"></app-articulos-tienda>
+        <app-articulos-tienda [qtyPerPage]="qtyProducts" [orderBy]="order" [termToSearch]=toSearch></app-articulos-tienda>
         
     </div>
 </main>

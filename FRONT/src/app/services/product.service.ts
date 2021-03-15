@@ -17,4 +17,9 @@ export class ProductService {
     return this.http.get(`${this.url}${this.route}`);
   }
 
+
+  getProduct( id: number ){
+    return this.http.get(`${this.url}${this.route}/${id}`);
+  }
+
 }

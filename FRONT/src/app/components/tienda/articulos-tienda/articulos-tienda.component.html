@@ -1,7 +1,7 @@
 <section class="articles">
 
     <!--UTILIZAMOS LA NAVEGACION DE ngx-pagination-->
-    <article *ngFor="let product of products | paginate: { itemsPerPage: qtyPerPage, currentPage: curPage }">
+    <article *ngFor="let product of productsToShow | paginate: { itemsPerPage: qtyPerPage, currentPage: curPage }">
         
         <img [src]="imgRoute + product.img" alt="">
         
@@ -29,13 +29,16 @@
         <div class="descripcion">
             <p>{{ product.description }}</p>
             <div class="botones">
-                <button>Más información</button>
+                <button (click)="viewProductDetails(product.id)">Más información</button>
                 <button>Añadir al carro</button>
             </div>
         </div>
+
     </article>
 
 </section>
 
 <pagination-controls (pageChange)="curPage = $event" class="pagination"></pagination-controls>
+
+ 
 

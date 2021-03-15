@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ProductService } from './../../../services/product.service';
+import { Variables } from './../../../common/utils';
+import { Product } from './../../../models/product';
+import { Component, OnInit} from '@angular/core';
+
+//para recibir parametros
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-articulo-card-tienda',
@@ -7,9 +13,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArticuloCardTiendaComponent implements OnInit {
 
-  constructor() { }
 
-  ngOnInit(): void {
+  product: Product;
+  productId: number;
+
+  //ruta de las imagenes correspodientes a los productos
+  imgRoute: string = Variables.imgRouteProducts;
+
+  constructor( private productService: ProductService,
+              private _activatedRoute: ActivatedRoute
+    ) { }
+
+  ngOnInit() {
+
+    this._activatedRoute.params.subscribe ( (params: Params) => {
+      this.productId = params['id'];
+
+      this.getProduct();
+    });
+  }
+
+  getProduct(): void {
+    this.productService.getProduct( this.productId )
+      .subscribe( (res:any) => {
+        this.product = res.data;
+      });
   }
 
 }
