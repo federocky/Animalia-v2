@@ -1,1 +1,59 @@
-<h1 *ngIf="productId">soy el producto {{ productId }}</h1>
+<main>
+
+    <div class="container-gray" >
+
+        <div class="card container">
+
+            <!--TODO: AGREGAR IMAGENES AQUI-->
+            <div class="miniaturas">
+                <img src="../../../../assets/img/peluqueria1.jpg" alt="">
+                <img src="../../../../assets/img/peluqueria1.jpg" alt="">
+                <img src="../../../../assets/img/peluqueria1.jpg" alt="">
+            </div>
+
+            <div class="info" *ngIf="product">
+                <!--TODO: editar las imagenes-->
+                <img [src]=" imgRoute + img" alt="">
+
+                <div class="details">
+                    <h3>{{product.name}}</h3>
+                    <p class="descripcion">{{product.description}}</p>
+                    
+                    <!--ESTRELLAS-->
+                    <div class="star-container" *ngIf="product.rating_average != null">
+                        <div *ngFor="let i of cantidadEstrellas">
+                            <i *ngIf="i <= product.rating_average" class="fas fa-star star"></i>
+                            <i *ngIf="i > product.rating_average && i-1 < product.rating_average" class="fas fa-star-half-alt star"></i>
+                            <i *ngIf="i > product.rating_average && i-1 >= product.rating_average" class="far fa-star star"></i>
+                        </div>
+                        <small class="ms-1">{{product.number_votes}} <a href="#">Valoraciones</a></small>
+                    </div>
+
+                    <!--SI NO TIENE VALORACIONES-->
+                    <small *ngIf="product.rating_average == null">Producto sin valoraciones</small>
+
+                    <!--TODO: agregar la cantidad de preguntas sobre este producto-->
+                    <a href="#">8 Preguntas respondidas</a>
+                    <p class="price">€{{ product.price.toFixed(2) }}</p>
+
+
+                    <!--TODO: mejorar esto para que aparezcan mas opciones-->
+                    <label for="cantidad">Cantidad
+                        <select name="cantidad">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </label>
+                    <div class="botones">
+                        <button class="btn1">Agregar al carro</button>
+                        <button class="btn2">Comprar Ya!</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>

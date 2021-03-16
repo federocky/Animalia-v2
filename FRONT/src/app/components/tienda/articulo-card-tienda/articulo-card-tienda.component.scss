@@ -1,0 +1,118 @@
+@import '../../../../assets/styles/mixins';
+@import '../../../../assets/styles/variables';
+
+
+.container-gray{
+    background-color: #e0e0e0;
+    padding: 26px 0px;
+    
+    .card {
+        display: grid;
+        
+        @include escritorio {     
+            grid-template-columns: 75px 1fr;
+            grid-gap: 10px;
+        }
+
+        width: 95%;
+        padding: 16px;
+
+        border-radius: 8px;
+        box-shadow: 3px 3px 6px #444;
+
+        .miniaturas {
+            justify-self: center;
+            img{
+                margin: 0px 8px 8px 0px;
+                width: 60px;  
+            }
+        }
+        
+        .info{
+            display: grid;
+
+            
+            @include escritorio {
+                grid-template-columns: auto 1fr;
+                grid-gap: 22px;
+            }
+
+            img{
+                max-width: 330px;
+                justify-self: center;
+            }
+
+            .details{
+                display: grid;
+                text-align: center;
+
+                @include escritorio {
+                    text-align: left;
+                }
+
+                h3{
+                    font-family: 'Courgette', cursive !important;
+                    font-size: 30px;
+                    margin-top: 8px;
+                }
+
+                .descripcion{
+                    font-family: 'Poppins', sans-serif;
+                }
+
+                .star-container {
+                    display: flex;
+                    justify-self: center;
+                    @include escritorio{
+                        justify-self: left;
+                    }
+                }
+                
+                .star {
+                    color: yellow;
+                    text-shadow: 0 0 3px #000;
+                }
+
+                .price {
+                    font-family: 'Courgette', cursive !important;
+                    font-size: 36px;
+                    margin-bottom: 0px;
+                }
+
+                button{
+                    padding: 6px 22px;
+                    width: 100%;
+                    margin-top: 8px;
+                    border-radius: 16px;
+                    color: #fff;
+                    border: none;
+                    box-shadow: 1px 1px 6px #333;
+                    box-shadow: 1px 1px 1px #000;
+                    transition: all 1s;
+
+                    @include escritorio {
+                        width: 200px;
+                    }
+                    
+                    &:hover{
+                        box-shadow: 1px 1px 6px #333;
+                        text-shadow: 1px 1px 4px #333;
+                    }
+                }
+
+                
+
+                .btn1 {
+                    background-color: #EB9524;
+                    margin-right: 12px;
+                }
+                .btn2 {
+                    background-color: #8BC34A;
+                }
+            }
+        }
+        
+    }
+
+
+}

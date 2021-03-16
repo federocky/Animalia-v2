@@ -23,10 +23,26 @@ class ProductsController {
     
     public async store (req: Request, res: Response) {
     
-    }
+    } 
 
     public async show (req: Request, res: Response) {
+        
+        const { id } = req.params;
 
+        const product = await db.query(`SELECT  p.* , AVG(pr.rating) AS rating_average,  COUNT(pr.rating) AS number_votes
+                                            FROM product p
+                                            LEFT JOIN product_rating pr
+                                            ON pr.product_id = p.id
+                                            WHERE p.active = 1 AND p.id = ${id}
+                                            GROUP BY p.id`);
+
+        //FIXME: me salta en error de cannot set headers after they are sent to the client.
+        if (product.length < 1) res.status(404).json({ok: false, message: 'Product not found'});
+        
+        
+        res.status(200).json({ok: true, data: product});
+
+        //TODO: meter control errores
     }
 
     public async update (req: Request, res: Response) {

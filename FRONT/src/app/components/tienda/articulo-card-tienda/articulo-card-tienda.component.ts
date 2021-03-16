@@ -17,8 +17,14 @@ export class ArticuloCardTiendaComponent implements OnInit {
   product: Product;
   productId: number;
 
-  //ruta de las imagenes correspodientes a los productos
-  imgRoute: string = Variables.imgRouteProducts;
+  ///nos permite implementar el pintado de estrellas
+  cantidadEstrellas = [1, 2, 3, 4, 5];
+
+  //ruta de la imagen
+  imgRoute: string = Variables.imgRouteProductsDetails;
+  
+  img: string = 'gusanito-azul2.jpg';
+
 
   constructor( private productService: ProductService,
               private _activatedRoute: ActivatedRoute
@@ -27,17 +33,18 @@ export class ArticuloCardTiendaComponent implements OnInit {
   ngOnInit() {
 
     this._activatedRoute.params.subscribe ( (params: Params) => {
-      this.productId = params['id'];
+      this.productId = +params['id'];
 
       this.getProduct();
     });
   }
 
   getProduct(): void {
+    console.log('object');
     this.productService.getProduct( this.productId )
       .subscribe( (res:any) => {
-        this.product = res.data;
-      });
+        this.product = res.data[0];
+      })
   }
 
 }
