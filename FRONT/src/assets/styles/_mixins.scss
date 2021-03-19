@@ -10,3 +10,13 @@
     }
 }
 
+
+@mixin crearBoton($color){
+    padding: 6px;
+    border-radius: 16px;
+    background-color: $color;
+    box-shadow: 1px 1px 6px #333;
+    box-shadow: 1px 1px 1px #000;
+    text-decoration: none; // a veces lo aplico a un enlace
+    color: #fff;
+}

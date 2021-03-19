@@ -1,14 +1,17 @@
+@import '../../../../assets/styles/mixins';
+@import '../../../../assets/styles/variables';
+
 main{
-    background-color: #E0E0E0;
+    background-color: $gray_light;
 }
 
 
 h2{
-    font-family: 'Courgette', cursive;
+    font-family: $font_titulos;
 }
 
 .fondo-verde{
-    background-color: #8BC34A;
+    background-color: $green_primary;
 }
 
 .fondo-azul {
@@ -18,26 +21,59 @@ h2{
 }
 
 .text-icon{
-    color: #03A9F4;
+    color: $blue_light;
 }
 
 .text-color{
     color: #585858;
 }
 
-.bg-verde{
-    background-color: #8BC34A;
-}
-
-.stars {
-    color: yellow;
-    text-shadow: 0 0 3px #000;
-}
-
 .logo{
-    font-family: 'Architects Daughter', cursive;
+    font-family: $font_logo;
 }
 
 .com{
-    color: #8BC34A;;
+    color: $green_primary;
+}
+
+.dudas{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+
+    img{
+        max-width: 125px;
+    }
+}
+
+
+.comentarios{
+    display: grid;
+    text-align: center;
+    justify-items: center;
+
+    @include escritorio {
+        grid-template-columns: auto 1fr;
+
+        .contenido{
+            grid-column: 2/3;
+            display: grid;
+            align-items: flex-start;
+
+            .star-logo-img{
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+    }
+
+    img{
+        max-width: 200px;
+    }
+
+    .stars{
+        display: flex;
+        justify-content: center;
+        color: yellow;
+        text-shadow: 0 0 3px #000;
+    }
 }

@@ -6,6 +6,7 @@ USE mimascota;
 
 CREATE TABLE user(
     id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(120),
     name VARCHAR(120),
     surname VARCHAR(120),
     email VARCHAR(200),
