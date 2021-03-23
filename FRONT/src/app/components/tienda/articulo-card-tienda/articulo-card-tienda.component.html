@@ -36,18 +36,21 @@
                     <a href="#">8 Preguntas respondidas</a>
                     <p class="price">€{{ product.price.toFixed(2) }}</p>
 
-                    
-                    <p class="cantidad"> 
+                    <!--SI HAY STOCK MUESTRO-->
+                    <p class="cantidad" *ngIf="product.stock > 0"> 
                         <i (click)="decreaseItem(product)" class="fas fa-arrow-alt-circle-left"></i>
                         {{ qtyOfProduct }}
                         <i (click)="increaseItem(product)" class="fas fa-arrow-alt-circle-right"></i>
 
                         <span class="error" *ngIf="outOfStock">Lo sentimos, no hay mas articulos disponibles en este momento</span>
                     </p>
-                    <div class="botones">
+                    <div class="botones" *ngIf="product.stock > 0">
                         <button class="btn1" (click)="addProduct(product)">Agregar al carro</button>
                         <button class="btn2">Comprar Ya!</button>
                     </div>
+
+                    <!--SI NO HAY STOCK-->
+                    <P class="outOfStock" *ngIf="product.stock <= 0">Producto no disponible en este momento</P>
 
                 </div>
             </div>

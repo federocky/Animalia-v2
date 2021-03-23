@@ -23,6 +23,7 @@
             grid-template-columns: 3fr 1fr;
             align-items: center;
             padding: 0px 4px;
+            position: relative;
 
             .nombre-item {
                 font-size: 16px;
@@ -44,6 +45,12 @@
             .precio {
                 color: red;
                 font-weight: bolder;
+            }
+
+            .outOfStock{
+                font-size: 12px;
+                position: absolute;
+                color: red;
             }
         }
     }

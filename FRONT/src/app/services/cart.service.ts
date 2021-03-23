@@ -9,8 +9,10 @@ import { Product } from '../models/product';
 })
 export class CartService {
 
-  //TODO: quizas debo pasar los metodos a la clase?
-  private cart: Cart = {productQty: [], total: 0};
+
+
+  //cart que almacenara los productos seleccionados por el usuario
+  private cart: BehaviorSubject<Cart> = new BehaviorSubject({productQty: [], total: 0});
 
   //cantidad de productos en el carro.
   private cartItemCount = new BehaviorSubject(0);
@@ -21,7 +23,7 @@ export class CartService {
   //devolvemos todo el carro
   getCart(){
     //si tenemos algo en el localStorage lo actualizamos.
-    if (localStorage.getItem("cart") !== null) this.cart = this.getCartLocalStorage();
+    if (localStorage.getItem("cart") !== null) this.cart.next(this.getCartLocalStorage());
     return this.cart;
   }
 
@@ -47,7 +49,7 @@ export class CartService {
 
     //miramos a ver si ya tenemos este producto
     //FIXME: no me convence un for, a ver si se te ocurre otra cosa. o meterle un break para que no vaya hasta el final
-    for (let prod of this.cart.productQty) {
+    for (let prod of this.cart.value.productQty) {
 
       //si hay uno igual
       if (prod.product.id === product.id) {
@@ -66,7 +68,7 @@ export class CartService {
         qty: quantity,
         product
       }
-      this.cart.productQty.push(prod);
+      this.cart.value.productQty.push(prod);
     }
 
     //actualizamos la cuenta.
@@ -90,7 +92,7 @@ export class CartService {
       if(productQty.qty >= productQty.product.stock) return false;
 
       ///miramos cuantos de esos productos tengo
-      for (let [index, p] of this.cart.productQty.entries()) {
+      for (let [index, p] of this.cart.value.productQty.entries()) {
   
         //buscamos el producto
         if (p.product.id === productQty.product.id) {
@@ -120,7 +122,7 @@ export class CartService {
   decreaseProduct(product: Product):void  {
 
     ///miramos cuantos de esos productos tengo
-    for (let [index, p] of this.cart.productQty.entries()) {
+    for (let [index, p] of this.cart.value.productQty.entries()) {
 
       //buscamos el producto
       if (p.product.id === product.id) {
@@ -130,7 +132,7 @@ export class CartService {
 
         //si nos quedamos en cero eliminamos el producto
         if (p.qty == 0) {
-          this.cart.productQty.splice(index, 1);
+          this.cart.value.productQty.splice(index, 1);
         }
       }
     }
@@ -147,8 +149,6 @@ export class CartService {
 
 
 
-
-
   /**
    * Elimina todas las unidades de este producto del carro.
    * @param product Product
@@ -156,7 +156,7 @@ export class CartService {
   removeProduct(product: Product): void {
 
     //buscamos un prod
-    for (let [index, p] of this.cart.productQty.entries()) {
+    for (let [index, p] of this.cart.value.productQty.entries()) {
 
       //si lo encontramos
       if (p.product.id === product.id) {
@@ -165,7 +165,7 @@ export class CartService {
         this.cartItemCount.next(this.cartItemCount.value - p.qty);
 
         //lo quitamos
-        this.cart.productQty.splice(index, 1);
+        this.cart.value.productQty.splice(index, 1);
       }
     }
 
@@ -183,29 +183,32 @@ export class CartService {
   emptyCart():void {
     
     //vaciamos el carro
-    this.cart.productQty = [];
+    this.cart.next({productQty: [], total: 0});
 
     //vaciamos la cuenta de articulos
     this.cartItemCount.next(0);
 
     //quitamos todo del local storage
     localStorage.removeItem("cart");
+    localStorage.removeItem("cartItemCount");
   }
 
 
   //Actualizamos el total
   private updateTotal(): void{
-    this.cart.total = this.cart.productQty.reduce( (resultado, elemento) => resultado + elemento.qty * elemento.product.price, 0);
+    this.cart.value.total = this.cart.value.productQty.reduce( (resultado, elemento) => resultado + elemento.qty * elemento.product.price, 0);
   }
 
   //actualizamos la cantidad de productos en el carro
   private updateItemsCount(): void{
-    this.cartItemCount.next(this.cart.productQty.reduce( (resultado, elemento) => resultado + elemento.qty, 0));
+    this.cartItemCount.next(this.cart.value.productQty.reduce( (resultado, elemento) => resultado + elemento.qty, 0));
   }
+
+  //FIXME:llevarme lo correspondiente al local storage a otro servicio si se utiliza en otros sitios
 
   //metemos el carro en el local storage
   private setLocalStorage(): void{
-    localStorage.setItem("cart", JSON.stringify(this.cart));
+    localStorage.setItem("cart", JSON.stringify(this.cart.value));
     localStorage.setItem("cartItemCount", this.cartItemCount.value.toString());
   }
 

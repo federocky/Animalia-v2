@@ -9,6 +9,7 @@
             <div class="informacion">
                 <p class="nombre-item">{{product.product.name}}</p>
                 <i class="far fa-trash-alt papelera" (click)="deleteProduct(product.product)"></i>
+                <p class="outOfStock" *ngIf="product.qty === product.product.stock">Últimos {{ product.qty }} en el almacen</p>
                 <p class="cantidad"> 
                     <i (click)="decreaseItem(product.product)" class="fas fa-arrow-alt-circle-left"></i>
                     {{product.qty}} 

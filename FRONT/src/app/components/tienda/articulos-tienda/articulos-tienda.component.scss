@@ -90,6 +90,10 @@
                 background-color: $blue_light;
             }
 
+            .outOfStock{
+                color: red;
+            }
+
 
         }
         &:hover > .descripcion{
@@ -103,9 +107,6 @@
     }
 }
 
-.altura{
-    height: 500px; // esto es momentaneo para tener un hueco abajo
-}
 
 
 

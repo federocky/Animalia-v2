@@ -21,28 +21,47 @@ export class CarroComponent implements OnInit {
   constructor(private _cartService: CartService) { }
 
   ngOnInit(): void {
-    this.updateCart();
+    this.getCart();
   }
 
+
+
+  /**
+   * Elimina todas las existencias del producto del carro
+   * @param product objecto producto
+   */
   deleteProduct( product: Product ): void{
     this._cartService.removeProduct(product);
-    this.updateCart();
   }
 
-  
+
+
+
+  /**
+   * quita una unidad de producto del carro
+   * @param product objeto producto
+   */
   decreaseItem( product: Product ): void{
     this._cartService.decreaseProduct(product);
-    this.updateCart();
   }
   
+
+
+  /**
+   * aumenta en una unidad la cantidad del producto en el carro
+   * @param product Objeto productQty necesario para el control de stock
+   */
   increaseItem( product: ProductQty ): void{
     this._cartService.increaseProduct(product);
-    this.updateCart();
-    console.log(product);
   }
 
-  updateCart(): void {
-    this.cart = this._cartService.getCart();
+
+  //recupera el carro del servicio.
+  getCart(): void {
+    this._cartService.getCart()
+      .subscribe( (res: Cart) => {
+        this.cart = res;
+      })
   }
 
 }

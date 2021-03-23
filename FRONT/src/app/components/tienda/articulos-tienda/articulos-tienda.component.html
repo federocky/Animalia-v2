@@ -30,7 +30,8 @@
             <p>{{ product.description }}</p>
             <div class="botones">
                 <button (click)="viewProductDetails(product.id)">Más información</button>
-                <button (click)="addProduct(product)">Añadir al carro</button>
+                <button *ngIf="product.stock > 0" (click)="addProduct(product)">Añadir al carro</button>
+                <p *ngIf="product.stock <= 0" class="outOfStock">Producto actualmente no disponible</p>
             </div>
         </div>
 

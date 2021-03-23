@@ -4,7 +4,7 @@
 
     <div class="side_container container">
         <h3>Resumen de compra</h3>
-        <p class="subtotal">Subtotal( X productos )</p>
+        <p class="subtotal">Subtotal( {{ itemCount }} productos )</p>
         <p class="price">{{cart.total.toFixed(2)}} €</p>
         <button>Tramitar Pedido</button>
     </div>
@@ -43,7 +43,7 @@
                         {{ product.qty }}
                         <i (click)="increaseItem(product)" class="fas fa-arrow-alt-circle-right"></i>
 
-                        <span class="error" *ngIf="outOfStock">Lo sentimos, no hay mas articulos disponibles en este momento</span>
+                        <span class="error" *ngIf="product.qty == product.product.stock">Ultimos {{product.qty}} en el almacen</span>
                     </p>
 
                     <p class="eliminar" (click)="deleteProduct(product.product)">Quitar articulo</p>

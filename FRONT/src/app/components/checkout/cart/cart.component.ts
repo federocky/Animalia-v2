@@ -18,36 +18,68 @@ export class CartComponent implements OnInit {
   //carro donde almacenamos los productos
   cart: Cart;
 
+  //cantidad de articulos en el carro
+  itemCount: number;
+
   //variable necesario para pintar estrellas
   cantidadEstrellas = [1, 2, 3, 4, 5];
-
-  
-  outOfStock: boolean = false;
-
 
   constructor(private _cartService: CartService) { }
 
   ngOnInit(): void {
-    this.cart = this._cartService.getCart();
+    //recibimos el carro
+    this.getCart();
+    
+    //recibimos la cantidad de artuculos que contiene el carro
+    this.getCartItemCount();
   }
 
+  /**
+   * Nos suscribimos a la cantidad de articulos que contiene el carro.
+   */
+  private getCartItemCount() {
+    this._cartService.getCartItemCount()
+      .subscribe((res: number) => {
+        this.itemCount = res;
+      });
+  }
+
+  /**
+   * Nos suscribimos al carro.
+   */
+  getCart() {
+    this._cartService.getCart()
+      .subscribe((res: Cart) => {
+        this.cart = res;
+      });
+  }
+
+  /**
+   * quita una unidad de producto
+   * @param product productQty
+   */
   decreaseItem(product: ProductQty): void{
     if(product.qty > 1) {
       this._cartService.decreaseProduct(product.product);
     }
-    if(this.outOfStock) this.outOfStock = false;
   }
 
+  /**
+   * aumenta una unidad de producto si el stock lo permite
+   * @param product ProductQty
+   */
   increaseItem(product: ProductQty): void{
     if(product.product.stock > product.qty) this._cartService.increaseProduct(product);
-    else this.outOfStock = true;
-    setTimeout(() => {
-      this.outOfStock = false;
-    }, 4000);
   }
 
+  /**
+   * Elimina el producto y todas sus unidades del carro.
+   * @param product ProductQty
+   */
   deleteProduct( product: Product ):void{
     this._cartService.removeProduct( product );
   }
 
+
+  
 }
