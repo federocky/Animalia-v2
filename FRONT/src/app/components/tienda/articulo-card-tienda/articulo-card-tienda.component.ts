@@ -1,3 +1,4 @@
+import { CartService } from './../../../services/cart.service';
 import { ProductService } from './../../../services/product.service';
 import { Variables } from './../../../common/utils';
 import { Product } from './../../../models/product';
@@ -16,6 +17,8 @@ export class ArticuloCardTiendaComponent implements OnInit {
 
   product: Product;
   productId: number;
+  qtyOfProduct: number = 1;
+  outOfStock: boolean = false;
 
   ///nos permite implementar el pintado de estrellas
   cantidadEstrellas = [1, 2, 3, 4, 5];
@@ -27,7 +30,8 @@ export class ArticuloCardTiendaComponent implements OnInit {
 
 
   constructor( private productService: ProductService,
-              private _activatedRoute: ActivatedRoute
+              private _activatedRoute: ActivatedRoute,
+              private _cartService: CartService
     ) { }
 
   ngOnInit() {
@@ -47,4 +51,20 @@ export class ArticuloCardTiendaComponent implements OnInit {
       })
   }
 
+  addProduct( product: Product ){
+    this._cartService.addProduct(product, this.qtyOfProduct);
+  }
+
+  decreaseItem(product: Product): void{
+    if(this.qtyOfProduct > 1) this.qtyOfProduct --;
+    if(this.outOfStock) this.outOfStock = false;
+  }
+
+  increaseItem(product: Product): void{
+    if(product.stock > this.qtyOfProduct) this.qtyOfProduct ++;
+    else this.outOfStock = true;
+    setTimeout(() => {
+      this.outOfStock = false;
+    }, 4000);
+  }
 }

@@ -1,5 +1,8 @@
+@import '../../../../../assets/styles/mixins';
+@import '../../../../../assets/styles/variables';
+
 nav {
-    background-color: #8BC34A;
+    background-color: $green_primary;
 
     .nav {
         display: grid;

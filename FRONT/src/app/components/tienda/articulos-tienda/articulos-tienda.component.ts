@@ -1,3 +1,4 @@
+import { CartService } from './../../../services/cart.service';
 import { Product } from './../../../models/product';
 import { Variables } from './../../../common/utils';
 import { ProductService } from './../../../services/product.service';
@@ -38,7 +39,8 @@ export class ArticulosTiendaComponent implements OnInit, OnChanges {
 
 
   constructor( private productService: ProductService,
-               private _router: Router
+               private _router: Router,
+               private _cartService: CartService
     ) { }
 
   ngOnInit(): void {
@@ -108,10 +110,10 @@ export class ArticulosTiendaComponent implements OnInit, OnChanges {
     if(this.termToSearch != '') {
 
       //primero filtramos todos los productos que contengan el termino de busqueda en el titulo.
-      let prod = this.productsToShow.filter( product => product.name.includes(this.termToSearch));
+      let prod = this.productsToShow.filter( product => product.name.toLowerCase().includes(this.termToSearch.toLowerCase()));
       
       //En segundo lugar almacenamos aquellos que no contienen el termino de busqueda.
-      let prodSin = this.productsToShow.filter( product => !product.name.includes(this.termToSearch));
+      let prodSin = this.productsToShow.filter( product => !product.name.toLowerCase().includes(this.termToSearch.toLowerCase()));
 
       /*Juntamos ambos array y el resultado es un array de productos, de los cuales primero se mostraran
       aquellos que contengan el termino de busqueda.*/
@@ -132,5 +134,9 @@ export class ArticulosTiendaComponent implements OnInit, OnChanges {
     this._router.navigate(['tienda', id]); 
   }
 
+
+  addProduct(product: Product){
+    this._cartService.addProduct(product);
+  }
   
 }

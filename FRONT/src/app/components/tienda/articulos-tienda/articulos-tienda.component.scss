@@ -1,7 +1,11 @@
+@import '../../../../assets/styles/mixins';
+@import '../../../../assets/styles/variables';
+
 .articles {
 
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    justify-items: center;
     grid-gap: 14px;
     margin-top: 30px;
 
@@ -9,8 +13,8 @@
 
         display: grid;
         text-align: center;
-        font-family: 'Poppins', sans-serif;
-        box-shadow: 5px 5px 18px rgba($color: #000000, $alpha: 0.5);
+        font-family: $font_contenido;
+        box-shadow: 5px 5px 18px rgba($color: #000, $alpha: 0.5);
 
         //si solo hay un articulo no sera una bestia de grande
         max-width: 400px;
@@ -42,7 +46,7 @@
             }
 
             p{
-                font-family: 'Courgette', cursive !important;
+                font-family: $font_titulos;
                 font-size: 30px;
             }
         }
@@ -69,15 +73,11 @@
             }
 
             button{
-                padding: 6px;
-                border-radius: 16px;
+                @include crearBoton($orange_secondary);
                 width: 80%;
                 margin: 4px 0px;
-                color: #fff;
-                border: none;
-                box-shadow: 1px 1px 6px #333;
-                box-shadow: 1px 1px 1px #000;
                 transition: all 1s;
+                border: none;
                 
                 &:hover{
                     box-shadow: 1px 1px 6px #333;
@@ -87,11 +87,9 @@
             }
             
             button:nth-child(1){
-                background-color: #03A9F4;
+                background-color: $blue_light;
             }
-            button:nth-child(2){
-                background-color: #EB9524;
-            }
+
 
         }
         &:hover > .descripcion{

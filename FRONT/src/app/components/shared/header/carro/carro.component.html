@@ -1,16 +1,22 @@
-<div class="contenedor-principal">
+<div class="contenedor-principal" *ngIf="cart.productQty.length > 0">
 
     
     <div class="contenedor-articulos">
         
-        <article>
-            <img src="../../../../../assets/img/productos/bufanda-gato-perro.jpg" alt="">
+        <article *ngFor="let product of cart.productQty">
+            <img [src]="imgRoute + product.product.img" alt="">
             
             <div class="informacion">
-                <p class="nombre-item">Nombre jugueta</p>
-                <i class="far fa-trash-alt papelera"></i>
-                <p><span>1x </span>5.00€</p>
-                <p class="precio">5.00€</p>
+                <p class="nombre-item">{{product.product.name}}</p>
+                <i class="far fa-trash-alt papelera" (click)="deleteProduct(product.product)"></i>
+                <p class="cantidad"> 
+                    <i (click)="decreaseItem(product.product)" class="fas fa-arrow-alt-circle-left"></i>
+                    {{product.qty}} 
+                    <i (click)="increaseItem(product)" class="fas fa-arrow-alt-circle-right"></i>
+                    
+                    X {{ product.product.price }}€
+                </p>
+                <p class="precio">{{ (product.qty * product.product.price).toFixed(2) }}</p>
             </div>
         </article>
         
@@ -18,9 +24,15 @@
     
     <section>
         <p>TOTAL:</p>
-        <p>10,00€</p>
+        <p>{{ cart.total.toFixed(2) }} €</p>
     </section>
     
-    <button><i class="fas fa-cart-arrow-down"></i> Terminar compra</button>
+    <button [routerLink]="['carrito']"><i class="fas fa-cart-arrow-down"></i> Terminar compra</button>
     
+</div>
+
+<div *ngIf="cart.productQty.length == 0" class="contenedor-principal p-2 d-flex justify-content-center align-items-center">
+    <p class="fs-4 text-center w-100">Tu carro está vacío</p>
+
+    <img src="./assets/icons/sad.svg" class="w-50">
 </div>

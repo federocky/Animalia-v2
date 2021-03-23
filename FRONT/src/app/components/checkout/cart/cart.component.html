@@ -1,0 +1,56 @@
+<main>
+
+    <h2>Mi Carrito</h2>
+
+    <div class="side_container container">
+        <h3>Resumen de compra</h3>
+        <p class="subtotal">Subtotal( X productos )</p>
+        <p class="price">{{cart.total.toFixed(2)}} €</p>
+        <button>Tramitar Pedido</button>
+    </div>
+
+    <div class="container-gray" >
+
+        <div class="card container" *ngFor="let product of cart.productQty">
+
+            <div class="info">
+                <img [src]=" imgRoute + product.product.img" alt="">
+
+                <div class="details">
+                    <h3>{{product.product.name}}</h3>
+                    <p class="descripcion">{{product.product.description}}</p>
+                    
+                    <!--ESTRELLAS-->
+                    <div class="star-container" *ngIf="product.product.rating_average != null">
+                        <div *ngFor="let i of cantidadEstrellas">
+                            <i *ngIf="i <= product.product.rating_average" class="fas fa-star star"></i>
+                            <i *ngIf="i > product.product.rating_average && i-1 < product.product.rating_average" class="fas fa-star-half-alt star"></i>
+                            <i *ngIf="i > product.product.rating_average && i-1 >= product.product.rating_average" class="far fa-star star"></i>
+                        </div>
+                        <small class="ms-1">{{product.product.number_votes}} <a href="#">Valoraciones</a></small>
+                    </div>
+
+                    <!--SI NO TIENE VALORACIONES-->
+                    <small *ngIf="product.product.rating_average == null">Producto sin valoraciones</small>
+
+                    <!--TODO: agregar la cantidad de preguntas sobre este producto-->
+                    <a href="#">8 Preguntas respondidas</a>
+                    <p class="price">€{{ product.product.price.toFixed(2) }}</p>
+
+                    
+                    <p class="cantidad"> 
+                        <i (click)="decreaseItem(product)" class="fas fa-arrow-alt-circle-left"></i>
+                        {{ product.qty }}
+                        <i (click)="increaseItem(product)" class="fas fa-arrow-alt-circle-right"></i>
+
+                        <span class="error" *ngIf="outOfStock">Lo sentimos, no hay mas articulos disponibles en este momento</span>
+                    </p>
+
+                    <p class="eliminar" (click)="deleteProduct(product.product)">Quitar articulo</p>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>

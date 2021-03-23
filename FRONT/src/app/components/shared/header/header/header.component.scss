@@ -2,7 +2,7 @@
 @import '../../../../../assets/styles/variables';
 
 header {
-    background-color: #3C3C3C;
+    background-color: $dark_header;
 }
 
 .header {
@@ -28,14 +28,14 @@ header {
         color: #fff;
         
         h1 {
-            font-family: 'Architects Daughter', cursive;
+            font-family: $font_logo;
             font-size: 16px;
             letter-spacing: 2px;
             @include escritorio {font-size: 50px; letter-spacing: 6px;}
             justify-self: center;
             
             span{
-                color: #8BC34A;
+                color: $green_primary;
             }
         }   
     }
@@ -78,7 +78,7 @@ header {
             position: relative;
 
             .cart-icon small{
-                background-color: #8BC34A;
+                background-color: $green_primary;
                 padding: 4px 6px;
                 border-radius: 6px 0px 6px 6px;
                 color: #fff;
@@ -119,7 +119,7 @@ header {
         text-decoration: none;
         padding: 15px;
         border-bottom: 1px solid rgba(255,255,255,0.3);	
-        font-family: 'Poppins', sans-serif;
+        font-family: $font_contenido;
         font-size: 14px;
     }
     
@@ -132,7 +132,7 @@ header {
 /*---------------------CARRO---------------------------------*/
 .cart-container {
     position: absolute;
-    right: -20px;
+    right: -45px;
     width: 300px;
     background-color: #fff;
     border-radius: 12px;

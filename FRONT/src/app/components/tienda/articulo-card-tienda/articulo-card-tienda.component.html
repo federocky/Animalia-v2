@@ -36,18 +36,16 @@
                     <a href="#">8 Preguntas respondidas</a>
                     <p class="price">€{{ product.price.toFixed(2) }}</p>
 
+                    
+                    <p class="cantidad"> 
+                        <i (click)="decreaseItem(product)" class="fas fa-arrow-alt-circle-left"></i>
+                        {{ qtyOfProduct }}
+                        <i (click)="increaseItem(product)" class="fas fa-arrow-alt-circle-right"></i>
 
-                    <!--TODO: mejorar esto para que aparezcan mas opciones-->
-                    <label for="cantidad">Cantidad
-                        <select name="cantidad">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>
-                    </label>
+                        <span class="error" *ngIf="outOfStock">Lo sentimos, no hay mas articulos disponibles en este momento</span>
+                    </p>
                     <div class="botones">
-                        <button class="btn1">Agregar al carro</button>
+                        <button class="btn1" (click)="addProduct(product)">Agregar al carro</button>
                         <button class="btn2">Comprar Ya!</button>
                     </div>
 

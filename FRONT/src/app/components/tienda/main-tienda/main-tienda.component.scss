@@ -1,5 +1,8 @@
+@import '../../../../assets/styles/mixins';
+@import '../../../../assets/styles/variables';
+
 main{
-    background-color: #E0E0E0;
+    background-color: $gray_light;
     
     .main{
         display: grid;
@@ -7,7 +10,7 @@ main{
         padding: 0px 18px;
 
         h2{
-            font-family: 'Courgette', cursive;
+            font-family: $font_titulos;
             text-align: center;
             margin-top: 16px;
         }
@@ -19,21 +22,20 @@ main{
 
 .contenedor-filtros{
     
-    font-family: 'Poppins', sans-serif;
+    font-family: $font_contenido;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-row-gap: 8px;
 
     select{
-
         border-radius: 9px;
-        background-image: url('../../../../assets/icons/flecha-select.png');
+        background-image: url('/assets/icons/flecha-select.png');
         background-size: 41px;
         background-repeat: no-repeat;
         background-position: right;
         cursor: pointer;
         padding: 2px 10px;
-        border-color: #707070;
+        border-color: $gray_dark;
 
         /*quitamos la flechita por defecto*/
         appearance: none;
@@ -56,7 +58,7 @@ main{
     input{
         grid-column: 1 / 3;
         border-radius: 9px;
-        border: 1px solid #707070;
+        border: 1px solid $gray_dark;
         padding: 4px 10px;
         background-image: url(../../../../assets/icons/lupa-input.png);
         background-repeat: no-repeat;

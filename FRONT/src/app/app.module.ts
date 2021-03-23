@@ -25,6 +25,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 
 //para el [(ngModel)]
 import { FormsModule } from '@angular/forms';
+import { CartComponent } from './components/checkout/cart/cart.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { FormsModule } from '@angular/forms';
     FiltrosTiendaComponent,
     ArticulosTiendaComponent,
     ArticuloCardTiendaComponent,
-    MainIndexComponent
+    MainIndexComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

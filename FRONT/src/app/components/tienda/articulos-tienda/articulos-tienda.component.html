@@ -30,7 +30,7 @@
             <p>{{ product.description }}</p>
             <div class="botones">
                 <button (click)="viewProductDetails(product.id)">Más información</button>
-                <button>Añadir al carro</button>
+                <button (click)="addProduct(product)">Añadir al carro</button>
             </div>
         </div>
 

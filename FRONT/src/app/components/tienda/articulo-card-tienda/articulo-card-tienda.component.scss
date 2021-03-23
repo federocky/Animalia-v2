@@ -3,7 +3,7 @@
 
 
 .container-gray{
-    background-color: #e0e0e0;
+    background-color: $gray_light;
     padding: 26px 0px;
     
     .card {
@@ -51,13 +51,13 @@
                 }
 
                 h3{
-                    font-family: 'Courgette', cursive !important;
+                    font-family: $font_titulos;
                     font-size: 30px;
                     margin-top: 8px;
                 }
 
                 .descripcion{
-                    font-family: 'Poppins', sans-serif;
+                    font-family: $font_contenido;
                 }
 
                 .star-container {
@@ -73,21 +73,30 @@
                     text-shadow: 0 0 3px #000;
                 }
 
+                .cantidad{
+                    font-size: 18px;
+                    i{
+                        color: $green_primary;
+                        font-size: 20px;
+                        cursor: pointer;
+                    }
+
+                    .error{
+                        color: red;
+                    }
+                }
+
                 .price {
-                    font-family: 'Courgette', cursive !important;
+                    font-family: $font_titulos;
                     font-size: 36px;
                     margin-bottom: 0px;
                 }
 
                 button{
-                    padding: 6px 22px;
+                    @include crearBoton($orange_secondary);
+
                     width: 100%;
                     margin-top: 8px;
-                    border-radius: 16px;
-                    color: #fff;
-                    border: none;
-                    box-shadow: 1px 1px 6px #333;
-                    box-shadow: 1px 1px 1px #000;
                     transition: all 1s;
 
                     @include escritorio {
@@ -100,14 +109,11 @@
                     }
                 }
 
-                
-
-                .btn1 {
-                    background-color: #EB9524;
-                    margin-right: 12px;
-                }
                 .btn2 {
-                    background-color: #8BC34A;
+                    background-color: $green_primary;
+                    @include escritorio {
+                        margin-left: 12px;
+                    }
                 }
             }
         }

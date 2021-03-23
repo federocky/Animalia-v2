@@ -1,13 +1,16 @@
+@import '../../../../../assets/styles/mixins';
+@import '../../../../../assets/styles/variables';
+
 .mini-footer{
-    background-color: #303030;
+    background-color: $fondo_copyright;
 }
 
 .logo{
-    font-family: 'Architects Daughter', cursive;
+    font-family: $font_logo;
 }
 
 .com{
-    color: #8BC34A;;
+    color: $green_primary;
 }
 
 img{

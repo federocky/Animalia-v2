@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
 
   itemCount: BehaviorSubject<number>;
-
+  
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
