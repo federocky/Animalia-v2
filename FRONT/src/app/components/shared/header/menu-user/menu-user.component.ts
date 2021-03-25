@@ -1,3 +1,4 @@
+import { AuthService } from './../../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuUserComponent implements OnInit {
 
-  constructor() { }
+  signedIn: boolean;
+
+  constructor(private _authService: AuthService) { }
 
   ngOnInit(): void {
+    this._authService.getSignedIn()
+      .subscribe( res => {
+        this.signedIn = res;
+    });
+  }
+
+  logOut(){
+    this._authService.logOut();
   }
 
 }

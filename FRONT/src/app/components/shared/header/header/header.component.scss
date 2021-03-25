@@ -1,6 +1,12 @@
 @import '../../../../../assets/styles/mixins';
 @import '../../../../../assets/styles/variables';
 
+.nombre{
+    color: #fff;
+    position: absolute;
+    width: 200px;
+}
+
 header {
     background-color: $dark_header;
 }

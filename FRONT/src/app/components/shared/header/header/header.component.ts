@@ -1,3 +1,4 @@
+import { AuthService } from './../../../../services/auth.service';
 import { CartService } from './../../../../services/cart.service';
 import { BehaviorSubject } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
@@ -10,11 +11,18 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
 
   itemCount: BehaviorSubject<number>;
+  signedIn: boolean;
   
-  constructor(private cartService: CartService) { }
+  constructor(private _cartService: CartService,
+              private _authService: AuthService
+    ) { }
 
   ngOnInit(): void {
-    this.itemCount = this.cartService.getCartItemCount();
-  }
+    this.itemCount = this._cartService.getCartItemCount();
+    this._authService.getSignedIn()
+      .subscribe( res => {
+        this.signedIn = res;
+      });
+  }  
 
 }

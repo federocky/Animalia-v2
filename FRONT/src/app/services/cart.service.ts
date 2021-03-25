@@ -15,7 +15,7 @@ export class CartService {
   private cart: BehaviorSubject<Cart> = new BehaviorSubject({productQty: [], total: 0});
 
   //cantidad de productos en el carro.
-  private cartItemCount = new BehaviorSubject(0);
+  private cartItemCount: BehaviorSubject<number> = new BehaviorSubject(0);
 
   constructor() { }
 

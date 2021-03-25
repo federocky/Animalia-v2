@@ -1,4 +1,11 @@
-<div class="contenedor-menu">
+<div class="contenedor-menu" *ngIf="signedIn">
+    <a [routerLink]="['login']"><i class="fas fa-user-check"></i>Ver perfíl</a>
+    <!-- <p><i class="fas fa-user-check"></i>Mi cuenta</p> -->
+    <a [routerLink]="['registro']" (click)="logOut()"><i class="fas fa-unlock-alt"></i>Cerrar sesión</a>
+</div>
+
+
+<div class="contenedor-menu" *ngIf="!signedIn">
     <a [routerLink]="['login']"><i class="fas fa-unlock-alt"></i>Iniciar sesion</a>
     <!-- <p><i class="fas fa-user-check"></i>Mi cuenta</p> -->
     <a [routerLink]="['registro']"><i class="far fa-user-circle"></i>Crear una cuenta</a>
