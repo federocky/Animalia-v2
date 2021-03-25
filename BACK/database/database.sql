@@ -6,10 +6,9 @@ USE mimascota;
 
 CREATE TABLE user(
     id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(120),
     name VARCHAR(120),
     surname VARCHAR(120),
-    email VARCHAR(200),
+    email VARCHAR(200) UNIQUE,
     password varchar(250),
     active boolean DEFAULT 1,
     is_admin boolean DEFAULT 0,
@@ -161,11 +160,11 @@ insert into product (name, description, price, brand, img,  stock, category_id, 
 
 	("Cama de mascota", 
 		"Cama para perro o gato ideal para invierno o verano, muy comoda y realmente bonita.", 
-		24.99, "Confi", "cama-mascota2.jpg", 100, 2, 4),
+		24.99, "Confi", "cama-mascota2.jpg", 5, 2, 4),
 
 	("Bufanda gris gato", 
 		"Una bufanda bien calentita, es gris y de lana 100%, altamente recomendada.", 
-		6.99, "Bufandilla", "bufanda-mascota.jpg", 100, 1, 2),
+		6.99, "Bufandilla", "bufanda-mascota.jpg", 0, 1, 2),
 
 	("Cama roja para mascota", 
 		"Cama para perro o gato ideal para invierno o verano, muy comoda y realmente bonita.", 

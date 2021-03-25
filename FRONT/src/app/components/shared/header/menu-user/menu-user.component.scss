@@ -9,8 +9,10 @@
     font-size: 18px;
     border: 1px solid #ccc;
 
-    p{
+    a{
         cursor: pointer;
+        text-decoration: none;
+        color: #585858;
         i{padding-right: 12px;}
 
         &:hover {

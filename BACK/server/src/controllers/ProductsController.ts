@@ -5,6 +5,7 @@ import db from '../database';
 
 class ProductsController {
 
+    /**devuelve todos los productos con su rating y numero de votos. */
     public async index (req: Request, res: Response) {
         //const products = await db.query('SELECT * FROM product');
 
@@ -25,6 +26,7 @@ class ProductsController {
     
     } 
 
+    /**devuelve un producto por id asi como su rating y numero de votos */
     public async show (req: Request, res: Response) {
         
         const { id } = req.params;

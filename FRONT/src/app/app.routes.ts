@@ -1,3 +1,5 @@
+import { LoginComponent } from './components/auth/login/login.component';
+import { RegisterComponent } from './components/auth/register/register.component';
 import { CartComponent } from './components/checkout/cart/cart.component';
 import { ArticuloCardTiendaComponent } from './components/tienda/articulo-card-tienda/articulo-card-tienda.component';
 import { MainIndexComponent } from './components/index/main-index/main-index.component';
@@ -11,6 +13,8 @@ const APP_ROUTES: Routes = [
     { path: "tienda", component: MainTiendaComponent },
     { path: "tienda/:id", component: ArticuloCardTiendaComponent },
     { path: "carrito", component: CartComponent },
+    { path: "registro", component: RegisterComponent },
+    { path: "login", component: LoginComponent },
     { path: '**', pathMatch: 'full', redirectTo: '' }
 ];
 

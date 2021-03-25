@@ -1,0 +1,44 @@
+@import '../../../../assets/styles/mixins';
+@import '../../../../assets/styles/variables';
+
+main {
+    background-color: $gray_light;
+    padding: 16px 6px;
+
+    .container{
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #fff;
+        max-width: 700px;
+        border-radius: 8px;
+
+        h2{
+            font-family: $font_titulos;
+            padding-top: 16px;
+        }
+        
+        form{
+            width: 100%;
+            padding: 6px 12px 12px 12px;
+            display: grid;
+
+            fieldset{
+                margin-bottom: 1rem;
+            }
+
+            button{
+                @include crearBoton($green_primary);
+                justify-self: center;
+                width: 100%;
+                max-width: 400px;
+            }
+
+            p{
+                text-align: center;
+                padding-top: 1rem;
+            }
+        }
+    }
+}
