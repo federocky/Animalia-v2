@@ -13,10 +13,12 @@ main {
         background-color: #fff;
         max-width: 700px;
         border-radius: 8px;
+        box-shadow: 1px 1px 5px rgb(119, 119, 119);
 
         h2{
             font-family: $font_titulos;
             padding-top: 16px;
+            text-decoration: underline;
         }
         
         form{
@@ -24,7 +26,7 @@ main {
             padding: 6px 12px 12px 12px;
             display: grid;
 
-            fieldset{
+            div{
                 margin-bottom: 1rem;
             }
 

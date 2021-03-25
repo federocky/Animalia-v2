@@ -17,6 +17,9 @@ import { ArticuloCardTiendaComponent } from './components/tienda/articulo-card-t
 import { HttpClientModule } from '@angular/common/http';
 import { MainIndexComponent } from './components/index/main-index/main-index.component';
 
+//FORMULARIOS
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 //RUTAS
 import { app_routing } from './app.routes';
 
@@ -24,7 +27,6 @@ import { app_routing } from './app.routes';
 import {NgxPaginationModule} from 'ngx-pagination';
 
 //para el [(ngModel)]
-import { FormsModule } from '@angular/forms';
 import { CartComponent } from './components/checkout/cart/cart.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { LoginComponent } from './components/auth/login/login.component';
@@ -55,7 +57,8 @@ import { LoginComponent } from './components/auth/login/login.component';
     HttpClientModule,
     app_routing,
     NgxPaginationModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
