@@ -30,6 +30,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { CartComponent } from './components/checkout/cart/cart.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { LoginComponent } from './components/auth/login/login.component';
+import { GuestFormComponent } from './components/checkout/guest-form/guest-form.component';
+import { OrderDetailsComponent } from './components/checkout/order-details/order-details.component';
+import { AddressFormComponent } from './components/shared/address-form/address-form.component';
 
 
 @NgModule({
@@ -49,7 +52,10 @@ import { LoginComponent } from './components/auth/login/login.component';
     MainIndexComponent,
     CartComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    GuestFormComponent,
+    OrderDetailsComponent,
+    AddressFormComponent
   ],
   imports: [
     BrowserModule,

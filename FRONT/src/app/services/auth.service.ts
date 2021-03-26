@@ -16,7 +16,7 @@ export class AuthService {
 
   userToken: string;
 
-  private SignedIn: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private signedIn: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
 
   //Se comprueba si se esta logado al entrar en la página
@@ -26,7 +26,12 @@ export class AuthService {
 
   /** dice si el usuario esta logado, sin seguridad pero con comunicacion entre componentes*/
   getSignedIn(){
-    return this.SignedIn;
+    return this.signedIn;
+  }
+
+  //TODO:BORRAR?
+  getSignedIn2(){
+    this.signedIn.subscribe( res => res);
   }
 
 
@@ -44,7 +49,7 @@ export class AuthService {
         map ( res => {
           //guardamos el token
           this.guardarToken( res['token'] );
-          this.SignedIn.next(true);
+          this.signedIn.next(true);
           return res;
         })
       );
@@ -54,7 +59,8 @@ export class AuthService {
   
   logOut(){
     localStorage.removeItem('auth-token');
-    this.SignedIn.next(false);
+    this.signedIn.next(false);
+    this.userToken = '';
   }
 
 
@@ -79,10 +85,10 @@ export class AuthService {
 
     if( localStorage.getItem('auth-token') ){
       this.userToken = localStorage.getItem('auth-token');
-      this.SignedIn.next(true);
+      this.signedIn.next(true);
     } else {
       this.userToken = '';
-      this.SignedIn.next(false);
+      this.signedIn.next(false);
     }
 
   }

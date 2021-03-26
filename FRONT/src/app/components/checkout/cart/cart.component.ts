@@ -1,9 +1,12 @@
+import  Swal  from 'sweetalert2';
+import { AuthService } from './../../../services/auth.service';
 import { ProductQty } from './../../../models/product-qty';
 import { Cart } from './../../../models/cart.model';
 import { CartService } from './../../../services/cart.service';
 import { Component, OnInit } from '@angular/core';
 import { Variables } from 'src/app/common/utils';
 import { Product } from 'src/app/models/product';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -24,7 +27,10 @@ export class CartComponent implements OnInit {
   //variable necesario para pintar estrellas
   cantidadEstrellas = [1, 2, 3, 4, 5];
 
-  constructor(private _cartService: CartService) { }
+  constructor(private _cartService: CartService,
+              private _authService: AuthService,
+              private router: Router
+    ) { }
 
   ngOnInit(): void {
     //recibimos el carro
@@ -81,5 +87,34 @@ export class CartComponent implements OnInit {
   }
 
 
+  checkout(): void{
+  
+      /**si esta logado */
+      if(this._authService.loggedIn()) this.router.navigateByUrl('checkout/details');
+      
+      else {
+        /**si no esta logado mostramos un alert con opcion de login o continuar como invitado */
+        Swal.fire({
+        allowOutsideClick: true,
+        title: 'No esta logado',
+        icon: 'info',
+        showCloseButton: true,
+        
+        showDenyButton: true,
+        showConfirmButton: true,
+        confirmButtonText: `Inicia sesión / Registrate`,
+        denyButtonText: `Continuar como invitado`,
+        confirmButtonColor: '#8BC34A',
+        denyButtonColor: '#eb9524'
+        
+      }).then((result) => {
+        //si se elige logar/registrar
+        if(result.isConfirmed) this.router.navigateByUrl('login');
+        //para continuar como invitado.
+        else if(result.isDenied) this.router.navigateByUrl('checkout/formulario_invitado');
+      });
+    }
+  
+  }
   
 }

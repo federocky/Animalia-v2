@@ -35,6 +35,21 @@
                 </div>
             </div>
 
+            <!--TELEFONO-->
+            <div class="form-group">
+                <label>Movil:</label>
+                <input 
+                    type="text" 
+                    class="form-control"
+                    [ngClass]="{ 'is-invalid': phone.invalid && ( phone.dirty || phone.touched),
+                            'is-valid': phone.valid       && ( phone.dirty || phone.touched)}"
+                    formControlName="phone">
+                    
+                <div class="invalid-feedback" *ngIf="phone.errors && (phone.dirty || phone.touched)">
+                    <span *ngIf="phone.errors.required">Debe rellenar algún apellido</span>
+                </div>
+            </div>
+
             <!--EMAIL-->
             <div class="form-group">
                 <label>Email:</label>

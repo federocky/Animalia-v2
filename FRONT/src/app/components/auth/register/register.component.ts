@@ -1,10 +1,10 @@
-import { User } from './../../../../../../BACK/server/src/models/user.model';
 import { AuthService } from './../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/user.model';
 
 
 @Component({
@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit {
   name: FormControl;
   surname: FormControl;
   email: FormControl;
+  phone: FormControl;
   password: FormControl;
   repeatPassword:  FormControl;
 
@@ -36,6 +37,7 @@ export class RegisterComponent implements OnInit {
     this.myForm = new FormGroup({
       name: new FormControl('', Validators.required), 
       surname: new FormControl('', Validators.required),
+      phone: new FormControl(''),
       email: new FormControl('', [Validators.required, Validators.pattern('[^ @]*@[^ @]+')]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       repeatPassword: new FormControl('', Validators.required)
@@ -53,6 +55,7 @@ export class RegisterComponent implements OnInit {
     this.name           = this.myForm.controls.name            as FormControl;
     this.surname        = this.myForm.controls.surname         as FormControl;
     this.email          = this.myForm.controls.email           as FormControl;
+    this.phone          = this.myForm.controls.phone           as FormControl;
     this.password       = this.myForm.controls.password        as FormControl;    
     this.repeatPassword = this.myForm.controls.repeatPassword  as FormControl;
 
@@ -75,6 +78,7 @@ export class RegisterComponent implements OnInit {
         name: this.name.value,
         surname: this.surname.value,
         email: this.email.value,
+        phone: this.phone.value,
         password: this.password.value
       }
 

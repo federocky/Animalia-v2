@@ -1,8 +1,6 @@
-export interface User {
+import { Person } from './person.model';
+
+export interface User extends Person {
     id?: number;
-    name: string;
-    surname: string;
-    email: string;
     password: string;
-    is_admin?: boolean;
 }

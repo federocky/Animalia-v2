@@ -6,7 +6,7 @@
         <h3>Resumen de compra</h3>
         <p class="subtotal">Subtotal( {{ itemCount }} productos )</p>
         <p class="price">{{cart.total.toFixed(2)}} €</p>
-        <button>Tramitar Pedido</button>
+        <button (click)="checkout()">Tramitar Pedido</button>
     </div>
 
     <div class="container-gray" >
