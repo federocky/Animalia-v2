@@ -1,7 +1,6 @@
-import { Address } from '../models/address.model';
-import { User } from './../models/user.model';
+import { HttpClient } from '@angular/common/http';
 import { Cart } from './../models/cart.model';
-import { Order } from './../models/order.model';
+import { Address } from '../models/address.model';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -9,28 +8,31 @@ import { Injectable } from '@angular/core';
 })
 export class OrderService {
 
-  private order: Order;
+  private url: string   = 'http://localhost:3000/';
+  private route: string = 'api/order';
 
-  constructor() { }
+  address: Address;
+  address_id: number;
 
-  getOrder(){
-    return this.order;
+
+  constructor( private http: HttpClient ) { }
+
+  store( user_id: number, address_id: number, cart: Cart){
+    return this.http.post(`${this.url}${this.route}`, {user_id, address_id, cart});
   }
 
-  setCart( cart: Cart ){
-    this.order.cart = cart;
-  }
 
-  setUser( user: User ){
-    this.order.user = user;
-  }
 
+
+  //FIXME: creo que no estoy usando esto en ningun lado. No deberia asi que borralo.
   setAddress( address: Address ){
-    this.order.address = address;
+    this.address = address;
   }
 
-  payment_method( payment: number ){
-    this.order.payment_method = payment;
+  getAddress(){
+    return this.address;
   }
+
+
 
 }

@@ -1,1 +1,85 @@
-<p>order-details works!</p>
+<main>
+
+    <div class="address_form" *ngIf="openAddressForm">
+        <app-address-form (address)="addressRecived( $event )" (close)="openAddressForm = false"></app-address-form>
+    </div>
+
+    <!--FORMULARIO MOVIL - MODAL BOOTSTRAP-->
+    <div class="modal fade phone_form" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="staticBackdropLabel">Movil</h3>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form>
+                    <input type="number" [(ngModel)]="user.phone" name="phone" placeholder="Introduzca su movil...">
+                    <input type="submit" (click)="savePhone()" data-bs-dismiss="modal">
+                </form>
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+          </div>
+        </div>
+    </div>
+
+      
+
+    <h2>Detalles del pedido</h2>
+
+    
+    <div class="side_container container">
+        <h3>Resumen de compra</h3>
+        <p class="subtotal">Subtotal( 3 productos )</p>
+        <p class="price">29.99 €</p>
+        <button (click)="payNow()">Pagar ahora</button>
+    </div>
+
+    <div class="container-general" >
+        
+        <!--SI TIENE DIRECCION-->
+        <div class="card container" *ngIf="hasAddress">
+            
+            <div>
+                <h3>Datos de envío</h3>
+                <p>{{ address.street_name }} Nº{{ address.street_number }} <span>letra:{{ address.letter }} Piso:{{ address.floor }}</span> </p>
+                <p>{{ address.postcode }} {{ address.town }} {{ address.locality }} {{ address.province }}</p>
+                <p>{{ address.details }}</p>
+            </div>
+
+            <button (click)="openAddressForm = true">Cambiar dirección</button>
+         
+        </div>
+
+        <!--SI NO TIENE DIRECCION-->
+        <div class="card container" *ngIf="!hasAddress">
+            <div>
+                <h3>Datos de envío</h3>
+                <p>No cuenta con datos de envío en el sistema</p>
+            </div>
+
+            <button (click)="openAddressForm = true">Agregar dirección</button>
+        </div>
+
+
+
+        <!-- DATOS USUARIO-->
+        <div class="card container">
+            <div>
+                <h3>Datos personales</h3>
+                <p>{{ user.name}} {{ user.surname}}</p>
+                <p>Telefono: {{ user.phone || 'No tenemos su telefono' }}</p>
+            </div>
+
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Agregar teléfono</button>
+        </div>
+
+    </div>
+
+
+
+</main>

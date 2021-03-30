@@ -9,6 +9,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class AddressFormComponent implements OnInit {
   @Output() address: EventEmitter<Address>;
+  @Output() close: EventEmitter<boolean>;
 
   myForm: FormGroup;
 
@@ -24,6 +25,7 @@ export class AddressFormComponent implements OnInit {
 
   constructor() { 
     this.address = new EventEmitter();
+    this.close = new EventEmitter();
   }
 
   ngOnInit(): void {
@@ -40,7 +42,7 @@ export class AddressFormComponent implements OnInit {
       province: new FormControl('', Validators.required),
       locality: new FormControl('', Validators.required),
       town: new FormControl('', Validators.required),
-      postcode: new FormControl('', Validators.required),
+      postcode: new FormControl('', [Validators.required, Validators.pattern('[0-9]{5}')]),
       details: new FormControl('', Validators.required)
   });
 
@@ -65,10 +67,14 @@ export class AddressFormComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.myForm);
-    const address: Address = this.myForm.value;
 
-    this.address.emit( address );
+    if( !this.myForm.valid ) this.myForm.markAllAsTouched();
+    
+    else {
+      const address: Address = this.myForm.value;
+      
+      this.address.emit( address );
+    }
   }
 
 }

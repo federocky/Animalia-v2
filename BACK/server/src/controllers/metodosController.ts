@@ -4,7 +4,6 @@ class Ficticia {
 
     //GET devuelve todo /photos
     public async index(req: Request, res: Response) {
-        
     }
 
     //GET devuelve todo /photos/create

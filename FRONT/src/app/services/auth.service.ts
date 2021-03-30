@@ -1,4 +1,4 @@
-import { User } from './../../../../BACK/server/src/models/user.model';
+import { User } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -30,9 +30,9 @@ export class AuthService {
   }
 
   //TODO:BORRAR?
-  getSignedIn2(){
+/*   getSignedIn2(){
     this.signedIn.subscribe( res => res);
-  }
+  } */
 
 
   /**Registra usuario */
@@ -42,14 +42,17 @@ export class AuthService {
 
 
 
+
+
   /**Login de usuario */
   signIn( email: string, password: String){
     return this.http.post(`${this.url}${this.route}/signin`, {email, password})
       .pipe(
-        map ( res => {
+        map ( (res: any) => {
           //guardamos el token
           this.guardarToken( res['token'] );
           this.signedIn.next(true);
+          localStorage.setItem('user', JSON.stringify(res.data));
           return res;
         })
       );
@@ -57,11 +60,16 @@ export class AuthService {
 
 
   
+
+
   logOut(){
     localStorage.removeItem('auth-token');
+    localStorage.removeItem('user');
     this.signedIn.next(false);
     this.userToken = '';
   }
+
+
 
 
 
@@ -78,6 +86,9 @@ export class AuthService {
 
     localStorage.setItem('token-expire', hoy.getTime().toString());
   }
+
+
+
 
 
   /**Recupera el token del local storage en caso de existir */

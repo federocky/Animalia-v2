@@ -12,6 +12,8 @@ import cors from 'cors';
 //ARCHIVOS DE RUTAS
 import productRoutes from './routes/productRoutes';
 import authRoutes from './routes/authRoutes';
+import userRoutes from './routes/userRoutes';
+import orderRoutes from './routes/orderRoutes';
 
 class Server {
 
@@ -41,6 +43,8 @@ class Server {
     routes(): void {
         this.app.use('/api/products', productRoutes);
         this.app.use('/api/auth', authRoutes);
+        this.app.use('/api/user', userRoutes);
+        this.app.use('/api/order', orderRoutes);
     }
 
     start(): void {

@@ -1,5 +1,5 @@
+import { PasarelaComponent } from './components/checkout/pasarela/pasarela.component';
 import { OrderDetailsComponent } from './components/checkout/order-details/order-details.component';
-import { GuestFormComponent } from './components/checkout/guest-form/guest-form.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { CartComponent } from './components/checkout/cart/cart.component';
@@ -19,8 +19,9 @@ const APP_ROUTES: Routes = [
     { path: "login", component: LoginComponent },
 
     { path: "checkout/carrito", component: CartComponent },
-    { path: "checkout/formulario_invitado", component: GuestFormComponent },
-    { path: "checkout/details", component: OrderDetailsComponent },
+    { path: "checkout/detalles", component: OrderDetailsComponent },
+    { path: "checkout/pasarela", component: PasarelaComponent },
+
     { path: '**', pathMatch: 'full', redirectTo: '' }
 ];
 

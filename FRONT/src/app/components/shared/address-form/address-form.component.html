@@ -1,6 +1,7 @@
     <div class="container">
 
         <h2>Dirección</h2>
+        <i class="far fa-times-circle" (click)="close.emit(true)"></i>
         
         <form novalidate [formGroup]="myForm" (ngSubmit)="onSubmit()">
 

@@ -9,9 +9,9 @@ CREATE TABLE user(
     name VARCHAR(120),
     surname VARCHAR(120),
     email VARCHAR(200) UNIQUE,
-    password varchar(250),
-    active boolean DEFAULT 1,
-    is_admin boolean DEFAULT 0,
+	phone VARCHAR(30),
+    password VARCHAR(250),
+    active BOOLEAN DEFAULT 1,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -26,7 +26,7 @@ CREATE TABLE product(
 	category_id INT(10),
 	provider_id INT(10),
 	img VARCHAR(250),
-	active boolean DEFAULT 1
+	active BOOLEAN DEFAULT 1
 );
 
 
@@ -35,21 +35,21 @@ CREATE TABLE category(
 	id INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	name VARCHAR(100),
 	description VARCHAR(250),
-	active boolean DEFAULT 1
+	active BOOLEAN DEFAULT 1
 );
 
 CREATE TABLE provider(
 	id INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	name VARCHAR(100),
 	contact_name VARCHAR(250),
-	tlf int(50),
-	active boolean DEFAULT 1
+	phone VARCHAR(30),
+	active BOOLEAN DEFAULT 1
 );
 
 CREATE TABLE address(
 	id INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	street_name VARCHAR(200),
-	stree_number VARCHAR(200),
+	street_number VARCHAR(200),
 	floor VARCHAR(80),
 	letter VARCHAR(80),
 	province VARCHAR(150),
@@ -78,6 +78,50 @@ CREATE TABLE product_rating (
 	date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE orders (
+	id INT(10)NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	user_id	INT(10),
+	address_id INT(10),
+	total DECIMAL(8,2),
+	date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE order_details (
+	id INT(10)NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	order_id	INT(10),
+	product_id INT(10),
+	qty INT(5),
+	price DECIMAL(8,2)
+);
+
+CREATE TABLE delivery (
+	id INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	order_id INT(10),
+	state ENUM('ordered', 'sent', 'delivered') DEFAULT 'ordered',
+	employee_id_sent INT(10),
+	employee_id_delivered INT(10),
+	date_ordered TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	date_sent DATE ,
+	date_delivered DATE 
+);
+
+CREATE TABLE employee (
+	id INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(120),
+    surname VARCHAR(120),
+    email VARCHAR(200) UNIQUE,
+	phone VARCHAR(30),
+    password VARCHAR(250),
+	is_admin BOOLEAN DEFAULT 0,
+	active BOOLEAN DEFAULT 1
+);
+
+CREATE TABLE employee_history (
+	id INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	employee_id INT(10),
+	salary DECIMAL (8,2),
+	details VARCHAR(200)
+);
 
 
 
@@ -100,6 +144,29 @@ add constraint user_address_address foreign key (address_id) references address 
 alter table product_rating
 add constraint product_rating foreign key (product_id) references product (id);
 
+alter table orders
+add constraint order_user foreign key (user_id) references user (id);
+
+alter table orders
+add constraint order_address foreign key (address_id) references address (id);
+
+alter table order_details
+add constraint details_order foreign key (order_id) references order (id);
+
+alter table order_details
+add constraint details_product foreign key (product_id) references product (id);
+
+alter table delivery
+add constraint delivery_order foreign key (order_id) references order (id);
+
+alter table delivery
+add constraint delivery_employee_sent foreign key (employee_id_sent) references employee (id);
+
+alter table delivery
+add constraint delivery_employee_delivered foreign key (employee_id_delivered) references employee (id);
+
+alter table employee_history
+add constraint history_employee foreign key (employee_id) references employee (id);
 
 
 
@@ -108,8 +175,8 @@ add constraint product_rating foreign key (product_id) references product (id);
 insert into user (name, surname, email, password) values
 	("Federico", "Jácome", "fede@gmail.com", "1234");
 
-insert into user (name, surname, email, password, is_admin) values
-	("admin", "admin", "admin@gmail.com", "1234", 1);
+insert into user (name, surname, email, password) values
+	("admin", "admin", "admin@gmail.com", "1234");
 
 
 
@@ -125,7 +192,7 @@ insert into category (name, description) values
 
 
 
-insert into provider (name, contact_name, tlf) values 
+insert into provider (name, contact_name, phone) values 
 	("Art-atack", "Alfonso Gutierrez", 655780124),
 	("Style", "Cristian Christensen", 895231457),
 	("Diver", "Jesus Manuel Jandol", 623021457),
@@ -135,7 +202,7 @@ insert into provider (name, contact_name, tlf) values
 
 
 
-insert into address (street_name, stree_number, floor, letter, province, locality, town, postcode, details) values
+insert into address (street_name, street_number, floor, letter, province, locality, town, postcode, details) values
 	("San Mateo", "3", "3", "A",  "Málaga", "Mijas", "Las Lagunas", 29651, ""),
 	("Random", "5", "35", "izq",  "Málaga", "Málaga", "Campanillas", 29004, "");
 
@@ -238,3 +305,6 @@ insert into product_rating (product_id, rating) values
 	(6, 4),
 	(7, 4),
 	(8, 4);
+
+
+

@@ -10,11 +10,21 @@
     max-width: 700px;
     border-radius: 8px;
     box-shadow: 1px 1px 5px rgb(119, 119, 119);
+    position: relative;
 
     h2{
         font-family: $font_titulos;
         padding-top: 16px;
         text-decoration: underline;
+    }
+
+    i{
+        position: absolute;
+        font-size: 2rem;
+        color: $orange_secondary;
+        right: 12px;
+        top: 12px;
+        cursor: pointer;
     }
     
     form{

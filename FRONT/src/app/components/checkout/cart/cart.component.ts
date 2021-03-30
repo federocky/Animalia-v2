@@ -90,7 +90,7 @@ export class CartComponent implements OnInit {
   checkout(): void{
   
       /**si esta logado */
-      if(this._authService.loggedIn()) this.router.navigateByUrl('checkout/details');
+      if(this._authService.loggedIn()) this.router.navigateByUrl('checkout/detalles');
       
       else {
         /**si no esta logado mostramos un alert con opcion de login o continuar como invitado */
@@ -100,18 +100,15 @@ export class CartComponent implements OnInit {
         icon: 'info',
         showCloseButton: true,
         
-        showDenyButton: true,
         showConfirmButton: true,
+        showCancelButton: true,
         confirmButtonText: `Inicia sesión / Registrate`,
-        denyButtonText: `Continuar como invitado`,
+        cancelButtonText: 'Cancelar',
         confirmButtonColor: '#8BC34A',
-        denyButtonColor: '#eb9524'
         
       }).then((result) => {
         //si se elige logar/registrar
         if(result.isConfirmed) this.router.navigateByUrl('login');
-        //para continuar como invitado.
-        else if(result.isDenied) this.router.navigateByUrl('checkout/formulario_invitado');
       });
     }
   

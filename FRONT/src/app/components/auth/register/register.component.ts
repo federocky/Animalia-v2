@@ -13,7 +13,8 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-
+  
+  //creamos el formulario y sus controles
   myForm: FormGroup;
 
   name: FormControl;
@@ -51,6 +52,9 @@ export class RegisterComponent implements OnInit {
 
   }
 
+  /**Validacion personalizada para garantizar que las contraseñas
+   * sean iguales.
+   */
   passwordsIguales( pass1Name: string, pass2Name: string){
     
     return( formGroup: FormGroup ) => {
@@ -81,10 +85,12 @@ export class RegisterComponent implements OnInit {
   }
 
 
+  /**Cuando se envia el formulario */
   onSubmit(): void{
 
     if (this.myForm.valid){
 
+      //mostramos un mensaje de procesando
       Swal.fire({
         //para que no se cierre al hacer click fuera como un modal
         allowOutsideClick: false,
@@ -93,6 +99,7 @@ export class RegisterComponent implements OnInit {
       });
       Swal.showLoading();
 
+      //creamos un usuario aux
       const user: User = {
         name: this.name.value,
         surname: this.surname.value,
@@ -102,12 +109,13 @@ export class RegisterComponent implements OnInit {
       } 
 
 
+      ///registramos el usuario en la bbdd
       this._authService.signUp(user)
         .subscribe( res => {
 
-
           Swal.close();
-
+          
+          //si todo va bien nos vamos a login
           this.router.navigateByUrl('/login');
 
         }, err => {
@@ -122,7 +130,7 @@ export class RegisterComponent implements OnInit {
         })
     }
     
-    //lo marca como touched para mostrar los errores.
+    //si el form no es valido lo marca como touched para mostrar los errores.
     this.myForm.markAllAsTouched();
   }
 
