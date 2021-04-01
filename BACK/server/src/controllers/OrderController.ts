@@ -20,6 +20,7 @@ class OrderController {
         const user_id = req.body.user_id;
         const address_id = req.body.address_id;
 
+        //TODO:crear modelo cart y tiparlo
         const order = req.body.cart;
 
         try{

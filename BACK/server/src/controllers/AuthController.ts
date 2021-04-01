@@ -22,7 +22,9 @@ class AuthController {
             surname: req.body.surname,
             email: req.body.email,
             password: req.body.password,
-        }
+        } 
+
+        //let { name, surname, email, password } = req.body;
 
         //encriptamos la contraseña
         user.password = await encriptPassword( user.password );
@@ -30,28 +32,15 @@ class AuthController {
         /**Si el email no existe guardamos los datos */
         try {
             await db.query('INSERT INTO user (name, surname, email, password) VALUES (?,?,?,?)', [user.name, user.surname, user.email, user.password]);
-            res.status(200).json({ok: true, data: {email: user.email}});
+            res.status(200).json({ok: true, data: user.email });
 
         } catch (error) {
-
-            //FIXME:esto no funciona
             /**si existe el email */
-           // if(error['erno'] == 1062) res.status(400).json({ok: false, data: {message: 'the email already exist'}});
+           if(error.errno == 1062) res.status(400).json({ok: false, message: 'the email already exists'});
 
             /**cualquier otro error */
-            res.status(400).json({ok: false, data: {message: 'Email exists'}});
+            res.status(400).json({ok: false, message: 'Connection error'});
         }
-
-        /**const db = makeDb( config );
-        try {
-          const someRows = await db.query( 'SELECT * FROM some_table' );
-          const otherRows = await db.query( 'SELECT * FROM other_table' );
-          // do something with someRows and otherRows
-        } catch ( err ) {
-          // handle the error
-        } finally {
-          await db.close();
-        } */
         
     }
 

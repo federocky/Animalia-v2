@@ -29,7 +29,7 @@ export class OrderService {
     this.address = address;
   }
 
-  getAddress(){
+  getAddress(): Address{
     return this.address;
   }
 

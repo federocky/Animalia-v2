@@ -21,9 +21,7 @@ export class OrderDetailsComponent implements OnInit {
 
   openAddressForm: boolean = false;
 
-  constructor( private _orderService: OrderService,
-               private _cartService: CartService,
-               private _userService: UserService,
+  constructor( private _userService: UserService,
                private _authService: AuthService,
                private router: Router          
     ) { }

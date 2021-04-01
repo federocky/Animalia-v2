@@ -7,19 +7,22 @@ class ProductsController {
 
     /**devuelve todos los productos con su rating y numero de votos. */
     public async index (req: Request, res: Response) {
-        //const products = await db.query('SELECT * FROM product');
 
-        const products = await db.query(`SELECT  p.* , AVG(pr.rating) AS rating_average,  COUNT(pr.rating) AS number_votes
-                                            FROM product p
-                                            LEFT JOIN product_rating pr
-                                            ON pr.product_id = p.id
-                                            WHERE p.active = 1
-                                            GROUP BY p.id`);
+        try{
+            const products = await db.query(`SELECT  p.* , AVG(pr.rating) AS rating_average,  COUNT(pr.rating) AS number_votes
+                                                FROM product p
+                                                LEFT JOIN product_rating pr
+                                                ON pr.product_id = p.id
+                                                WHERE p.active = 1
+                                                GROUP BY p.id`);
+    
+            
+            res.status(200).json({ok:true, data: products});
 
-        
-        res.status(200).json({ok:true, data: products});
+        } catch(error){
+            res.status(404).json({ok: false, message: 'Server not working'});
+        }
 
-        //TODO: meter control errores
     }
     
     public async store (req: Request, res: Response) {
@@ -31,20 +34,34 @@ class ProductsController {
         
         const { id } = req.params;
 
-        const product = await db.query(`SELECT  p.* , AVG(pr.rating) AS rating_average,  COUNT(pr.rating) AS number_votes
-                                            FROM product p
-                                            LEFT JOIN product_rating pr
-                                            ON pr.product_id = p.id
-                                            WHERE p.active = 1 AND p.id = ${id}
-                                            GROUP BY p.id`);
+        try{
+            const product = await db.query(`SELECT  p.* , AVG(pr.rating) AS rating_average,  COUNT(pr.rating) AS number_votes
+                                                FROM product p
+                                                LEFT JOIN product_rating pr
+                                                ON pr.product_id = p.id
+                                                WHERE p.active = 1 AND p.id = ${id}
+                                                GROUP BY p.id`);
+            
 
-        //FIXME: me salta en error de cannot set headers after they are sent to the client.
-        if (product.length < 1) res.status(404).json({ok: false, message: 'Product not found'});
-        
-        
-        res.status(200).json({ok: true, data: product});
+            /**si no encuentra ningún producto devolvemos el error
+             * el return es necesario para evitar error ERR_HTTP_HEADERS_SENT*/            
+            if (product.length < 1) {
 
-        //TODO: meter control errores
+                res.status(404).json({ok: false, message: 'Product not found'});
+                return;
+            }
+            
+            res.status(200).json({ok: true, data: product});
+
+        }catch(error){
+
+            if(error.errno == 1054) {
+                res.status(404).json({ok: false, message: 'Incorrect parameter'});
+                return;
+            }
+            
+            res.status(404).json({ok: false, message: 'Server not working'});
+        }
     }
 
     public async update (req: Request, res: Response) {
