@@ -5,7 +5,7 @@ CREATE DATABASE mimascota
 USE mimascota;
 
 CREATE TABLE user(
-    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(120),
     surname VARCHAR(120),
     email VARCHAR(200) UNIQUE,
@@ -151,13 +151,13 @@ alter table orders
 add constraint order_address foreign key (address_id) references address (id);
 
 alter table order_details
-add constraint details_order foreign key (order_id) references order (id);
+add constraint details_order foreign key (order_id) references orders (id);
 
 alter table order_details
 add constraint details_product foreign key (product_id) references product (id);
 
 alter table delivery
-add constraint delivery_order foreign key (order_id) references order (id);
+add constraint delivery_order foreign key (order_id) references orders (id);
 
 alter table delivery
 add constraint delivery_employee_sent foreign key (employee_id_sent) references employee (id);

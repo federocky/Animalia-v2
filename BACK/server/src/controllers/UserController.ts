@@ -21,19 +21,16 @@ class UserController {
 
     }
 
+    /**Funcion que recibe un user y se utiliza para actualizar su nombre, apellido,
+     * email, activo o telefono.
+     */
     public async update (req: Request, res: Response) {
 
-        const { id } = req.params;
+        //recibimos el id encriptado jwt
+        const id = req.user_id;
         
-
-        let user: User = {
-            name: req.body.name,
-            surname: req.body.surname,
-            email: req.body.email,
-            password: req.body.password,
-            active: req.body.active,
-            phone: req.body.phone,
-        }
+        //recogemos las variables enviadas en el body
+        const {name, surname, email, active, phone} = req.body;
 
         try{
 
@@ -41,7 +38,7 @@ class UserController {
                                         name = ?, surname = ?, email = ?,
                                         active = ?, phone = ?
                                         where id = ?`, 
-                                        [user.name, user.surname, user.email, user.active, user.phone, id]);
+                                        [name, surname, email, active, phone, id]);
 
             res.status(200).json({ok: true});
 
@@ -57,8 +54,14 @@ class UserController {
 
     }
 
-    public async getAddress (req: Request, res: Response) {
-        const { id } = req.params;
+
+    /**Funcion que devuelve la direccion del usuario utilizando el id
+     * desencriptado del jwt
+     */
+    public async showAddress (req: Request, res: Response) {
+
+        //recibimos el id encriptado jwt
+        const id = req.user_id;
 
         /**Realizo la consulta a la BBDD */
         const query = await db.query(`SELECT address.* FROM user
@@ -80,7 +83,7 @@ class UserController {
     }
 
 
-    public async setAddress( req: Request, res: Response) {
+    public async storeAddress( req: Request, res: Response) {
 
         const address: Address = { 
             street_name: req.body.street_name,
@@ -94,7 +97,9 @@ class UserController {
             details: req.body.details,
             active: true
          };
-        const { id } = req.params;
+
+        //recibimos el id encriptado jwt
+        const id = req.user_id;
 
         //TODO: al cambiar la direccion deberiamos ver si el usuario tiene mas para quitarlas de principal.
         try{
