@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Address } from '../models/address.model';
 import { User } from '../models/user.model';
@@ -14,14 +14,29 @@ export class UserService {
   constructor( private http: HttpClient ) { }
 
   getAddress( id: number ){
-    return this.http.get(`${this.url}${this.route}/address/${id}`);
+
+    const headers = new HttpHeaders({
+      'auth-token': localStorage.getItem('auth-token')
+    });
+
+    return this.http.get(`${this.url}${this.route}/address/${id}`, {headers: headers});
   }
 
-  setAddress( id: number, address: Address){
-    return this.http.put(`${this.url}${this.route}/address/${id}`, address);
+  setAddress( address: Address){
+
+    const headers = new HttpHeaders({
+      'auth-token': localStorage.getItem('auth-token')
+    });
+
+    return this.http.put(`${this.url}${this.route}/address/`, address, {headers: headers});
   }
 
   updateUser( user: User ){
-    return this.http.put(`${this.url}${this.route}/${user.id}`, user);
+
+    const headers = new HttpHeaders({
+      'auth-token': localStorage.getItem('auth-token')
+    });
+
+    return this.http.put(`${this.url}${this.route}/${user.id}`, user, {headers: headers});
   }
 }

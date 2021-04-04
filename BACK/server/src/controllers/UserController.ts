@@ -43,7 +43,7 @@ class UserController {
             res.status(200).json({ok: true});
 
         } catch (error){
-            res.status(400).json({ok: false});
+            res.status(400).json({ok: false, error: error.errno});
             console.log(error);
         }
 
@@ -63,40 +63,36 @@ class UserController {
         //recibimos el id encriptado jwt
         const id = req.user_id;
 
-        /**Realizo la consulta a la BBDD */
-        const query = await db.query(`SELECT address.* FROM user
-                                     JOIN user_address ua 
-                                     ON user.id = ua.user_id
-                                     JOIN address
-                                     ON ua.address_id = address.id
-                                     WHERE user.id = ${id}
-                                     AND main_address = true`);
-    
-        if( query.length == 0) res.status(400).json({ok: false, message: 'No address found'});
-    
+        try{
 
-        const address: Address = { ...query[0] };
+            /**Realizo la consulta a la BBDD */
+            const query = await db.query(`SELECT address.* FROM user
+            JOIN user_address ua 
+            ON user.id = ua.user_id
+            JOIN address
+            ON ua.address_id = address.id
+            WHERE user.id = ${id}
+            AND main_address = true`);
+            
+            if( query.length == 0) res.status(400).json({ok: false, message: 'No address found'});
+            
+            
+            const address: Address = { ...query[0] };
+            
+            //Devuelvo los datos respuesta.
+            res.status(200).json({ok: true, data: address});
 
-        //Devuelvo los datos respuesta.
-        res.status(200).json({ok: true, data: address});
+        }catch(error) {
+            res.status(400).json({ok: false, error: {code: error.errno, message: error.code}});
+            console.log(error);
+        }
 
     }
 
-
+    /**Funcion que recibe una direccion y la guarda como principal para ese usuario */
     public async storeAddress( req: Request, res: Response) {
 
-        const address: Address = { 
-            street_name: req.body.street_name,
-            street_number: req.body.street_number,
-            floor: req.body.floor,
-            letter: req.body.letter,
-            province: req.body.province,
-            locality: req.body.locality,
-            town: req.body.town,
-            postcode: req.body.postcode,
-            details: req.body.details,
-            active: true
-         };
+        const { ...address }: Address = req.body;
 
         //recibimos el id encriptado jwt
         const id = req.user_id;

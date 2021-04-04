@@ -59,7 +59,7 @@ export class OrderDetailsComponent implements OnInit {
     this.openAddressForm = false;
 
     /**si user.id es null el cliente es invitado por tanto se cargara al cliente invitado*/
-    this._userService.setAddress( this.user.id, this.address )
+    this._userService.setAddress( this.address )
       .subscribe( (res: any) => {
         this.address.id = res.address_id;
       })

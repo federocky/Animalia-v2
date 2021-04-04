@@ -7,6 +7,8 @@ interface Payload {
     exp: number;
 }
 
+//TODO: hay que mejorar la validacion, ver si no ha expirado, lo tienes en un video de FERNANDO HERRERa.
+//no en un video en una practica
 export const tokenValidation = (req: Request, res: Response, next: NextFunction) => {
 
     const token = req.header('auth-token');

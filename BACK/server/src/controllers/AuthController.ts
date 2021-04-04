@@ -8,23 +8,19 @@ import bcrypt from 'bcryptjs';
 
 import jwt from 'jsonwebtoken';
 
+//importamos funciones necesarias.
+import {Function} from '../utils/functions';
+
 
 class AuthController {
 
     /**Registro de usuario */
     public async signUp(req: Request, res: Response) {
 
-        //TODO: validar que se han rellenado todos los campos. ¿MIDDLEWARE?
+        //TODO:crear validación para password
 
         //creamos un usuario con los datos recibidos en el body
-        let user: User = {
-            name: req.body.name,
-            surname: req.body.surname,
-            email: req.body.email,
-            password: req.body.password,
-        } 
-
-        //let { name, surname, email, password } = req.body;
+        let { ...user }: User = req.body;
 
         //encriptamos la contraseña
         user.password = await encriptPassword( user.password );
@@ -48,16 +44,20 @@ class AuthController {
     /**Login de usuario */
     public async signIn(req: Request, res: Response) {
 
-        //TODO:comprobar que se han rellenado todos los campos.
-        
+        const { email, password } = req.body;
+
+        //TODO: validador de password.
+        //validamos el email
+        if( !email || !Function.validateEmail(email)) return res.status(200).json({ok: false, message: "invalid email"})
+
         let user = [];
-        user = await db.query('SELECT * FROM user WHERE email = ?', [req.body.email]);
+        user = await db.query('SELECT * FROM user WHERE email = ?', [email]);
         
         //si no encuentra el email en la bbdd
         if (user.length < 1) return res.status(400).json({ok: false, message: 'Email does not exists'});
 
         //comprobamos el password
-        const correct: boolean = await validatePassword(req.body.password, user[0].password);
+        const correct: boolean = await validatePassword(password, user[0].password);
 
         //si no es correcto
         if(!correct) return res.status(400).json({ok: false, message: 'incorrect password'});
@@ -69,7 +69,6 @@ class AuthController {
             expiresIn: 60 * 60 * 24     //caduca despues de un día 
         });
 
-        //FIXME: ¿esta bien mandar el token en el body? ¿es mejor en la cabecera?
         res.status(200).json({ok: true, data: user[0], token});
 
     }

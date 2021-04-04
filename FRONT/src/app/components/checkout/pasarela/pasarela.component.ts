@@ -37,7 +37,7 @@ export class PasarelaComponent implements OnInit {
 
   pay(){
 
-    this._orderService.store( this.user.id, this.address.id, this.cart)
+    this._orderService.store( this.address.id, this.cart)
       .subscribe( (res:any)  => {
         console.log(res);
 

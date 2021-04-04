@@ -1,6 +1,10 @@
 import { Router } from 'express';
 
+//controladores
 import { authController } from '../controllers/AuthController';
+
+//middlewares
+import { userValidation } from '../middlewares/user.middleware';
 
 class AuthRoutes {
 
@@ -11,7 +15,7 @@ class AuthRoutes {
     }
 
     config(): void {
-        this.router.post('/signup', authController.signUp);
+        this.router.post('/signup', userValidation, authController.signUp);
         this.router.post('/signin', authController.signIn);
     }
 
