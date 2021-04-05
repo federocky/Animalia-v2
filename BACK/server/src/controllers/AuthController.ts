@@ -17,10 +17,11 @@ class AuthController {
     /**Registro de usuario */
     public async signUp(req: Request, res: Response) {
 
-        //TODO:crear validación para password
-
         //creamos un usuario con los datos recibidos en el body
         let { ...user }: User = req.body;
+
+        //Validamos el passowrd
+        if(!user.password || user.password.length < 8) return res.status(400).json({ok: false, error: 'password must be at least 8 chars long'});
 
         //encriptamos la contraseña
         user.password = await encriptPassword( user.password );

@@ -39,9 +39,6 @@ export class PasarelaComponent implements OnInit {
 
     this._orderService.store( this.address.id, this.cart)
       .subscribe( (res:any)  => {
-        console.log(res);
-
-        this.deleteShoppingInfo();
 
         Swal.fire({
           icon: 'success',
@@ -50,12 +47,12 @@ export class PasarelaComponent implements OnInit {
           allowOutsideClick: false,
           showConfirmButton: true,
         }).then((result) => {
-          //si se elige logar/registrar
           if(result.isConfirmed) this.router.navigateByUrl('home');
         });
 
       }, err => {
         console.log(err);
+        //TODO: manejar error
       }); 
   }
 

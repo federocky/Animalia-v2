@@ -27,9 +27,6 @@ export class OrderDetailsComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-      
-    //si no esta logado lo mando fuera
-    if( !this._authService.loggedIn() ) this.router.navigateByUrl('checkout/detalles')
 
     /**Si esta logado recupero los datos de usuario del local storage*/
     this.user = JSON.parse(localStorage.getItem('user'));

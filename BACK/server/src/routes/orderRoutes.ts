@@ -23,8 +23,6 @@ class OrderRoutes {
         this.router.get('/edit/:id', orderController.edit);
         this.router.put('/:id', orderController.update);
         this.router.delete('/:id', orderController.destroy);
-
-        this.router.post('/updateStock', tokenValidation, orderController.updateStock);
     }
 }
 

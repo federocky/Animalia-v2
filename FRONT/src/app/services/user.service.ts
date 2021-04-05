@@ -16,7 +16,8 @@ export class UserService {
   getAddress( id: number ){
 
     const headers = new HttpHeaders({
-      'auth-token': localStorage.getItem('auth-token')
+      'auth-token': localStorage.getItem('auth-token'),
+      'token-expire': localStorage.getItem('token-expire')
     });
 
     return this.http.get(`${this.url}${this.route}/address/${id}`, {headers: headers});
@@ -25,7 +26,8 @@ export class UserService {
   setAddress( address: Address){
 
     const headers = new HttpHeaders({
-      'auth-token': localStorage.getItem('auth-token')
+      'auth-token': localStorage.getItem('auth-token'),
+      'token-expire': localStorage.getItem('token-expire')
     });
 
     return this.http.put(`${this.url}${this.route}/address/`, address, {headers: headers});
@@ -34,7 +36,8 @@ export class UserService {
   updateUser( user: User ){
 
     const headers = new HttpHeaders({
-      'auth-token': localStorage.getItem('auth-token')
+      'auth-token': localStorage.getItem('auth-token'),
+      'token-expire': localStorage.getItem('token-expire')
     });
 
     return this.http.put(`${this.url}${this.route}/${user.id}`, user, {headers: headers});

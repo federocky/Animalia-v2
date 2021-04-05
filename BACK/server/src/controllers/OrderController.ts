@@ -1,6 +1,6 @@
 import { Cart } from './../models/cart.model';
 import { ProductQty } from './../models/productQty.model';
-import { Request, Response } from 'express';
+import { Request, response, Response } from 'express';
 
 //traemos la bbdd
 import db from '../database';
@@ -26,6 +26,15 @@ class OrderController {
         //recibimos la direccion de envío y el carro
         const address_id = req.body.address_id;
         const cart: Cart = req.body.cart;
+
+
+        //comprobamnos y actualizamos el stock de los productos
+        if(!await updateStock(user_id, cart)) {
+            console.log('aqui otra cosa');
+            return res.status(400).json({ok:false, message: 'Invalid stock'});
+        } else {
+            console.log('aqui algo');
+        }
 
 
         //TODO: esto deberia ser una transaction, pero esta complicada la cosa.
@@ -54,37 +63,7 @@ class OrderController {
 
     } 
 
-    /**Funcion que actualiza el stock cuando el cliente se dispone a pagar un pedido */
-    public async updateStock(req: Request, res: Response){
-
-        //recibimos el desencriptado del token
-        const user_id = req.user_id;
-
-        //recibimos el carro
-        const cart: Cart = req.body.cart;
-
-        //TODO: esto deberia ser una transacción.
-        try{
-
-            let stock;
-
-            cart.productQty.forEach( async (element: ProductQty) => {
-                stock = await db.query(`SELECT stock FROM product WHERE id = ?`, [element.product.id]);
-
-                if(stock[0] < element.qty) throw Error;
-
-                await db.query(`UPDATE product SET stock = ? where id = ?`,
-                                [element.qty - stock[0], element.product.id]);
-            });
-
-        } catch(error){
-            console.log(error);
-            //aqui iria el rollback de la transaccion.
-        }
-
-
-
-    }
+    
 
     /**devuelve un producto por id asi como su rating y numero de votos */
     public async show (req: Request, res: Response) {
@@ -101,6 +80,54 @@ class OrderController {
     public async destroy (req: Request, res: Response) {
 
     }
+
+}
+
+/**Funcion en la que actualizamos el stock de los productos comprados. */
+async function updateStock( user_id: number, cart: Cart): Promise<boolean>{
+
+    //TODO: esto deberia ser una transacción.
+
+    let stock;
+
+    async function recorreProducto() {
+
+        ///cart.productQty.forEach( async (element: ProductQty) => {
+        for ( const element of cart.productQty){    
+
+            console.log('entramos al bucle');
+
+            try{
+                //recogemos el stock de cada producto
+                stock = await db.query(`SELECT stock FROM product WHERE id = ?`, [element.product.id]);
+                
+                /*la consulta nos devuelve un array de RowDataPacket por lo que accedemos a la 
+                primera posicion y propiedad stock*/
+                stock = stock[0].stock;
+                
+                
+                //si el stock es menor que la cantidad lanzamos error.
+                if(stock < element.qty) throw new Error('Invalid stock');
+                
+                
+                //actualizamos el stock en la BBDD
+                await db.query(`UPDATE product SET stock = ? where id = ?`,
+                [stock - element.qty, element.product.id]);
+                
+            }catch (error){
+                console.log(error);
+                console.log('confirmo que estoy en catch');
+                return false;
+                //TODO:aqui iria el rollback de la transaccion.
+            }
+        };
+    }
+
+    if(!await recorreProducto())return false;
+
+    //TODO:aqui iria la confirmacion de la transaccion
+    console.log('me estoy saltando el bucle');
+    return true;
 
 }
 

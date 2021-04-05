@@ -21,7 +21,8 @@ export class OrderService {
   store( address_id: number, cart: Cart){  
 
     const headers = new HttpHeaders({
-      'auth-token': localStorage.getItem('auth-token')
+      'auth-token': localStorage.getItem('auth-token'),
+      'token-expire': localStorage.getItem('token-expire')
     });
 
     return this.http.post(`${this.url}${this.route}`, {address_id, cart}, {headers: headers});
