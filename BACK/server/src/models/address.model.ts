@@ -1,4 +1,5 @@
 export interface Address {
+    id: number;
     street_name: string;
     street_number: string;
     floor: string;

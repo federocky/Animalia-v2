@@ -30,7 +30,7 @@ export class UserService {
       'token-expire': localStorage.getItem('token-expire')
     });
 
-    return this.http.put(`${this.url}${this.route}/address/`, address, {headers: headers});
+    return this.http.post(`${this.url}${this.route}/address/`, address, {headers: headers});
   }
 
   updateUser( user: User ){

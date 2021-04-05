@@ -16,7 +16,10 @@ class OrderController {
         
     }
     
-
+    /**Funcion que recibe un carro y una direccion asi como el usuario encriptado en el token
+     * Se comprueba si el stock es correcto. De ser asi se guarda el pedido y actualiza el stock
+     * si el stock es incorrecto se devuelve el error.
+     */
     public async store (req: Request, res: Response) {
         
         //recibimos el desencriptado del token
@@ -29,12 +32,7 @@ class OrderController {
 
 
         //comprobamnos y actualizamos el stock de los productos
-        if(!await updateStock(user_id, cart)) {
-            console.log('aqui otra cosa');
-            return res.status(400).json({ok:false, message: 'Invalid stock'});
-        } else {
-            console.log('aqui algo');
-        }
+        if(!await updateStock(user_id, cart)) return res.status(400).json({ok:false, message: 'Invalid stock'});
 
 
         //TODO: esto deberia ser una transaction, pero esta complicada la cosa.
@@ -90,6 +88,9 @@ async function updateStock( user_id: number, cart: Cart): Promise<boolean>{
 
     let stock;
 
+    /**he tenido que meter esta funcion dentro de la funcion para que 
+     * pueda funciona bien el bucle asincrono, de otro modo me daba error.
+     */
     async function recorreProducto() {
 
         ///cart.productQty.forEach( async (element: ProductQty) => {
@@ -107,7 +108,7 @@ async function updateStock( user_id: number, cart: Cart): Promise<boolean>{
                 
                 
                 //si el stock es menor que la cantidad lanzamos error.
-                if(stock < element.qty) throw new Error('Invalid stock');
+                if(stock < element.qty)  throw new Error('Invalid stock');
                 
                 
                 //actualizamos el stock en la BBDD
@@ -126,7 +127,6 @@ async function updateStock( user_id: number, cart: Cart): Promise<boolean>{
     if(!await recorreProducto())return false;
 
     //TODO:aqui iria la confirmacion de la transaccion
-    console.log('me estoy saltando el bucle');
     return true;
 
 }

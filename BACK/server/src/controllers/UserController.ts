@@ -97,7 +97,6 @@ class UserController {
         //recibimos el id encriptado jwt
         const id = req.user_id;
 
-        //TODO: al cambiar la direccion deberiamos ver si el usuario tiene mas para quitarlas de principal.
         try{
             const response = await db.query(`INSERT INTO address (street_name, street_number, floor, letter, province, locality, town, postcode, details) 
                                              VALUES (?,?,?,?,?,?,?,?,?)`, 
@@ -108,12 +107,36 @@ class UserController {
                             VALUES(?,?,?)`,
                             [id, response.insertId, true ]);
 
+            //dejamos la nueva direccion como principal
+            await updateMainAddress(id, response.insertId);
+
             res.status(200).json({ok: true, address_id: response.insertId});
                             
         } catch (error) {
-
-            res.status(400).json({ok: false, message: 'Error with bbdd'});
+            console.log(error);
+            res.status(400).json({ok: false, message: 'Error saving the address'});
         }
+    }
+
+    
+
+
+}
+
+/**
+ * Function que recibe el ID de un usuario y la dirección principal.
+ * Todas las otras direcciones de este usuario dejaran de ser la principal. 
+ */
+async function updateMainAddress(user_id: number, address_id: number) {
+
+    try {            
+        const aver = await db.query(`UPDATE user_address SET main_address = 0 
+        WHERE user_id = ? 
+        AND main_address = 1 
+        AND address_id != ?`, [user_id, address_id]);
+
+    } catch(error) {
+        console.log(error);
     }
 
 }

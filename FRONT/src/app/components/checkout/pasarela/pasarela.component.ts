@@ -51,8 +51,20 @@ export class PasarelaComponent implements OnInit {
         });
 
       }, err => {
+
         console.log(err);
-        //TODO: manejar error
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          html: '<h6 class="text-success">Alguien se te ha adelantado y el stock de alguno de tus productos ha cambiado</h6>',
+          allowOutsideClick: false
+        }).then((result) => {
+          //TODO: seria mejor saber que producto tiro el erro y actualizarlo en el carro.
+          //Lo dejo como posible mejora.
+          this.deleteShoppingInfo();
+          this.router.navigateByUrl('tienda');
+        });
       }); 
   }
 
