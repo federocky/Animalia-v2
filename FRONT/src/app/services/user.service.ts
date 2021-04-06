@@ -34,7 +34,6 @@ export class UserService {
   }
 
   updateUser( user: User ){
-
     const headers = new HttpHeaders({
       'auth-token': localStorage.getItem('auth-token'),
       'token-expire': localStorage.getItem('token-expire')

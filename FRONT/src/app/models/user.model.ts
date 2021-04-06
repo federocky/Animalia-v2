@@ -10,4 +10,5 @@ export interface User {
     is_admin?: boolean;
     registered_on?: Date;
     address?: Address;
+    active?: boolean;
 }

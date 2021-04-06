@@ -43,7 +43,7 @@ export class AddressFormComponent implements OnInit {
       locality: new FormControl('', Validators.required),
       town: new FormControl('', Validators.required),
       postcode: new FormControl('', [Validators.required, Validators.pattern('[0-9]{5}')]),
-      details: new FormControl('', Validators.required)
+      details: new FormControl('')
   });
 
   this.setFormControlsVariables();

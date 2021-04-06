@@ -37,6 +37,7 @@ export class AuthService {
 
   /**Registra usuario */
   signUp( user: User ){
+    user.active = true;
     return this.http.post(`${this.url}${this.route}/signup`, user);
   }
 

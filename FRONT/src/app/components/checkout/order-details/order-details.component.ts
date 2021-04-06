@@ -42,6 +42,7 @@ export class OrderDetailsComponent implements OnInit {
       }, err => {
         //si no tiene direccion
         this.hasAddress = false;
+        console.log(err.error.message);
       });
 
   }
@@ -56,17 +57,19 @@ export class OrderDetailsComponent implements OnInit {
     this._userService.setAddress( this.address )
       .subscribe( (res: any) => {
         this.address.id = res.address_id;
-        console.log(res);
+      }, err => {
+        console.log(err);
       });
   }
 
 
 
   savePhone(){
-    console.log(this.user.phone);
     this._userService.updateUser( this.user )
       .subscribe( (res:any) => {
-        console.log(res);
+        if(res.ok) localStorage.setItem('user', JSON.stringify(this.user));
+      }, err => {
+        console.log(err);
       });
   }
 

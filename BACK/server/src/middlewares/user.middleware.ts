@@ -6,8 +6,6 @@ export const userValidation = (req: Request, res: Response, next: NextFunction) 
 
     //TODO: meter alguna validación mas telefono
 
-console.log('aqui qui');
-
     let errors = new Array();
 
     const {name, surname, email, active, phone} = req.body;
@@ -22,8 +20,7 @@ console.log('aqui qui');
     else if(!Function.validateEmail(email)) errors.push('email not valid');
 
     if( !active ) errors.push('active is required');
-    else if(typeof active != 'boolean') errors.push('active must be a boolean value');
-
+    //else if(typeof active != 'boolean') errors.push('active must be a boolean value');
 
     if( !phone ) errors.push('phone is required');
 

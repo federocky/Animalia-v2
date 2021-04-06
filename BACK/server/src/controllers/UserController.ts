@@ -50,12 +50,13 @@ class UserController {
 
     }
 
+  
     public async destroy (req: Request, res: Response) {
 
     }
 
 
-    /**Funcion que devuelve la direccion del usuario utilizando el id
+    /**Funcion que devuelve la direccion principal del usuario utilizando el id
      * desencriptado del jwt
      */
     public async showAddress (req: Request, res: Response) {
@@ -74,7 +75,7 @@ class UserController {
             WHERE user.id = ${id}
             AND main_address = true`);
             
-            if( query.length == 0) res.status(400).json({ok: false, message: 'No address found'});
+            if( query.length == 0) return res.status(400).json({ok: false, message: 'No address found'});
             
             
             const address: Address = { ...query[0] };
