@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+//COMPONENTES
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/shared/header/header/header.component';
 import { NavBarComponent } from './components/shared/header/nav-bar/nav-bar.component';
@@ -35,6 +36,8 @@ import { AddressFormComponent } from './components/shared/address-form/address-f
 import { PasarelaComponent } from './components/checkout/pasarela/pasarela.component';
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +67,7 @@ import { PasarelaComponent } from './components/checkout/pasarela/pasarela.compo
     app_routing,
     NgxPaginationModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

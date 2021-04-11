@@ -4,6 +4,10 @@ import { Variables } from './../../../common/utils';
 import { ProductService } from './../../../services/product.service';
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
+//sweet alert
+import Swal from 'sweetalert2';
+
+
 //para el paso de parametros
 import { Router } from '@angular/router';
 
@@ -73,6 +77,13 @@ export class ArticulosTiendaComponent implements OnInit, OnChanges {
       .subscribe( (res:any) => {
         this.products = res.data;
         this.productsToShow = [...res.data];
+      }, err => {
+        Swal.fire({
+          allowOutsideClick: true,
+          title: 'Oops...',
+          icon: 'warning',
+          text: 'Estamos actualizando nuestra tienda, por favor, vuelva mas tarde'
+        });
       });
   }
 

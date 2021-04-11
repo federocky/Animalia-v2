@@ -67,13 +67,16 @@ onSubmit(): void{
         this.router.navigateByUrl('/tienda');
 
       }, err => {
-        console.log(err);
+
+        let errorMessage = 'Connection error';
+        if(err.error.code == 1) errorMessage = 'El email no existe';
+        else if( err.error.code == 2) errorMessage = 'Password incorrecto';
 
         Swal.fire({
           allowOutsideClick: true,
           title: 'ERROR',
           icon: 'error',
-          text: 'error, mira la consola'
+          text: errorMessage
         });
       })
   }

@@ -100,13 +100,7 @@ export class RegisterComponent implements OnInit {
       Swal.showLoading();
 
       //creamos un usuario aux
-      const user: User = {
-        name: this.name.value,
-        surname: this.surname.value,
-        email: this.email.value,
-        phone: this.phone.value,
-        password: this.password.value
-      } 
+      const user: User = { ... this.myForm.value } 
 
 
       ///registramos el usuario en la bbdd
@@ -119,13 +113,14 @@ export class RegisterComponent implements OnInit {
           this.router.navigateByUrl('/login');
 
         }, err => {
-          console.log(err);
+          
+          let errorMessage: string = err.error.code == 1 ? 'El email ya existe' : 'Error de conexion';
 
           Swal.fire({
             allowOutsideClick: true,
             title: 'ERROR',
             icon: 'error',
-            text: 'El email ya existe'
+            text: errorMessage
           });
         })
     }

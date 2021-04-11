@@ -7,6 +7,7 @@ import { ArticuloCardTiendaComponent } from './components/tienda/articulo-card-t
 import { MainIndexComponent } from './components/index/main-index/main-index.component';
 import { MainTiendaComponent } from './components/tienda/main-tienda/main-tienda.component';
 import {RouterModule, Routes} from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 
 const APP_ROUTES: Routes = [
@@ -19,8 +20,8 @@ const APP_ROUTES: Routes = [
     { path: "login", component: LoginComponent },
 
     { path: "checkout/carrito", component: CartComponent },
-    { path: "checkout/detalles", component: OrderDetailsComponent },
-    { path: "checkout/pasarela", component: PasarelaComponent },
+    { path: "checkout/detalles", component: OrderDetailsComponent, canActivate: [AuthGuard] },
+    { path: "checkout/pasarela", component: PasarelaComponent, canActivate: [AuthGuard] },
 
     { path: '**', pathMatch: 'full', redirectTo: '' }
 ];

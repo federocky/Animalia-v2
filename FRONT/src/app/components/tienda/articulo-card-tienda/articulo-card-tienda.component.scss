@@ -25,6 +25,7 @@
             img{
                 margin: 0px 8px 8px 0px;
                 width: 60px;  
+                cursor: pointer;
             }
         }
         
@@ -40,7 +41,11 @@
             img{
                 max-width: 330px;
                 justify-self: center;
+                cursor: zoom-in;
             }
+
+            
+
 
             .details{
                 display: grid;
@@ -125,5 +130,24 @@
         
     }
 
+    .fullSizeImgContainer{
+        position: fixed;
+        top: 0px;
+        height: 100vh;
+        width: 100vw;
+        z-index: 1;
+        background-color: rgba($color: #000000, $alpha: 0.5);
+
+        img{
+            position: absolute;
+            height: 100vh;
+            width: auto;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: zoom-out;
+        }
+    }
 
 }
+
+

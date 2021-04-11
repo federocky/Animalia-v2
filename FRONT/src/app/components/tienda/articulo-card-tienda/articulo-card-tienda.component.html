@@ -1,19 +1,21 @@
-<main>
+<main class="animated fadeIn">
 
     <div class="container-gray" >
 
+        <div class="fullSizeImgContainer animated fadeIn" *ngIf="showBigImg" >
+            <img (click)="showBigImg = false"  [src]="imgRouteBig + imgToShow" alt="">
+        </div>
+
         <div class="card container">
 
-            <!--TODO: AGREGAR IMAGENES AQUI-->
-            <div class="miniaturas">
-                <img src="../../../../assets/img/peluqueria1.jpg" alt="">
-                <img src="../../../../assets/img/peluqueria1.jpg" alt="">
-                <img src="../../../../assets/img/peluqueria1.jpg" alt="">
+            <div class="miniaturas" *ngIf="product">
+                <img [src]=" imgRoute + product.img " alt="" (click)="imgToShow = product.img">
+                <img [src]=" imgRoute + 'descarga.jpg'" alt="" (click)="imgToShow = 'descarga.jpg'">
+                <img [src]=" imgRoute + 'descarga.jpg'" alt="" (click)="imgToShow = 'descarga.jpg'">
             </div>
 
             <div class="info" *ngIf="product">
-                <!--TODO: editar las imagenes-->
-                <img [src]=" imgRoute + img" alt="">
+                <img [src]=" imgRoute + imgToShow" alt="" (click)="showBigImg = true">
 
                 <div class="details">
                     <h3>{{product.name}}</h3>

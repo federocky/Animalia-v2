@@ -19,15 +19,15 @@ export class ArticuloCardTiendaComponent implements OnInit {
   productId: number;
   qtyOfProduct: number = 1;
   outOfStock: boolean = false;
+  imgToShow: string;
+  showBigImg: boolean = false;
 
   ///nos permite implementar el pintado de estrellas
   cantidadEstrellas = [1, 2, 3, 4, 5];
 
   //ruta de la imagen
   imgRoute: string = Variables.imgRouteProductsDetails;
-  
-  img: string = 'gusanito-azul2.jpg';
-
+  imgRouteBig: string = Variables.imgRouteProductsBig;
 
   constructor( private productService: ProductService,
               private _activatedRoute: ActivatedRoute,
@@ -48,6 +48,7 @@ export class ArticuloCardTiendaComponent implements OnInit {
     this.productService.getProduct( this.productId )
       .subscribe( (res:any) => {
         this.product = res.data[0];
+        this.imgToShow = this.product.img;
       })
   }
 

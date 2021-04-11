@@ -11,7 +11,6 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
 
   itemCount: BehaviorSubject<number>;
-  signedIn: boolean;
   
   constructor(private _cartService: CartService,
               private _authService: AuthService
@@ -19,10 +18,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.itemCount = this._cartService.getCartItemCount();
-    this._authService.getSignedIn()
-      .subscribe( res => {
-        this.signedIn = res;
-      });
   }  
 
 }

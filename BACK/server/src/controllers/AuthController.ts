@@ -33,10 +33,10 @@ class AuthController {
 
         } catch (error) {
             /**si existe el email */
-           if(error.errno == 1062) res.status(400).json({ok: false, message: 'the email already exists'});
+           if(error.errno == 1062) return res.status(400).json({ok: false, message: 'the email already exists', code: 1});
 
             /**cualquier otro error */
-            res.status(400).json({ok: false, message: 'Connection error'});
+            return res.status(400).json({ok: false, message: 'Connection error'});
         }
         
     }
@@ -55,13 +55,13 @@ class AuthController {
         user = await db.query('SELECT * FROM user WHERE email = ?', [email]);
         
         //si no encuentra el email en la bbdd
-        if (user.length < 1) return res.status(400).json({ok: false, message: 'Email does not exists'});
+        if (user.length < 1) return res.status(400).json({ok: false, message: 'Email does not exists', code: 1});
 
         //comprobamos el password
         const correct: boolean = await validatePassword(password, user[0].password);
 
         //si no es correcto
-        if(!correct) return res.status(400).json({ok: false, message: 'incorrect password'});
+        if(!correct) return res.status(400).json({ok: false, message: 'incorrect password', code: 2});
 
 
         /*FIXME: comprobar que se deberia poner en tokentest y tambien en el .env 
@@ -70,7 +70,7 @@ class AuthController {
             expiresIn: 60 * 60 * 24     //caduca despues de un día 
         });
 
-        res.status(200).json({ok: true, data: user[0], token});
+        return res.status(200).json({ok: true, data: user[0], token});
 
     }
 
