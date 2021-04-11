@@ -1,9 +1,13 @@
-import { Request, Response } from 'express';
+import { Product } from './../models/product.model';
+import { json, Request, Response } from 'express';
 
 //traemos la bbdd
 import db from '../database';
 
 class ProductsController {
+
+
+
 
     /**devuelve todos los productos con su rating y numero de votos. */
     public async index (req: Request, res: Response) {
@@ -25,9 +29,36 @@ class ProductsController {
 
     }
     
+
+
+
+
+    /**Funcion para guardar un nuevo producto
+     * devuelve id de producto o un error.
+     */
     public async store (req: Request, res: Response) {
-    
+        
+        const { ...product }: Product = req.body;
+
+        try{
+            const response = await db.query(`INSERT INTO product (name, description, price, brand, stock,
+                                           category_id, provider_id, img, active) 
+                                           VALUES (?,?,?,?,?,?,?,?,?)`, 
+                                           [product.name, product.description, product.price,
+                                            product.brand, product.stock, product.category_id,
+                                            product.provider_id, product.img, product.active]);
+
+            res.status(200).json({ok: true, data: response.insertId });
+
+        } catch (error) {
+            res.status(400).json({ok: false, message: 'Connection error'});
+        }
     } 
+
+
+
+
+
 
     /**devuelve un producto por id asi como su rating y numero de votos */
     public async show (req: Request, res: Response) {
@@ -64,12 +95,56 @@ class ProductsController {
         }
     }
 
+
+
+
+
     public async update (req: Request, res: Response) {
 
+        const { ...product }: Product = req.body;
+        const { id } = req.params;
+
+        try{
+            const response = await db.query(`UPDATE product SET name = ?, description = ?,
+                                             price = ?, brand = ?, stock = ?,
+                                             category_id = ?, provider_id = ?, img = ?
+                                             WHERE id = ?`, 
+                                           [product.name, product.description, product.price,
+                                            product.brand, product.stock, product.category_id,
+                                            product.provider_id, product.img, +id]);
+
+            if( response.affectedRows > 0) res.status(200).json({ok: true, data: product });
+
+            return res.status(400).json({ok: false, message: "Item not found", code: 1});
+
+        } catch (error) {
+            console.log(error);
+            return res.status(400).json({ok: false, message: "Connection error", code: 2});
+        }
     }
 
-    public async destroy (req: Request, res: Response) {
 
+
+
+
+    /**Funcion que elimina un producto por id */
+    public async destroy (req: Request, res: Response) {
+        
+        const { id } = req.params;
+
+        try {
+
+            const response = await db.query('UPDATE product SET active = 0 WHERE id = ?', [id]);
+
+            console.log(response);
+
+            if( response.affectedRows > 0 ) return res.status(200).json({ok: true});
+
+            return res.status(400).json({ok: false, message: "Item not found", code: 1});
+
+        } catch (error) {
+            return res.status(400).json({ok: false, message: "Connection error", code: 2});
+        }
     }
 
 }
