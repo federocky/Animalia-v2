@@ -7,17 +7,73 @@ import { User } from '../models/user.model';
 
 class UserController {
 
+    /**Funcion que devuelve todos los usuarios con sus respectivas direcciones. */
     public async index (req: Request, res: Response) {
-        res.json({data: 'hola'});
+        
+        try{
+            
+            //carga todos los usuarios
+            const users = await db.query(`SELECT * FROM user`);
+
+            /**Funcion que por cada usuario carga sus direcciones
+             * tenemos que poner la funcion asi porque si no no funciona la asincronia.
+             */
+            async function loadAddress() {
+
+                for ( const user of users){
+
+                    user.address =  await db.query(`SELECT * FROM address
+                                                    JOIN user_address
+                                                    ON user_address.address_id = address.id
+                                                    WHERE user_address.user_id = ?`, [user.id]);                  
+                }
+            }
+
+            await loadAddress();
+            
+            res.status(200).json({ok:true, data: users});
+
+        } catch(error){
+            res.status(404).json({ok: false, message: 'Server not working'});
+        }
     }
     
+
     public async store (req: Request, res: Response) {
     
     } 
 
+    /**Funcion que devuelve un usuario por id y sus direcciones si las tiene */
     public async show (req: Request, res: Response) {
                 
-    
+        const { id } = req.params;
+
+        try{
+
+            //recogemos al usuario
+            const user = await db.query(`SELECT *
+                                         FROM user
+                                         WHERE user.id = ? AND user.active = 1`, [id]);
+
+            
+            //si no encuentra el usuario                                         
+            if( user.length < 1) return res.status(404).json({ok: false, message: 'User not found', code: 1});
+
+            //si lo encuentra recibimos sus direcciones.
+            const address = await db.query(`SELECT * FROM address
+                                      JOIN user_address
+                                      ON user_address.address_id = address.id
+                                      WHERE user_address.user_id = ?`, [id]);
+
+            //cargamos las direcciones en el usuario
+            user[0].address = address;                      
+            
+            //devuelve al usuario y sus direcciones
+            res.status(200).json({ok: true, data: user});
+
+        } catch(error){
+            res.status(404).json({ok: false, message: 'Server not working'});
+        }
 
     }
 
@@ -50,8 +106,24 @@ class UserController {
 
     }
 
-  
+    /**FUNCION que hace un borrado logico de un usuario */
     public async destroy (req: Request, res: Response) {
+        
+        const { id } = req.params;
+
+        try {
+
+            const response = await db.query('UPDATE user SET active = 0 WHERE id = ?', [id]);
+
+            //si encuentra el producto
+            if( response.affectedRows > 0 ) return res.status(200).json({ok: true});
+
+            //si no lo encuentra
+            return res.status(400).json({ok: false, message: "User not found", code: 1});
+
+        } catch (error) {
+            return res.status(400).json({ok: false, message: "Connection error", code: 2});
+        }
 
     }
 
@@ -119,8 +191,42 @@ class UserController {
         }
     }
 
-    
+    /**Funcion que recibe una direccion y un id para actualizar sus datos. */
+    public async updateAddress( req: Request, res: Response){
 
+        const { ...address }: Address = req.body;
+        const { id } = req.params;
+
+        try{
+            const response = await db.query(`UPDATE address SET street_name = ?, street_number = ?,
+                                             floor = ?, letter = ?, province = ?,
+                                             locality = ?, town = ?, postcode = ?, details = ?,
+                                             WHERE id = ?`, 
+                                           [address.street_name, address.street_number, address.floor,
+                                            address.letter, address.province, address.locality,
+                                            address.town, address.postcode, address.postcode, +id]);
+
+            
+            if( response.affectedRows > 0) return res.status(200).json({ok: true, data: address });
+
+            //si no encuentra la direccion manda el error
+            return res.status(400).json({ok: false, message: "Address not found", code: 1});
+
+        } catch (error) {
+            return res.status(400).json({ok: false, message: "Connection error", code: 2});
+        }
+
+    }
+
+    public async indexAddressByUser( req: Request, res: Response){
+        
+    }
+
+    public async setAddressAsMain( req: Request, res: Response){
+
+    }
+
+    
 
 }
 

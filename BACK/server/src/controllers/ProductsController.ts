@@ -76,19 +76,15 @@ class ProductsController {
 
             /**si no encuentra ningún producto devolvemos el error
              * el return es necesario para evitar error ERR_HTTP_HEADERS_SENT*/            
-            if (product.length < 1) {
-
-                res.status(404).json({ok: false, message: 'Product not found'});
-                return;
-            }
+            if (product.length < 1) return res.status(404).json({ok: false, message: 'Product not found'});
+                
             
             res.status(200).json({ok: true, data: product});
 
         }catch(error){
 
             if(error.errno == 1054) {
-                res.status(404).json({ok: false, message: 'Incorrect parameter'});
-                return;
+                return res.status(404).json({ok: false, message: 'Incorrect parameter'});
             }
             
             res.status(404).json({ok: false, message: 'Server not working'});
@@ -98,7 +94,10 @@ class ProductsController {
 
 
 
-
+    /**Funcioin que recibe un producto en el body u su id en la cabecera 
+     * Actualiza el producto almacenado en el id con los nuevos datos.
+     * Si no encuentra devuelve error
+    */
     public async update (req: Request, res: Response) {
 
         const { ...product }: Product = req.body;
@@ -113,12 +112,13 @@ class ProductsController {
                                             product.brand, product.stock, product.category_id,
                                             product.provider_id, product.img, +id]);
 
-            if( response.affectedRows > 0) res.status(200).json({ok: true, data: product });
+            
+            if( response.affectedRows > 0) return res.status(200).json({ok: true, data: product });
 
+            //si no encuentra el producto manda el error
             return res.status(400).json({ok: false, message: "Item not found", code: 1});
 
         } catch (error) {
-            console.log(error);
             return res.status(400).json({ok: false, message: "Connection error", code: 2});
         }
     }
@@ -136,10 +136,10 @@ class ProductsController {
 
             const response = await db.query('UPDATE product SET active = 0 WHERE id = ?', [id]);
 
-            console.log(response);
-
+            //si encuentra el producto
             if( response.affectedRows > 0 ) return res.status(200).json({ok: true});
 
+            //si no lo encuentra
             return res.status(400).json({ok: false, message: "Item not found", code: 1});
 
         } catch (error) {

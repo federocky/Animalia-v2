@@ -9,5 +9,5 @@ export interface User {
     password: string;
     registered_on?: Date;
     active?: boolean;
-    address?: Address;
+    address?: Address | Address[];
 }
