@@ -218,11 +218,26 @@ class UserController {
 
     }
 
-    public async indexAddressByUser( req: Request, res: Response){
-        
-    }
-
+    /**Funcion que recibe el id de direccion por parametro y el id de usuario 
+     * encriptado en el token, asigna esa direccion como principal.
+     */
     public async setAddressAsMain( req: Request, res: Response){
+        
+        const { id } = req.params;
+
+        //recibimos el id encriptado jwt
+        const user_id = req.user_id;
+
+        try {
+
+            await updateMainAddress(user_id, +id);
+
+            res.status(200).json({ok: true, message: 'Address changed'});
+
+        } catch (error) {
+
+            res.status(400).json({ok:false, message: 'Unable to change the address'});
+        }
 
     }
 

@@ -34,6 +34,10 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { OrderDetailsComponent } from './components/checkout/order-details/order-details.component';
 import { AddressFormComponent } from './components/shared/address-form/address-form.component';
 import { PasarelaComponent } from './components/checkout/pasarela/pasarela.component';
+import { MainUserComponent } from './components/user/main-user/main-user.component';
+import { OrdersComponent } from './components/user/orders/orders.component';
+import { SettingsComponent } from './components/user/settings/settings.component';
+import { AddressComponent } from './components/user/address/address.component';
 
 
 
@@ -58,7 +62,11 @@ import { PasarelaComponent } from './components/checkout/pasarela/pasarela.compo
     LoginComponent,
     OrderDetailsComponent,
     AddressFormComponent,
-    PasarelaComponent
+    PasarelaComponent,
+    MainUserComponent,
+    OrdersComponent,
+    SettingsComponent,
+    AddressComponent
   ],
   imports: [
     BrowserModule,

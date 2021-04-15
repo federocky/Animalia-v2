@@ -25,7 +25,8 @@ class UserRoutes {
 
         this.router.get('/address/:id', tokenValidation, userController.showAddress);
         this.router.post('/address', tokenValidation, addressValidation, userController.storeAddress);
-        this.router.post('/address/:id', tokenValidation, addressValidation, userController.updateAddress);
+        this.router.put('/address/:id', tokenValidation, addressValidation, userController.updateAddress);
+        this.router.post('/address/:id', tokenValidation, userController.setAddressAsMain);
     }
 }
 
