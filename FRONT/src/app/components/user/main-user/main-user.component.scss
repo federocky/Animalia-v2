@@ -60,14 +60,21 @@
 
 .wrapper{
     display: none;
-    position: relative;
-    
+    position: absolute;
+    height: 100%;
+    transform: translateX(-195px);
+    transition: all 1s;
+
+    &:hover{
+        transform: translateX(0px);
+    }
+
     @include escritorio{
         display: flex;
     }
 
     .sidebar{
-        width: 200px;
+        width: 250px;
         background: $dark_header;
         padding: 30px 0px;
 
@@ -93,6 +100,7 @@
 
                 .fas{
                     width: 25px;
+                    float: right;
                 }
             }
 
@@ -108,17 +116,9 @@
     }
 
 
-
-
-
 }
   
-  
-  
-  
-  
-  @media (max-height: 500px){
-    .social_media{
-      display: none !important;
-    }
-  }
+main{
+    position: relative;
+    background-color: $gray_light;
+}

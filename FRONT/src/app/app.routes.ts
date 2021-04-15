@@ -30,7 +30,7 @@ const APP_ROUTES: Routes = [
     { path: "usuario", component: MainUserComponent, children: [
         { path: "pedidos", component: OrdersComponent },
         { path: "configuracion", component: SettingsComponent },
-        { path: "direccion", component: AddressComponent },
+        { path: "direccion", component: AddressComponent }
     ] },
 
     { path: '**', pathMatch: 'full', redirectTo: '' }
