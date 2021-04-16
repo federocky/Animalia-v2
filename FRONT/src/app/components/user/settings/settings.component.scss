@@ -1,0 +1,63 @@
+@import '../../../../assets/styles/mixins';
+@import '../../../../assets/styles/variables';
+
+.wrapper{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    h2{
+        font-family: $font_titulos;
+        text-align: center;
+        text-decoration: underline;
+        padding: 10px 0px;
+    }
+
+    @include escritorio{
+        padding-left: 30px;
+    }
+
+    section{
+        
+        background-color: #fff;
+        border-radius: 16px;
+        width: 90%;
+        padding: 12px;
+        margin: 22px 0px;
+        display: grid;
+        box-shadow: 3px 3px 5px #3c3c3c;
+        
+
+        .info{
+            display: flex;
+            justify-content: space-between;
+            padding: 26px;
+            margin-bottom: 12px;
+            border: 2px solid rgb(207, 206, 206);
+            border-radius: 16px;
+            box-shadow: 3px 3px 5px rgb(219, 219, 219);
+
+            .label{
+
+                p{
+                    margin: 0px;
+                }
+                .title{
+                    font-weight: bold;
+                }
+            }
+
+            button{
+                @include crearBoton($green_primary);
+                min-width: 150px;
+            }
+        }
+
+        >button{   
+            @include crearBoton($orange_secondary);
+            width: 250px;
+            justify-self: center;
+        }
+        
+    }
+}
