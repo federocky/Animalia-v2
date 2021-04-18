@@ -17,6 +17,10 @@ export class OrderService {
 
 
   constructor( private http: HttpClient ) { }
+
+  getOrders(){
+    return this.http.get(`${this.url}${this.route}`);
+  }
   
   store( address_id: number, cart: Cart){  
 
@@ -28,17 +32,15 @@ export class OrderService {
     return this.http.post(`${this.url}${this.route}`, {address_id, cart}, {headers: headers});
   }
 
+  getOrdersByUser( user_id: number ){
 
+    const headers = new HttpHeaders({
+      'auth-token': localStorage.getItem('auth-token'),
+      'token-expire': localStorage.getItem('token-expire')
+    });
 
-
-  //FIXME: creo que no estoy usando esto en ningun lado. No deberia asi que borralo.
-/*   setAddress( address: Address ){
-    this.address = address;
+    return this.http.get(`${this.url}${this.route}/user/${user_id}`, {headers: headers});
   }
-
-  getAddress(): Address{
-    return this.address;
-  } */
 
 
 

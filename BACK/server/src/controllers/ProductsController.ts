@@ -57,8 +57,7 @@ class ProductsController {
 
 
 
-
-
+    
 
     /**devuelve un producto por id asi como su rating y numero de votos */
     public async show (req: Request, res: Response) {

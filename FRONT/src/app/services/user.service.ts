@@ -13,6 +13,38 @@ export class UserService {
 
   constructor( private http: HttpClient ) { }
 
+
+  getUsers(){
+    return this.http.get(`${this.url}${this.route}`);
+  }
+
+
+  getUser( id: number ){
+    return this.http.get(`${this.url}${this.route}/${id}`);
+  }
+
+
+  updateUser( user: User ){
+    const headers = new HttpHeaders({
+      'auth-token': localStorage.getItem('auth-token'),
+      'token-expire': localStorage.getItem('token-expire')
+    });
+
+    return this.http.put(`${this.url}${this.route}/${user.id}`, user, {headers: headers});
+  }
+
+
+  deleteUser( id: number ){
+
+    const headers = new HttpHeaders({
+      'auth-token': localStorage.getItem('auth-token'),
+      'token-expire': localStorage.getItem('token-expire')
+    });
+
+    return this.http.delete(`${this.url}${this.route}/${id}`, {headers: headers});
+  }
+
+
   getAddress( id: number ){
 
     const headers = new HttpHeaders({
@@ -33,12 +65,26 @@ export class UserService {
     return this.http.post(`${this.url}${this.route}/address/`, address, {headers: headers});
   }
 
-  updateUser( user: User ){
+  updateAddress( address: Address ){
+
     const headers = new HttpHeaders({
       'auth-token': localStorage.getItem('auth-token'),
       'token-expire': localStorage.getItem('token-expire')
     });
 
-    return this.http.put(`${this.url}${this.route}/${user.id}`, user, {headers: headers});
+    return this.http.put(`${this.url}${this.route}/address/${address.id}`, address, {headers: headers});
   }
+
+  setAddressAsMain( address_id ){
+
+    const headers = new HttpHeaders({
+      'auth-token': localStorage.getItem('auth-token'),
+      'token-expire': localStorage.getItem('token-expire')
+    });
+
+    this.http.post(`${this.url}${this.route}/address/${address_id}`, address_id, {headers: headers});
+  }
+
+
+
 }

@@ -1,6 +1,8 @@
+import { Order } from './../models/order.model';
 import { Cart } from './../models/cart.model';
 import { ProductQty } from './../models/productQty.model';
-import { Request, response, Response } from 'express';
+import { Product } from '../models/product.model';
+import { Request, Response } from 'express';
 
 //traemos la bbdd
 import db from '../database';
@@ -10,6 +12,32 @@ class OrderController {
     /**devuelve todos los productos con su rating y numero de votos. */
     public async index (req: Request, res: Response) {
 
+        try{
+
+            const orders: Order[] = await db.query(`SELECT * FROM orders`);
+    
+            /**Funcion que por cada pediido carga sus productos
+             * tenemos que poner la funcion asi porque si no no funciona la asincronia.
+             */
+             async function loadInfo() {
+
+                for (const order of orders){
+
+                    order.details =  await db.query(`SELECT * FROM order_details
+                                                    WHERE order_id = ?`, [order.id]);     
+                    
+                    order.delivery = await db.query(`SELECT * FROM delivery WHERE order_id = ?`,[order.id])
+                    
+                }
+            }
+
+            await loadInfo();
+            
+            res.status(200).json({ok:true, data: orders});
+
+        } catch(error){
+            res.status(404).json({ok: false, message: 'Server not working'});
+        }
     }
 
     public async create(req: Request, res: Response) {
@@ -70,13 +98,53 @@ class OrderController {
     public async edit(req: Request, res: Response) {
         
     }
-
+    
+    /**Funcioin que recibe un producto en el body u su id en la cabecera 
+     * Actualiza el producto almacenado en el id con los nuevos datos.
+     * Si no encuentra devuelve error
+    */
     public async update (req: Request, res: Response) {
-
+        
     }
 
     public async destroy (req: Request, res: Response) {
 
+    }
+
+    /**Funcion que devuelve todos los pedidos de un usuario */
+    public async indexByUser( req: Request, res: Response){
+
+        //recibimos el id encriptado jwt
+        const id = req.user_id;
+    
+        try{
+    
+            const orders: Order[] = await db.query(`SELECT * FROM orders where user_id = ?`, [id]);
+    
+            /**Funcion que por cada pediido carga su informacion
+             */
+            async function loadInfo() {
+    
+                for (let order of orders){
+    
+                    order.details =  await db.query(`SELECT * FROM order_details
+                                                    WHERE order_id = ?`, [order.id]);     
+                    
+                    order.delivery = await db.query(`SELECT * FROM delivery WHERE order_id = ?`,[order.id])
+                    
+                    await loadProductInfo(order);
+                }
+            }
+    
+            await loadInfo();
+            
+            res.status(200).json({ok:true, data: orders});
+    
+        } catch(error){
+            res.status(404).json({ok: false, message: 'Server not working'});
+            console.log(error);
+        }
+    
     }
 
 }
@@ -129,6 +197,21 @@ async function updateStock( user_id: number, cart: Cart): Promise<boolean>{
     //TODO:aqui iria la confirmacion de la transaccion
     return true;
 
+}
+
+/**Funcion que carga toda la información de los productos pertenecientes a un pedido. */
+async function loadProductInfo(order: Order){
+
+    let productAux: Product[];
+    for (const product of order.details){
+    
+        productAux = await db.query(`SELECT * FROM product WHERE id = ?`, [product.id]);
+
+        product.product = productAux[0];
+    }
+
+    return order;
+    
 }
 
 

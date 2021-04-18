@@ -92,7 +92,7 @@ class UserController {
 
             const query = await db.query(`UPDATE user SET
                                         name = ?, surname = ?, email = ?,
-                                        active = ?, phone = ?, password = ?
+                                        active = ?, phone = ?
                                         where id = ?`, 
                                         [name, surname, email, active, phone, id]);
 

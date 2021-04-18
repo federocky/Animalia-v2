@@ -1,3 +1,4 @@
+import { Product } from './../../../../BACK/server/src/models/product.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -22,5 +23,18 @@ export class ProductService {
   getProduct( id: number ): Observable<any>{
     return this.http.get(`${this.url}${this.route}/${id}`);
   }
+
+  setNewProduct( product: Product ){
+    return this.http.post(`${this.url}${this.route}`, product);
+  }
+
+  updateProduct( product: Product ){
+    return this.http.put(`${this.url}${this.route}`, product);
+  }
+
+  deleteProduct( id: number ){
+    return this.http.delete(`${this.url}${this.route}/${id}`);
+  }
+
 
 }

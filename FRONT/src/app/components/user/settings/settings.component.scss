@@ -5,6 +5,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    min-height: 500px;
 
     h2{
         font-family: $font_titulos;
@@ -44,6 +45,11 @@
                 }
                 .title{
                     font-weight: bold;
+                }
+
+                input{
+                    border-radius: 6px;
+                    padding: 4px
                 }
             }
 

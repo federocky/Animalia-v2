@@ -1,0 +1,94 @@
+@import '../../../../assets/styles/mixins';
+@import '../../../../assets/styles/variables';
+
+.wrapper{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    min-height: 500px;
+
+    h2{
+        font-family: $font_titulos;
+        text-align: center;
+        text-decoration: underline;
+        padding: 10px 0px;
+    }
+
+    @include escritorio{
+        padding-left: 30px;
+    }
+
+    section{
+        
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        grid-gap: 16px;
+        width: 90%;
+        padding: 12px;
+        margin: 22px 0px;
+        
+        .new{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            div{
+                display: grid;
+                align-items: center;
+                text-align: center;
+                cursor: pointer;
+                transition: all 1.8s;
+
+                &:hover{
+                    transform: rotateY(360deg);
+
+                }
+
+                i{
+                    font-size: 30px;
+                    color: #3c3c3c;
+
+                }
+            }
+        }
+
+        .info{
+            
+            display: grid;
+            border: 2px solid gray;
+            min-height: 250px;
+            border-radius: 16px;
+            padding: 12px;
+            background-color: #fff;
+            box-shadow: 3px 3px 5px #3c3c3c;
+            position: relative;
+
+
+            p{
+                margin: 0px;
+                font-family: $font_contenido;
+                font-weight: bold;
+
+                span{
+                    font-weight: normal;
+                }
+            }
+
+            .main{
+                position: absolute;
+                right: 8px;
+                top: 8px;
+                text-align: center;
+                color: $orange_secondary;
+            }
+
+            .links{
+                display: flex;
+                justify-content: space-between;
+            }
+            
+        }
+
+        
+    }
+}

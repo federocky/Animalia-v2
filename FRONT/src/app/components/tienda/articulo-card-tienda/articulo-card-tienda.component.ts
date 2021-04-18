@@ -7,6 +7,9 @@ import { Component, OnInit} from '@angular/core';
 //para recibir parametros
 import { ActivatedRoute, Params } from '@angular/router';
 
+//sweet alert
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-articulo-card-tienda',
   templateUrl: './articulo-card-tienda.component.html',
@@ -49,7 +52,9 @@ export class ArticuloCardTiendaComponent implements OnInit {
       .subscribe( (res:any) => {
         this.product = res.data[0];
         this.imgToShow = this.product.img;
-      })
+      }, err => {
+        this.showError();
+      });
   }
 
   addProduct( product: Product ){
@@ -67,5 +72,15 @@ export class ArticuloCardTiendaComponent implements OnInit {
     setTimeout(() => {
       this.outOfStock = false;
     }, 4000);
+  }
+
+
+  showError(){
+    Swal.fire({
+      allowOutsideClick: true,
+      title: 'Oops...',
+      icon: 'warning',
+      text: 'Algo ha id mal'
+    });
   }
 }

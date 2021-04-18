@@ -5,6 +5,7 @@
         background-color: $gray_light;
         padding: 12px;
         text-align: center;
+        min-height: 500px;
         @include escritorio{
             display: grid;           
             text-align: left;
@@ -89,9 +90,13 @@
                             font-family: $font_titulos;
                             font-size: 36px;
                             margin-bottom: 0px;
+
+                            span{
+                                font-size: 20px;
+                            }
                         }
                         
-                        button{
+                        a{
                             margin-bottom: 8px;
                         }
                         
@@ -102,6 +107,7 @@
                                 button{
                                     width: 100%;
                                     margin-right: 8px;
+                                    text-align: center;
                                 }
                             }
                         }

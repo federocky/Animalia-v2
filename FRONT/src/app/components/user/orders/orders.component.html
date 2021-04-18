@@ -1,98 +1,34 @@
 
     
-    <div class="container container-gray" >
+    <div class="container container-gray" *ngIf="orders">
 
         <h2>Mis pedidos</h2>
         
-        <article class="order-container">
+        <article class="order-container" *ngFor="let order of orders">
             
             <div class="texto">
-                <h3>Pedido numero 2</h3>
-                <p>Pedido el <small>12/05/2020</small></p>
-                <p>Entregado el <small>25/05/2020</small></p>
+                <h3>Nº de pedido {{ order.id }}</h3>
+                <p>Pedido el <small>{{ order.date }}</small></p>
+                <p>Entregado el <small>{{ order.delivery.date_delivered }}</small></p>
             </div>
             
-            <div class="product-container">
+            <div class="product-container" *ngFor="let detail of order.details">
                 
                 <div class="info">
-                    <img src="../../../../assets/img/productos/editadas/oso-peluche.jpg" alt="">
+                    <img [src]=" imgRoute + detail.product.img" alt="">
                     
                     <div class="details">
-                        <h3>product.product.name</h3>
-                        <p class="descripcion">product.product.description</p>
-                        <p class="price">5.95</p>
+                        <h3> {{ detail.product.name }} </h3>
+                        <p class="descripcion">{{ detail.product.description }}</p>
+                        <p class="price"> €{{ detail.price }} <span> x {{ detail.qty }} </span> </p>
                         
                         <div class="botones">
-                            <button href="">Volver a comprar</button>
+                            <button (click)="viewProductDetails(detail.product.id)">Volver a comprar</button>
                             <button href="">Valorar producto</button>
                         </div>
                         
                     </div>
                     
-                </div>
-                
-            </div>
-            
-            <div class="product-container">
-                <div class="info">
-                    <img src="../../../../assets/img/productos/editadas/tubo-gato.jpg" alt="">
-                    
-                    <div class="details">
-                        <h3>product.product.name</h3>
-                        <p class="descripcion">product.product.description</p>
-                        <p class="price">5.95</p>
-                        
-                        <div class="botones">
-                            <button href="">Volver a comprar</button>
-                            <button href="">Valorar producto</button>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-            
-        </article>
-        
-        <article class="order-container">
-            <h3>Pedido numero 2</h3>
-            <p>Pedido el <small>12/05/2020</small></p>
-            <p>Entregado el <small>25/05/2020</small></p>
-            
-            <div class="product-container">
-                
-                <div class="info">
-                    <img src="../../../../assets/img/productos/editadas/oso-peluche.jpg" alt="">
-                
-                    <div class="details">
-                        <h3>product.product.name</h3>
-                        <p class="descripcion">product.product.description</p>
-                        <p class="price">5.95</p>
-                        
-                        <div class="botones">
-                            <button href="">Volver a comprar</button>
-                            <button href="">Valorar producto</button>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-                
-            </div>
-            
-            <div class="product-container">
-                <div class="info">
-                    <img src="../../../../assets/img/productos/editadas/tubo-gato.jpg" alt="">
-                    
-                    <div class="details">
-                        <h3>product.product.name</h3>
-                        <p class="descripcion">product.product.description</p>
-                        <p class="price">5.95</p>
-                        
-                        <div class="botones">
-                            <button href="">Volver a comprar</button>
-                            <button href="">Valorar producto</button>
-                        </div>
-                    </div>
                 </div>
                 
             </div>
