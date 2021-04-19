@@ -9,6 +9,6 @@ export interface User {
     password: string;
     is_admin?: boolean;
     registered_on?: Date;
-    address?: Address;
+    address?: Address[];
     active?: boolean;
 }

@@ -2,7 +2,7 @@
 
     <h2>Mis direcciones</h2>
 
-    <section>
+    <section *ngIf="user">
         
         <div class="new info">
             
@@ -13,57 +13,38 @@
             
         </div>
         
-        <div class="info">
+        <div class="info" *ngFor="let address of user.address">
             
-            <p class="title">Calle: <span> San Mateo</span></p>
+            <p class="title">Calle: <span> {{ address.street_name }}</span></p>
 
-            <p class="title">Numero:<span> 3</span></p>
+            <p class="title">Numero:<span> {{ address.street_number }}</span></p>
 
-            <p class="title">Piso:<span> 3</span></p>
+            <p class="title">Piso:<span> {{ address.floor }}</span></p>
 
-            <p class="title">Letra:<span> A</span></p>
+            <p class="title">Letra:<span> {{ address.letter }}</span></p>
 
-            <p class="title">Provincia:<span> Málaga</span></p>
+            <p class="title">Provincia:<span> {{ address.province }}</span></p>
 
-            <p class="title">Localidad:<span> Mijas</span></p>
+            <p class="title">Localidad:<span> {{ address.locality }}</span></p>
 
-            <p class="title">Ciudad:<span> Las Lagunas</span></p>
+            <p class="title">Ciudad:<span> {{ address.town }}</span></p>
 
-            <p class="title">Codigo Postal:<span> Aqui algo mas de informacion etc</span></p>
+            <p class="title">Codigo Postal:<span> {{ address.details }}</span></p>
 
-            <a href="#">Editar</a>
+            <a *ngIf="address.main_address">Editar</a>
 
-            <div class="main">
+            <div class="main" *ngIf="address.main_address">
                 <i class="fas fa-bookmark"></i>
                 <p>principal</p>
+
+            </div>
+
+            <div class="links" *ngIf="!address.main_address">
+                <a >Editar</a>
+                <a (click)="setMain(address.id)">Hacer principal</a>
+                <a (click)="deleteAddress(address.id)">Eliminar</a>
             </div>
                         
-        </div>
-
-        <div class="info">
-            
-            <p class="title">Calle: <span> San Mateo camino de coin y la madre que me pario</span></p>
-
-            <p class="title">Numero:<span> 3</span></p>
-
-            <p class="title">Piso:<span> 3</span></p>
-
-            <p class="title">Letra:<span> A</span></p>
-
-            <p class="title">Provincia:<span> Málaga</span></p>
-
-            <p class="title">Localidad:<span> Mijas</span></p>
-
-            <p class="title">Ciudad:<span> Las Lagunas</span></p>
-
-            <p class="title">Codigo Postal:<span> Aqui algo mas de informacion etc</span></p>
-            
-            <div class="links">
-                <a href="#">Editar</a>
-                <a href="#">Hacer principal</a>
-                <a href="#">Eliminar</a>
-            </div>
-
         </div>
 
         

@@ -10,4 +10,5 @@ export interface Address {
     postcode: number;
     details: string;
     active?: boolean;
+    main_address?: boolean;
 }

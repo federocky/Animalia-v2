@@ -13,12 +13,12 @@ export class UserService {
 
   constructor( private http: HttpClient ) { }
 
-
+  //devuelve los usuarios con sus direcciones
   getUsers(){
     return this.http.get(`${this.url}${this.route}`);
   }
 
-
+  //devuelve un usuario con sus direcciones.
   getUser( id: number ){
     return this.http.get(`${this.url}${this.route}/${id}`);
   }
@@ -82,7 +82,17 @@ export class UserService {
       'token-expire': localStorage.getItem('token-expire')
     });
 
-    this.http.post(`${this.url}${this.route}/address/${address_id}`, address_id, {headers: headers});
+    return this.http.post(`${this.url}${this.route}/address/${address_id}`, {address_id}, {headers: headers});
+  }
+
+  deleteAddress( address_id: number){
+
+    const headers = new HttpHeaders({
+      'auth-token': localStorage.getItem('auth-token'),
+      'token-expire': localStorage.getItem('token-expire')
+    });
+
+    return this.http.delete(`${this.url}${this.route}/address/${address_id}`, {headers: headers});
   }
 
 

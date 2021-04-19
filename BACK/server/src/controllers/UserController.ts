@@ -63,7 +63,8 @@ class UserController {
             const address = await db.query(`SELECT * FROM address
                                       JOIN user_address
                                       ON user_address.address_id = address.id
-                                      WHERE user_address.user_id = ?`, [id]);
+                                      WHERE user_address.user_id = ?
+                                      AND active = 1`, [id]);
 
             //cargamos las direcciones en el usuario
             user[0].address = address;                      
@@ -241,6 +242,27 @@ class UserController {
 
     }
 
+    /**FUNCION que hace un borrado logico de un usuario */
+    public async destroyAddress (req: Request, res: Response) {
+    
+        const { id } = req.params;
+
+        try {
+
+            const response = await db.query('UPDATE address SET active = 0 WHERE id = ?', [id]);
+
+            //si encuentra la direccion
+            if( response.affectedRows > 0 ) return res.status(200).json({ok: true});
+
+            //si no lo encuentra
+            return res.status(400).json({ok: false, message: "Address not found", code: 1});
+
+        } catch (error) {
+            return res.status(400).json({ok: false, message: "Connection error", code: 2});
+        }
+
+    }
+
     
 
 }
@@ -252,10 +274,13 @@ class UserController {
 async function updateMainAddress(user_id: number, address_id: number) {
 
     try {            
-        const aver = await db.query(`UPDATE user_address SET main_address = 0 
+        await db.query(`UPDATE user_address SET main_address = 0 
         WHERE user_id = ? 
-        AND main_address = 1 
-        AND address_id != ?`, [user_id, address_id]);
+        AND main_address = 1`, [user_id]);
+
+        await db.query(`UPDATE user_address SET main_address = 1 
+        WHERE user_id = ? 
+        AND address_id = ?`, [user_id, address_id]);
 
     } catch(error) {
         console.log(error);
