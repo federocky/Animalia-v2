@@ -31,7 +31,7 @@
 
             <p class="title">Codigo Postal:<span> {{ address.details }}</span></p>
 
-            <a *ngIf="address.main_address">Editar</a>
+            <a (click)="showAddressForm(address)" *ngIf="address.main_address">Editar</a>
 
             <div class="main" *ngIf="address.main_address">
                 <i class="fas fa-bookmark"></i>
@@ -40,7 +40,7 @@
             </div>
 
             <div class="links" *ngIf="!address.main_address">
-                <a >Editar</a>
+                <a (click)="showAddressForm(address)">Editar</a>
                 <a (click)="setMain(address.id)">Hacer principal</a>
                 <a (click)="deleteAddress(address.id)">Eliminar</a>
             </div>
@@ -49,4 +49,12 @@
 
         
     </section>
+
+    <div class="address_form" *ngIf="openAddressForm">
+        <app-address-form 
+            (address)="addressRecived( $event )" 
+            (close)="openAddressForm = false"
+            [addressRecived]="address"
+            ></app-address-form>
+    </div>
 </div>

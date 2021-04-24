@@ -1,6 +1,6 @@
 import { Address } from './../../../models/address.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-address-form',
@@ -10,6 +10,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class AddressFormComponent implements OnInit {
   @Output() address: EventEmitter<Address>;
   @Output() close: EventEmitter<boolean>;
+  @Input() addressRecived: Address;
 
   myForm: FormGroup;
 
@@ -30,20 +31,21 @@ export class AddressFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+
   }
 
   createForm(): void {
 
     this.myForm = new FormGroup({
-      street_name: new FormControl('', Validators.required), 
-      street_number: new FormControl('', Validators.required),
-      floor: new FormControl('', Validators.required),
-      letter: new FormControl('', Validators.required),
-      province: new FormControl('', Validators.required),
-      locality: new FormControl('', Validators.required),
-      town: new FormControl('', Validators.required),
-      postcode: new FormControl('', [Validators.required, Validators.pattern('[0-9]{5}')]),
-      details: new FormControl('')
+      street_name: new FormControl( this.addressRecived.street_name ? this.addressRecived.street_name : '', Validators.required), 
+      street_number: new FormControl(this.addressRecived.street_number ? this.addressRecived.street_number : '', Validators.required),
+      floor: new FormControl(this.addressRecived.floor ? this.addressRecived.floor : '', Validators.required),
+      letter: new FormControl(this.addressRecived.letter ? this.addressRecived.letter : '', Validators.required),
+      province: new FormControl(this.addressRecived.province ? this.addressRecived.province : '', Validators.required),
+      locality: new FormControl(this.addressRecived.locality ? this.addressRecived.locality : '', Validators.required),
+      town: new FormControl(this.addressRecived.town ? this.addressRecived.town : '', Validators.required),
+      postcode: new FormControl(this.addressRecived.postcode ? this.addressRecived.postcode : '', [Validators.required, Validators.pattern('[0-9]{5}')]),
+      details: new FormControl(this.addressRecived.details ? this.addressRecived.details : '')
   });
 
   this.setFormControlsVariables();
@@ -73,6 +75,8 @@ export class AddressFormComponent implements OnInit {
     else {
       const address: Address = this.myForm.value;
       
+      if( this.addressRecived.id ) address.id = this.addressRecived.id;
+
       this.address.emit( address );
     }
   }

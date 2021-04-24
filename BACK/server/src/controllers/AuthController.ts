@@ -79,7 +79,7 @@ class AuthController {
 
 //FIXME: mirar como poner esto como metodos privados de la clase.
 /**Encriptamos el password */
-async function encriptPassword( password: string ): Promise<string> {
+export async function encriptPassword( password: string ): Promise<string> {
     
     const salt = await bcrypt.genSalt(10);
     return bcrypt.hash(password, salt);
@@ -87,7 +87,7 @@ async function encriptPassword( password: string ): Promise<string> {
 
 
 /**Validamos si el password es correcto */
-async function validatePassword( passwordIntroducido: string, password: string ): Promise<boolean> {
+export async function validatePassword( passwordIntroducido: string, password: string ): Promise<boolean> {
     return await bcrypt.compare(passwordIntroducido, password);
 }
 

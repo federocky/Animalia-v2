@@ -21,6 +21,7 @@ class UserRoutes {
         this.router.get('/:id', userController.show);
         //this.router.get('/edit/:id', userController.edit);
         this.router.put('/:id', tokenValidation, userValidation, userController.update);
+        this.router.put('/password/:id', tokenValidation, userController.updatePassword); 
         this.router.delete('/:id', userController.destroy);
 
         this.router.get('/address/:id', tokenValidation, userController.showAddress);

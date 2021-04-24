@@ -3,8 +3,7 @@ import { Request, Response } from 'express';
 //traemos la bbdd
 import db from '../database';
 import { Address } from '../models/address.model';
-import { User } from '../models/user.model';
-
+import { encriptPassword, validatePassword } from './AuthController';
 class UserController {
 
     /**Funcion que devuelve todos los usuarios con sus respectivas direcciones. */
@@ -78,10 +77,54 @@ class UserController {
 
     }
 
+    /**Funcion para cambio de contraseña.
+     */
+    public async updatePassword (req: Request, res: Response) {
+
+        //recibimos el id encriptado jwt
+        const id = req.user_id;
+
+        //recogemos las variables enviadas en el body
+        let {newPassword, oldPassword} = req.body;
+
+        try{
+            //cogemos el password de la bbdd
+            const savedPassword = await db.query(`SELECT password FROM user WHERE id = ?`, [id]);
+
+            //si no encuentro el user por Id
+            if(savedPassword.length <= 0) return res.json({ok: false, message: 'User not found', code: 1});
+            
+            //comprobamos si el password introducido coincide con el almacenado
+            const correct: boolean = await validatePassword(oldPassword, savedPassword[0].password);
+    
+            //si no coincide devolvemos el error
+            if(!correct) return res.json({ok: false, message: 'Incorrect password', code: 2});
+    
+            //encriptamos el password
+            newPassword = await encriptPassword(newPassword);
+
+            //guardamos el nuevo password en la bbdd
+            const result = await db.query(`UPDATE user SET password = ? WHERE id = ?`, [newPassword, id]); 
+
+            ///devolvemos resultado afirmativo
+            if(result.affectedRows > 0) return res.status(200).json({ok: true, message: 'password changed'});
+
+            //en caso contrario resultado negativo
+            res.status(400).json({ok:false, message: 'Something went wrong', code: 3});
+
+        } catch (error){
+            console.log(error);
+
+            ///en caso de error devolvemos el error.
+            res.status(400).json({ok:false, message: 'Something went wrong', code: 4});
+        }
+
+    }
+    
     /**Funcion que recibe un user y se utiliza para actualizar su nombre, apellido,
      * email, activo o telefono.
      */
-    public async update (req: Request, res: Response) {
+     public async update (req: Request, res: Response) {
 
         //recibimos el id encriptado jwt
         const id = req.user_id;
@@ -199,13 +242,14 @@ class UserController {
         const { id } = req.params;
 
         try{
+
             const response = await db.query(`UPDATE address SET street_name = ?, street_number = ?,
                                              floor = ?, letter = ?, province = ?,
-                                             locality = ?, town = ?, postcode = ?, details = ?,
+                                             locality = ?, town = ?, postcode = ?, details = ?
                                              WHERE id = ?`, 
                                            [address.street_name, address.street_number, address.floor,
                                             address.letter, address.province, address.locality,
-                                            address.town, address.postcode, address.postcode, +id]);
+                                            address.town, address.postcode, address.details, +address.id]);
 
             
             if( response.affectedRows > 0) return res.status(200).json({ok: true, data: address });
@@ -214,6 +258,7 @@ class UserController {
             return res.status(400).json({ok: false, message: "Address not found", code: 1});
 
         } catch (error) {
+            console.log(error);
             return res.status(400).json({ok: false, message: "Connection error", code: 2});
         }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Address } from 'src/app/models/address.model';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
 
@@ -13,6 +14,10 @@ import Swal from 'sweetalert2';
 export class AddressComponent implements OnInit {
 
   public user: User;
+  public address: Address;
+
+  openAddressForm: boolean = false;
+
 
   constructor(private _userService: UserService) { }
 
@@ -65,6 +70,28 @@ export class AddressComponent implements OnInit {
         this.showError();
         console.log(err);
 
+      });
+  }
+
+  showAddressForm( address: Address ){
+    this.address = address;
+    this.openAddressForm = true;
+  }
+
+  addressRecived( address: Address ){
+
+    this.openAddressForm = false;
+
+    this._userService.updateAddress( address )
+      .subscribe( (res: any) => {
+
+        if(res.ok){
+          this.showLoading();
+          this.loadUser(this.user.id);
+        }
+
+      }, err => {
+        this.showError();
       });
   }
 
