@@ -2,6 +2,58 @@
 
     <h2>Mis pedidos</h2>
 
+    <div class="container_passowrd" *ngIf="showPasswordForm">
+                
+        <form [formGroup]="passwordForm">
+            <i class="far fa-times-circle" (click)="showPasswordForm = false"></i>
+            <div class="mb-3">
+                <label for="currentPassword" class="form-label">Introduzca su contraseña</label>
+                <input type="password" class="form-control" id="currentPassword" aria-describedby="emailHelp"
+                formControlName="oldPassword"
+                [ngClass]="{ 'is-invalid': oldPassword.invalid && ( oldPassword.dirty || oldPassword.touched),
+                    'is-valid': oldPassword.valid     && ( oldPassword.dirty || oldPassword.touched)}"
+                >
+
+                <div class="invalid-feedback" *ngIf="oldPassword.errors && (oldPassword.dirty || oldPassword.touched)">
+                    <span *ngIf="oldPassword.errors.required">Debe ingresar su contraseña</span>
+                    <span *ngIf="oldPassword.errors.minlength">El password debe contener al menos 8 caracteres</span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="newPassword" class="form-label">Introduzca la contraseña nueva</label>
+                <input type="password" class="form-control" id="newPassword" aria-describedby="emailHelp"
+                formControlName="newPassword"
+                [ngClass]="{ 'is-invalid': newPassword.invalid && ( newPassword.dirty || newPassword.touched),
+                    'is-valid': newPassword.valid     && ( newPassword.dirty || newPassword.touched)}"
+                >
+                <div class="invalid-feedback" *ngIf="newPassword.errors && (newPassword.dirty || newPassword.touched)">
+                    <span *ngIf="newPassword.errors.required">Debe ingresar su nueva contraseña</span>
+                    <span *ngIf="newPassword.errors.minlength">El password debe contener al menos 8 caracteres</span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="repeatPassword" class="form-label">Repita la contraseña</label>
+                <input type="password" class="form-control" id="repeatPassword"
+                formControlName="repeatPassword"
+                [ngClass]="{ 'is-invalid': repeatPassword.invalid && ( repeatPassword.dirty || repeatPassword.touched),
+                    'is-valid': repeatPassword.valid     && ( repeatPassword.dirty || repeatPassword.touched)}"
+                >
+                <div class="invalid-feedback" *ngIf="repeatPassword.errors && (repeatPassword.dirty || repeatPassword.touched)">
+                    <span *ngIf="repeatPassword.errors.required">Debe repetir su contraseña</span>
+                    <span *ngIf="repeatPassword.errors.noEsIgual">Las contraseñas no coinciden</span>
+
+                </div>
+            </div>
+
+            <button type="submit" (click)="submitPassword()">Enviar</button>
+        </form>
+            
+
+      
+    </div>
+
     <section *ngIf="user">
 
         <div class="info">
@@ -104,6 +156,8 @@
             <button (click)="changePhone = !changePhone">Cambiar Movil</button>
             
         </div>
+
+
         <div class="info">
             
             <div class="label">
@@ -111,8 +165,9 @@
                 <p>***********</p>
             </div>
             
-            <button>Cambiar Password</button>
-            
+            <button (click)="showPasswordForm = true">Cambiar Password</button>
+
+                       
         </div>
 
         <button (click)="onSubmit()">Enviar Cambios</button>

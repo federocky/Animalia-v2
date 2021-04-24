@@ -44,6 +44,16 @@ export class UserService {
     return this.http.delete(`${this.url}${this.route}/${id}`, {headers: headers});
   }
 
+  updatePassword( id: number, oldPassword: string, newPassword: string ){
+
+    const headers = new HttpHeaders({
+      'auth-token': localStorage.getItem('auth-token'),
+      'token-expire': localStorage.getItem('token-expire')
+    });
+
+    return this.http.put(`${this.url}${this.route}/password/${id}`, {oldPassword, newPassword}, {headers: headers});
+  }
+
 
   getAddress( id: number ){
 

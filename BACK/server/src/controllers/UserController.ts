@@ -92,13 +92,13 @@ class UserController {
             const savedPassword = await db.query(`SELECT password FROM user WHERE id = ?`, [id]);
 
             //si no encuentro el user por Id
-            if(savedPassword.length <= 0) return res.json({ok: false, message: 'User not found', code: 1});
+            if(savedPassword.length <= 0) return res.status(400).json({ok: false, message: 'User not found', code: 1});
             
             //comprobamos si el password introducido coincide con el almacenado
             const correct: boolean = await validatePassword(oldPassword, savedPassword[0].password);
     
             //si no coincide devolvemos el error
-            if(!correct) return res.json({ok: false, message: 'Incorrect password', code: 2});
+            if(!correct) return res.status(400).json({ok: false, message: 'Incorrect password', code: 2});
     
             //encriptamos el password
             newPassword = await encriptPassword(newPassword);

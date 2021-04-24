@@ -43,7 +43,6 @@ export class RegisterComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.pattern('[^ @]*@[^ @]+')]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       repeatPassword: new FormControl('',)
-      //FIXME: comprobar que la contraseña no se pueda repetir, ver fernando formularios.
   },{
     validators: this.passwordsIguales('password', 'repeatPassword')
   });

@@ -67,3 +67,37 @@
         
     }
 }
+
+.container_passowrd{
+    position: absolute;
+    background-color: rgba($color: #3c3c3c, $alpha: 0.8);
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+    padding-top: 50px;
+   
+
+    form{
+        background-color: #fff;
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 16px;
+        border-radius: 16px;
+        margin-top: 12px;
+        display: grid;
+
+        i{
+            color: $orange_secondary;
+            justify-self: flex-end;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        button{
+            @include crearBoton($green_primary);
+            width: 100%;
+            max-width: 400px;
+            justify-self: center;
+        }
+    }
+}
