@@ -29,11 +29,6 @@ export class AuthService {
     return this.signedIn;
   }
 
-  //TODO:BORRAR?
-/*   getSignedIn2(){
-    this.signedIn.subscribe( res => res);
-  } */
-
 
   /**Registra usuario */
   signUp( user: User ){

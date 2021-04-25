@@ -12,6 +12,9 @@ import { MainTiendaComponent } from './components/tienda/main-tienda/main-tienda
 import {RouterModule, Routes} from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { AddressComponent } from './components/user/address/address.component';
+import { MainAdminComponent } from './components/admin/main-admin/main-admin.component';
+import { AdminLoginComponent } from './components/admin/login/admin-login.component';
+
 
 
 const APP_ROUTES: Routes = [
@@ -31,6 +34,11 @@ const APP_ROUTES: Routes = [
         { path: "pedidos", component: OrdersComponent },
         { path: "configuracion", component: SettingsComponent },
         { path: "direccion", component: AddressComponent }
+    ] },
+
+    { path: "admin/login", component: AdminLoginComponent},
+    { path: "admin", component: MainAdminComponent, children: [
+
     ] },
 
     { path: '**', pathMatch: 'full', redirectTo: '' }

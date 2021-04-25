@@ -1,0 +1,46 @@
+<main>
+    <div class="container">
+
+        <h2>Inicia Sesíon</h2>
+
+        <form novalidate [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+            <!--EMAIL-->
+            <div class="form-group">
+                <label>Email:</label>
+                <input 
+                    type="email" 
+                    class="form-control"
+                    [ngClass]="{ 'is-invalid': email.invalid && ( email.dirty || email.touched),
+                              'is-valid': email.valid     && ( email.dirty || email.touched)}"
+                    formControlName="email">
+
+                <div class="invalid-feedback" *ngIf="email.errors && (email.dirty || email.touched)">
+                    <span *ngIf="email.errors.required">Debe ingresar su email</span>
+                    <span *ngIf="email.errors.pattern">Email no válido</span>
+                </div>
+            </div>
+
+
+            <!--PASSWORD-->
+            <div class="form-group">
+                <label>Contraseña:</label>
+                <input 
+                    type="password" 
+                    class="form-control"
+                    [ngClass]="{ 'is-invalid': password.invalid && ( password.dirty || password.touched),
+                              'is-valid': password.valid     && ( password.dirty || password.touched)}"
+                    formControlName="password">
+
+                <div class="invalid-feedback" *ngIf="password.errors && (password.dirty || password.touched)">
+                    <span *ngIf="password.errors.required">Debe ingresar un password</span>
+                    <span *ngIf="password.errors.minlength">El password debe contener al menos 8 caracteres</span>
+                </div>
+            </div>
+
+            <button type="submit">Iniciar Sesión</button>
+
+        </form>
+
+    </div>
+</main>

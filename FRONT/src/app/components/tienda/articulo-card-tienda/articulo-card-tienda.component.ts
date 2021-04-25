@@ -32,7 +32,7 @@ export class ArticuloCardTiendaComponent implements OnInit {
   imgRoute: string = Variables.imgRouteProductsDetails;
   imgRouteBig: string = Variables.imgRouteProductsBig;
 
-  constructor( private productService: ProductService,
+  constructor( private _productService: ProductService,
               private _activatedRoute: ActivatedRoute,
               private _cartService: CartService
     ) { }
@@ -48,7 +48,7 @@ export class ArticuloCardTiendaComponent implements OnInit {
 
   getProduct(): void {
     console.log('object');
-    this.productService.getProduct( this.productId )
+    this._productService.getProduct( this.productId )
       .subscribe( (res:any) => {
         this.product = res.data[0];
         this.imgToShow = this.product.img;

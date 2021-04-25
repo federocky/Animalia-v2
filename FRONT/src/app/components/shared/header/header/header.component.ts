@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   itemCount: BehaviorSubject<number>;
   
   constructor(private _cartService: CartService,
-              private _authService: AuthService
+              //private _authService: AuthService
     ) { }
 
   ngOnInit(): void {

@@ -38,6 +38,8 @@ import { MainUserComponent } from './components/user/main-user/main-user.compone
 import { OrdersComponent } from './components/user/orders/orders.component';
 import { SettingsComponent } from './components/user/settings/settings.component';
 import { AddressComponent } from './components/user/address/address.component';
+import { MainAdminComponent } from './components/admin/main-admin/main-admin.component';
+import { AdminLoginComponent } from './components/admin/login/admin-login.component'
 
 
 
@@ -66,7 +68,9 @@ import { AddressComponent } from './components/user/address/address.component';
     MainUserComponent,
     OrdersComponent,
     SettingsComponent,
-    AddressComponent
+    AddressComponent,
+    MainAdminComponent,
+    AdminLoginComponent
   ],
   imports: [
     BrowserModule,

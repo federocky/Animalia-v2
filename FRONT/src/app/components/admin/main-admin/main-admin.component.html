@@ -1,0 +1,41 @@
+<main>
+    
+    <div class="container-mvl">
+
+        <label class="icon-menu" for="menu-user-check"><i class="fas fa-bars"></i></label>
+        <div id="contenedor-menu">
+            
+            
+            <input type="checkbox" id="menu-user-check" name="menubar" >
+            <nav class="menu-user">
+                <a routerLink="/usuario/pedidos">Mis pedidos</a>
+                <a routerLink="/usuario/servicios">Mis servicios</a>
+                <a routerLink="/usuario/configuracion">Configuración</a>
+                <a routerLink="/usuario/direccion">Mis direcciones</a>
+                <a [routerLink]="['/tienda']">Tienda</a>
+            </nav>
+            
+        </div>
+    </div>
+        
+    
+    <div class="wrapper">
+        <div class="sidebar">
+            <h2>Hola, Federico</h2>
+            <ul>
+                <li><a routerLink="/usuario/pedidos"><i class="fas fa-shopping-cart"></i>Mis pedidos</a></li>
+                <li><a routerLink="/usuario/servicios"><i class="fas fa-calendar-check"></i>Mis servicios</a></li>
+                <li><a routerLink="/usuario/configuracion"><i class="fas fa-user"></i>Configuración</a></li>
+                <li><a routerLink="/usuario/direccion"><i class="fas fa-address-card"></i>Mis direcciones</a></li>
+                <li><a href="#"><i class="fas fa-blog"></i>Blogs</a></li>
+                <li><a href="#"><i class="fas fa-address-book"></i>Contact</a></li>
+                <li><a href="#"><i class="fas fa-map-pin"></i>Map</a></li>
+            </ul>
+        </div>
+    </div>
+
+        
+                
+    <router-outlet></router-outlet>
+    
+</main>

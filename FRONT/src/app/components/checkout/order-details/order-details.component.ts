@@ -22,7 +22,7 @@ export class OrderDetailsComponent implements OnInit {
   openAddressForm: boolean = false;
 
   constructor( private _userService: UserService,
-               private _authService: AuthService,
+               //private _authService: AuthService,
                private router: Router          
     ) { }
 
