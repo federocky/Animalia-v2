@@ -1,3 +1,6 @@
+import { AdminOrdersComponent } from './components/admin/pages/orders/admin-orders.component';
+import { TodoComponent } from './components/admin/pages/todo/todo.component';
+import { UserSideComponent } from './components/main-user/user-side-component';
 import { SettingsComponent } from './components/user/settings/settings.component';
 import { OrdersComponent } from './components/user/orders/orders.component';
 import { MainUserComponent } from './components/user/main-user/main-user.component';
@@ -18,30 +21,47 @@ import { AdminLoginComponent } from './components/admin/login/admin-login.compon
 
 
 const APP_ROUTES: Routes = [
-    { path: '', component: MainIndexComponent },
-    { path: "index", component: MainIndexComponent },
-    { path: "tienda", component: MainTiendaComponent },
-    { path: "tienda/:id", component: ArticuloCardTiendaComponent },
+    { path: 'main', component: UserSideComponent, children: [
+        { path: "index", component: MainIndexComponent },
+        { path: "tienda", component: MainTiendaComponent },
+        { path: "tienda/:id", component: ArticuloCardTiendaComponent },
+    
+        { path: "registro", component: RegisterComponent },
+        { path: "login", component: LoginComponent },
+    
+        { path: "checkout/carrito", component: CartComponent },
+        { path: "checkout/detalles", component: OrderDetailsComponent, canActivate: [AuthGuard] },
+        { path: "checkout/pasarela", component: PasarelaComponent, canActivate: [AuthGuard] },
+    
+        { path: "usuario", component: MainUserComponent, children: [
+            { path: "pedidos", component: OrdersComponent },
+            { path: "configuracion", component: SettingsComponent },
+            { path: "direccion", component: AddressComponent }
+        ] },
 
-    { path: "registro", component: RegisterComponent },
-    { path: "login", component: LoginComponent },
-
-    { path: "checkout/carrito", component: CartComponent },
-    { path: "checkout/detalles", component: OrderDetailsComponent, canActivate: [AuthGuard] },
-    { path: "checkout/pasarela", component: PasarelaComponent, canActivate: [AuthGuard] },
-
-    { path: "usuario", component: MainUserComponent, children: [
-        { path: "pedidos", component: OrdersComponent },
-        { path: "configuracion", component: SettingsComponent },
-        { path: "direccion", component: AddressComponent }
+        { path: '**', pathMatch: 'full', redirectTo: 'index' }
     ] },
+    
+
+
+
 
     { path: "admin/login", component: AdminLoginComponent},
     { path: "admin", component: MainAdminComponent, children: [
-
+        
+        {path: "todo", component: TodoComponent},
+        {path: "orders", component: AdminOrdersComponent},
+        
+        { path: '**', pathMatch: 'full', redirectTo: 'todo' }
     ] },
 
-    { path: '**', pathMatch: 'full', redirectTo: '' }
+
+
+
+
+
+    { path: '**', pathMatch: 'full', redirectTo: 'main' }
+
 ];
 
 export const app_routing = RouterModule.forRoot(APP_ROUTES);

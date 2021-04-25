@@ -40,7 +40,11 @@ import { SettingsComponent } from './components/user/settings/settings.component
 import { AddressComponent } from './components/user/address/address.component';
 import { MainAdminComponent } from './components/admin/main-admin/main-admin.component';
 import { AdminLoginComponent } from './components/admin/login/admin-login.component'
-
+import { UserSideComponent }  from './components/main-user/user-side-component';
+import { AdminHeaderComponent } from './components/admin/header/admin-header.component';
+import { TodoComponent } from './components/admin/pages/todo/todo.component';
+import { AdminOrdersComponent } from './components/admin/pages/orders/admin-orders.component'
+import { OrdersFilterPipe } from './pipes/orders.pipe'
 
 
 
@@ -70,7 +74,12 @@ import { AdminLoginComponent } from './components/admin/login/admin-login.compon
     SettingsComponent,
     AddressComponent,
     MainAdminComponent,
-    AdminLoginComponent
+    AdminLoginComponent,
+    UserSideComponent,
+    AdminHeaderComponent,
+    TodoComponent,
+    AdminOrdersComponent,
+    OrdersFilterPipe
   ],
   imports: [
     BrowserModule,

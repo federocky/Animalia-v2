@@ -1,0 +1,44 @@
+    <nav>
+
+        <div class="nav container">
+            <ul>
+                <li><a (click)="term = 'ordered'">Pedidos</a></li>
+                <li><a (click)="term = 'sent'">Enviados</a></li>
+                <li><a (click)="term = 'delivered'">Entregados</a></li>
+            </ul>
+        </div>    
+    </nav>
+    
+    <div class="container container-gray" *ngIf="orders">
+        
+        <article class="order-container" *ngFor="let order of orders | orderFilter: term">
+            
+            <div class="texto">
+                <h3>Nº de pedido {{ order.id }}</h3>
+                <p>Pedido el <small>{{ order.delivery.date_ordered | date}}</small></p>
+                <p>Enviado el <small>{{ order.delivery.date_sent }}</small></p>
+                <p>Entregado el <small>{{ order.delivery.date_delivered }}</small></p>
+            </div>
+            
+            <div class="product-container" *ngFor="let detail of order.details">
+                
+                <div class="info">
+                    <img [src]=" imgRoute + detail.product.img">
+                    
+                    <div class="details">
+                        <h3> {{ detail.product.name }} </h3>
+                        <p class="descripcion">{{ detail.product.description }}</p>
+                        <p class="price"> {{ detail.price }} <span> x {{ detail.qty }} </span> </p>                                                
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="botones">
+                <button>Enviado</button>
+                <button href="">Cancelar</button>
+            </div>
+        </article>
+        
+    </div>
+    

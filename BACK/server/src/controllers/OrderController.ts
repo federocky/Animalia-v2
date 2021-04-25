@@ -21,13 +21,18 @@ class OrderController {
              */
              async function loadInfo() {
 
+                let delivery;
+                
                 for (const order of orders){
 
                     order.details =  await db.query(`SELECT * FROM order_details
                                                     WHERE order_id = ?`, [order.id]);     
                     
-                    order.delivery = await db.query(`SELECT * FROM delivery WHERE order_id = ?`,[order.id])
-                    
+                    delivery = await db.query(`SELECT * FROM delivery WHERE order_id = ?`,[order.id]);
+
+                    order.delivery = delivery[0];
+
+                    await loadProductInfo(order);
                 }
             }
 
