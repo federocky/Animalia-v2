@@ -50,7 +50,7 @@ const APP_ROUTES: Routes = [
     { path: "admin", component: MainAdminComponent, children: [
         
         {path: "todo", component: TodoComponent},
-        {path: "orders", component: AdminOrdersComponent},
+        {path: "pedidos", component: AdminOrdersComponent},
         
         { path: '**', pathMatch: 'full', redirectTo: 'todo' }
     ] },

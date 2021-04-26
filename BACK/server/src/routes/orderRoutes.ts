@@ -25,6 +25,7 @@ class OrderRoutes {
         this.router.delete('/:id', orderController.destroy);
 
         this.router.get('/user/:id', tokenValidation, orderController.indexByUser);
+        this.router.post('/delivery/:id', orderController.changeState);
     }
 }
 

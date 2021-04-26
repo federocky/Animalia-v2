@@ -1,3 +1,4 @@
+import { Delivery } from './../models/delivery.model';
 import { Order } from './../models/order.model';
 import { Cart } from './../models/cart.model';
 import { ProductQty } from './../models/productQty.model';
@@ -150,6 +151,39 @@ class OrderController {
             console.log(error);
         }
     
+    }
+
+    public async changeState( req: Request, res: Response) {
+
+        const state = req.body.state;
+        const id = req.params.id;
+
+        let date = '';
+
+        if( !id || !state ) return res.status(400).json({ok: false, message: 'Invalid parameters', code: 1});
+
+       
+        
+        if( state != 'sent' && state != 'delivered') return res.status(400).json({ok: false, message: 'Invalid state', code: 2});
+
+        try {
+
+            let response;
+
+            if(state == 'sent') response = await db.query(`UPDATE delivery SET state = ?, date_sent = curdate() WHERE id = ?`, [state, +id]);
+            else if( state == 'delivered') response = await db.query(`UPDATE delivery SET state = ?, date_delivered = curdate() WHERE id = ?`, [state, +id]);
+
+            //si encuentra el producto
+            if( response.affectedRows > 0 ) return res.status(200).json({ok: true});
+    
+            //si no lo encuentra
+            return res.status(400).json({ok: false, message: "Item not found", code: 3});
+
+        } catch (error) {
+            console.log(error);
+            return res.status(400).json({ok: false, message: "Connection error", code: 4});
+        }
+
     }
 
 }

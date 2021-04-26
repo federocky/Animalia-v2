@@ -34,10 +34,16 @@
                 
             </div>
 
-            <div class="botones">
-                <button>Enviado</button>
+            <div class="botones" *ngIf="term == 'ordered'">
+                <button (click)="changeState( order.delivery.id, 'sent' )">Enviado</button>
+                <button href="">Cancelar Pedido</button>
+            </div>
+
+            <div class="botones" *ngIf="term == 'sent'">
+                <button (click)="changeState( order.delivery.id, 'delivered' )">Entregado</button>
                 <button href="">Cancelar</button>
             </div>
+
         </article>
         
     </div>

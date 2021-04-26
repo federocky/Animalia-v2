@@ -42,6 +42,15 @@ export class OrderService {
     return this.http.get(`${this.url}${this.route}/user/${user_id}`, {headers: headers});
   }
 
+  changeDeliveryState( delivery_id: number, state: string ){
 
+    const headers = new HttpHeaders({
+      'auth-token': localStorage.getItem('auth-token'),
+      'token-expire': localStorage.getItem('token-expire')
+    });
+
+    return this.http.post(`${this.url}${this.route}/delivery/${delivery_id}`, {state} ,{headers: headers});
+
+  }
 
 }

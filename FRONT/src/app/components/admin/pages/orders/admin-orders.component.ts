@@ -22,6 +22,8 @@ export class AdminOrdersComponent implements OnInit {
   constructor( private _orderService: OrderService) { }
 
   ngOnInit(): void {
+
+    this.term = 'ordered';
     this.loadOrders();
   }
 
@@ -31,7 +33,7 @@ export class AdminOrdersComponent implements OnInit {
       .subscribe( (res: any) => {
 
         this.orders = res.data;
-        console.log(this.orders);
+
       }, err => {
         Swal.fire({
           allowOutsideClick: true,
@@ -40,6 +42,43 @@ export class AdminOrdersComponent implements OnInit {
           text: 'Algo ha ido mal'
         });
       })
+  }
+
+  changeState( id: number, state: string ){
+
+    Swal.fire({
+          
+      title: '¿Esta seguro que desea cambiar el estado?',
+      showConfirmButton: true,
+      confirmButtonText: `Continuar`,
+      showCancelButton: true,
+
+    }).then((result) => {
+      
+      if (result.isConfirmed) {
+        
+        this.onChange( id, state );
+
+      } else {
+        Swal.fire('No has cambiado nada ;)')
+      }
+    });
+
+   
+  }
+
+  onChange( id: number, state: string ){
+
+    this._orderService.changeDeliveryState( id, state )
+    .subscribe( (res: any) => {
+      
+      Swal.fire('Saved!', '', 'success');
+      this.loadOrders();
+
+    }, err => {
+      console.log(err);
+    });
+
   }
 
 }
