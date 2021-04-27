@@ -186,6 +186,39 @@ class OrderController {
 
     }
 
+    public async reverseState( req: Request, res: Response) {
+
+        const state = req.body.state;
+        const id = req.params.id;
+
+        let date = '';    
+
+        if( !id || !state ) return res.status(400).json({ok: false, message: 'Invalid parameters', code: 1});
+
+       
+        
+        if( state != 'ordered' && state != 'sent') return res.status(400).json({ok: false, message: 'Invalid state', code: 2});
+
+        try {
+
+            let response;
+
+            if(state == 'ordered') response = await db.query(`UPDATE delivery SET state = ?, date_sent = null WHERE id = ?`, [state, +id]);
+            else if( state == 'sent') response = await db.query(`UPDATE delivery SET state = ?, date_delivered = null WHERE id = ?`, [state, +id]);
+
+            //si encuentra el producto
+            if( response.affectedRows > 0 ) return res.status(200).json({ok: true});
+    
+            //si no lo encuentra
+            return res.status(400).json({ok: false, message: "Item not found", code: 3});
+
+        } catch (error) {
+            console.log(error);
+            return res.status(400).json({ok: false, message: "Connection error", code: 4});
+        }
+
+    }
+
 }
 
 /**Funcion en la que actualizamos el stock de los productos comprados. */

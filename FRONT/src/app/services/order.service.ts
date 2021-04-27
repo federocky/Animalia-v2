@@ -44,12 +44,14 @@ export class OrderService {
 
   changeDeliveryState( delivery_id: number, state: string ){
 
-    const headers = new HttpHeaders({
-      'auth-token': localStorage.getItem('auth-token'),
-      'token-expire': localStorage.getItem('token-expire')
-    });
+    return this.http.post(`${this.url}${this.route}/delivery/${delivery_id}`, {state});
 
-    return this.http.post(`${this.url}${this.route}/delivery/${delivery_id}`, {state} ,{headers: headers});
+  }
+
+  reverseDeliveryState( delivery_id: number, state: string ){
+
+
+    return this.http.post(`${this.url}${this.route}/deliveryReverse/${delivery_id}`, {state});
 
   }
 

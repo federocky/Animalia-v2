@@ -81,6 +81,7 @@ nav {
                 .info{
                     display: grid;
                     align-items: center;
+                    justify-items: center;
 
                     @include escritorio{
                         grid-template-columns: auto 1fr;

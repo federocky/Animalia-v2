@@ -16,8 +16,8 @@
             <div class="texto">
                 <h3>Nº de pedido {{ order.id }}</h3>
                 <p>Pedido el <small>{{ order.delivery.date_ordered | date}}</small></p>
-                <p>Enviado el <small>{{ order.delivery.date_sent }}</small></p>
-                <p>Entregado el <small>{{ order.delivery.date_delivered }}</small></p>
+                <p>Enviado el <small>{{ order.delivery.date_sent | date}}</small></p>
+                <p>Entregado el <small>{{ order.delivery.date_delivered | date }}</small></p>
             </div>
             
             <div class="product-container" *ngFor="let detail of order.details">
@@ -28,20 +28,25 @@
                     <div class="details">
                         <h3> {{ detail.product.name }} </h3>
                         <p class="descripcion">{{ detail.product.description }}</p>
-                        <p class="price"> {{ detail.price }} <span> x {{ detail.qty }} </span> </p>                                                
+                        <p class="price"> € {{ detail.price }} <span> x {{ detail.qty }} </span> </p>                                                
                     </div>
                 </div>
                 
             </div>
 
             <div class="botones" *ngIf="term == 'ordered'">
-                <button (click)="changeState( order.delivery.id, 'sent' )">Enviado</button>
-                <button href="">Cancelar Pedido</button>
+                <button (click)="changeState( order.delivery.id, 'sent', true )">Enviado</button>
+                <button >Cancelar Pedido</button>
             </div>
 
             <div class="botones" *ngIf="term == 'sent'">
-                <button (click)="changeState( order.delivery.id, 'delivered' )">Entregado</button>
-                <button href="">Cancelar</button>
+                <button (click)="changeState( order.delivery.id, 'delivered', true )">Entregado</button>
+                <button (click)="changeState( order.delivery.id, 'ordered', false )">Devolver a Pedido</button>
+            </div>
+
+            <div class="botones" *ngIf="term == 'delivered'">
+                <button style="display: none;"></button>
+                <button (click)="changeState( order.delivery.id, 'sent', false )">Devolver a Enviado</button>
             </div>
 
         </article>

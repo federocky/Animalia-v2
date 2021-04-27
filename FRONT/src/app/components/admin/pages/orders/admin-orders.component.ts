@@ -29,10 +29,13 @@ export class AdminOrdersComponent implements OnInit {
 
   loadOrders(){
 
+    this.showLoading();
+      
     this._orderService.getOrders()
       .subscribe( (res: any) => {
 
         this.orders = res.data;
+        Swal.close();
 
       }, err => {
         Swal.fire({
@@ -44,7 +47,7 @@ export class AdminOrdersComponent implements OnInit {
       })
   }
 
-  changeState( id: number, state: string ){
+  changeState( id: number, state: string, fordward: boolean ){
 
     Swal.fire({
           
@@ -57,15 +60,15 @@ export class AdminOrdersComponent implements OnInit {
       
       if (result.isConfirmed) {
         
-        this.onChange( id, state );
+        if(fordward) this.onChange( id, state );
+        else this.onReverse(id, state);
 
       } else {
         Swal.fire('No has cambiado nada ;)')
       }
     });
-
-   
   }
+
 
   onChange( id: number, state: string ){
 
@@ -79,6 +82,39 @@ export class AdminOrdersComponent implements OnInit {
       console.log(err);
     });
 
+  }
+
+  onReverse( id: number, state: string ){
+
+    this._orderService.reverseDeliveryState( id, state )
+    .subscribe( (res: any) => {
+      
+      Swal.fire('Saved!', '', 'success');
+      this.loadOrders();
+
+    }, err => {
+      console.log(err);
+    });
+
+  }
+
+
+  showError(){
+    Swal.fire({
+      allowOutsideClick: true,
+      title: 'Oops...',
+      icon: 'warning',
+      text: 'Algo ha id mal'
+    });
+  }
+
+  showLoading(){
+    Swal.fire({
+      allowOutsideClick: false,
+      icon: 'info',
+      text: 'Espere por favor'
+    });
+    Swal.showLoading();
   }
 
 }

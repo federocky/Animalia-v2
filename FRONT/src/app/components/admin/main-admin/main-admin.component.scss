@@ -32,7 +32,8 @@
         
         width: 100%;
         height: 100vh; //AQUI ME SALE UN SCROLL RARO, EN PRINCIPIO NO SERA PROBLEMA.
-        background: rgba($color: #dfdfdf, $alpha: 0.9);
+        background: rgba($color: $blue_light, $alpha: 0.8);
+        
         
         transition: all 0.5s;
         //transform: translateX(-100%);
@@ -41,7 +42,7 @@
         
         a {
             display: block;
-            color:  $dark_header;
+            color: #fff;
             height: 40px;
             text-decoration: none;
             padding: 15px;
@@ -125,5 +126,5 @@
   
 main{
     position: relative;
-    background-color: $gray_light;
+    background-color: $blue_light;
 }

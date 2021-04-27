@@ -26,6 +26,7 @@ class OrderRoutes {
 
         this.router.get('/user/:id', tokenValidation, orderController.indexByUser);
         this.router.post('/delivery/:id', orderController.changeState);
+        this.router.post('/deliveryReverse/:id', orderController.reverseState);
     }
 }
 
