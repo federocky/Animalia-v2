@@ -44,7 +44,10 @@ import { UserSideComponent }  from './components/main-user/user-side-component';
 import { AdminHeaderComponent } from './components/admin/header/admin-header.component';
 import { TodoComponent } from './components/admin/pages/todo/todo.component';
 import { AdminOrdersComponent } from './components/admin/pages/orders/admin-orders.component'
-import { OrdersFilterPipe } from './pipes/orders.pipe'
+import { OrdersFilterPipe } from './pipes/orders.pipe';
+import { ProductsCrudComponent } from './components/admin/pages/products-crud/products-crud.component';
+import { UsersCrudComponent } from './components/admin/pages/users-crud/users-crud.component';
+import { CrudFiltersComponent } from './components/admin/pages/crud-filters/crud-filters.component'
 
 
 
@@ -79,7 +82,10 @@ import { OrdersFilterPipe } from './pipes/orders.pipe'
     AdminHeaderComponent,
     TodoComponent,
     AdminOrdersComponent,
-    OrdersFilterPipe
+    OrdersFilterPipe,
+    ProductsCrudComponent,
+    UsersCrudComponent,
+    CrudFiltersComponent
   ],
   imports: [
     BrowserModule,

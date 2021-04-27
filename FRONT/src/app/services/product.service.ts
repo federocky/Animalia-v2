@@ -19,7 +19,6 @@ export class ProductService {
     return this.http.get(`${this.url}${this.route}`);
   }
 
-
   getProduct( id: number ): Observable<any>{
     return this.http.get(`${this.url}${this.route}/${id}`);
   }

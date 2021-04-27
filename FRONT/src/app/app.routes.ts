@@ -1,3 +1,5 @@
+import { UsersCrudComponent } from './components/admin/pages/users-crud/users-crud.component';
+import { ProductsCrudComponent } from './components/admin/pages/products-crud/products-crud.component';
 import { AdminOrdersComponent } from './components/admin/pages/orders/admin-orders.component';
 import { TodoComponent } from './components/admin/pages/todo/todo.component';
 import { UserSideComponent } from './components/main-user/user-side-component';
@@ -51,6 +53,8 @@ const APP_ROUTES: Routes = [
         
         {path: "todo", component: TodoComponent},
         {path: "pedidos", component: AdminOrdersComponent},
+        {path: "productos", component: ProductsCrudComponent},
+        {path: "usuarios", component: UsersCrudComponent},
         
         { path: '**', pathMatch: 'full', redirectTo: 'todo' }
     ] },

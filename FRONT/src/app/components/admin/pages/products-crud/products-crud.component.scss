@@ -1,0 +1,21 @@
+@import '../../../../../assets/styles/mixins';
+@import '../../../../../assets/styles/variables';
+
+section{
+    background-color: #fff;
+    padding-top: 20px;
+    background-color: $blue_light;
+    height: 100%;
+    padding-bottom: 20px;
+    @include escritorio{
+        padding-left: 75px;
+    }
+    
+
+
+    table{
+        background-color: #fff;
+        border: 1px solid #3c3c3c;
+    }
+}
+
