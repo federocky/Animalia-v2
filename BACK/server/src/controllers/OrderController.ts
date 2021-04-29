@@ -72,25 +72,25 @@ class OrderController {
         //TODO: esto deberia ser una transaction, pero esta complicada la cosa.
 
         try{
-        const response = await db.query(`INSERT INTO orders (user_id, address_id, total) VALUES (?,?,?)`, 
-                                    [user_id, address_id, cart.total]);
-        
-        cart.productQty.forEach( async (element: ProductQty) => {
-            await db.query(`INSERT INTO order_details (order_id, product_id, qty, price) 
-                            VALUES (?,?,?, ?)`, 
-                            [response.insertId, element.product.id, element.qty, element.product.price]);
+            const response = await db.query(`INSERT INTO orders (user_id, address_id, total) VALUES (?,?,?)`, 
+                                        [user_id, address_id, cart.total]);
+            
+            cart.productQty.forEach( async (element: ProductQty) => {
+                await db.query(`INSERT INTO order_details (order_id, product_id, qty, price) 
+                                VALUES (?,?,?, ?)`, 
+                                [response.insertId, element.product.id, element.qty, element.product.price]);
 
-        });
+            });
 
         await db.query('INSERT INTO delivery (order_id) VALUES (?)', [response.insertId]);
 
         res.status(200).json({ok: true, order_id: response.insertId});
 
         } catch (error){
-            res.status(400).json({ok: false});
             console.log(error);
-        
             //TODO: aqui irial el rollback() y devolver el stock de los productos.
+            
+            res.status(400).json({ok: false});
         }
 
     } 
@@ -226,49 +226,47 @@ async function updateStock( user_id: number, cart: Cart): Promise<boolean>{
 
     //TODO: esto deberia ser una transacción.
 
-    let stock;
-
-    /**he tenido que meter esta funcion dentro de la funcion para que 
-     * pueda funciona bien el bucle asincrono, de otro modo me daba error.
-     */
-    async function recorreProducto() {
-
-        ///cart.productQty.forEach( async (element: ProductQty) => {
-        for ( const element of cart.productQty){    
-
-            console.log('entramos al bucle');
-
-            try{
-                //recogemos el stock de cada producto
-                stock = await db.query(`SELECT stock FROM product WHERE id = ?`, [element.product.id]);
-                
-                /*la consulta nos devuelve un array de RowDataPacket por lo que accedemos a la 
-                primera posicion y propiedad stock*/
-                stock = stock[0].stock;
-                
-                
-                //si el stock es menor que la cantidad lanzamos error.
-                if(stock < element.qty)  throw new Error('Invalid stock');
-                
-                
-                //actualizamos el stock en la BBDD
-                await db.query(`UPDATE product SET stock = ? where id = ?`,
-                [stock - element.qty, element.product.id]);
-                
-            }catch (error){
-                console.log(error);
-                console.log('confirmo que estoy en catch');
-                return false;
-                //TODO:aqui iria el rollback de la transaccion.
-            }
-        };
-    }
-
-    if(!await recorreProducto())return false;
+    if(!await recorreProducto(user_id, cart)) return false;
 
     //TODO:aqui iria la confirmacion de la transaccion
+
     return true;
 
+}
+
+
+async function recorreProducto(user_id: number, cart: Cart) {
+
+    let stock;
+
+    ///cart.productQty.forEach( async (element: ProductQty) => {
+    for ( const element of cart.productQty){    
+
+        console.log(element);
+        try{
+            //recogemos el stock de cada producto
+            stock = await db.query(`SELECT stock FROM product WHERE id = ?`, [element.product.id]);
+            
+            /*la consulta nos devuelve un array de RowDataPacket por lo que accedemos a la 
+            primera posicion y propiedad stock*/
+            stock = stock[0].stock;
+            
+            //si el stock es menor que la cantidad lanzamos error.
+            if(stock < element.qty)  throw new Error('Invalid stock');
+            
+            //actualizamos el stock en la BBDD
+            await db.query(`UPDATE product SET stock = ? where id = ?`, [stock - element.qty, element.product.id]);
+
+        } catch (error){
+
+            //TODO:aqui iria el rollback de la transaccion.
+
+            return false;
+
+        }
+    };
+
+    return true;
 }
 
 /**Funcion que carga toda la información de los productos pertenecientes a un pedido. */

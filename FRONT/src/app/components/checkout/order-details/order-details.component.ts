@@ -76,6 +76,6 @@ export class OrderDetailsComponent implements OnInit {
 
   payNow(){
     localStorage.setItem('address', JSON.stringify(this.address));
-    this.router.navigateByUrl('checkout/pasarela');
+    this.router.navigateByUrl('/main/checkout/pasarela');
   }
 }

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthService } from './../../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,7 +11,9 @@ export class MenuUserComponent implements OnInit {
 
   signedIn: boolean;
 
-  constructor(private _authService: AuthService) { }
+  constructor(private _authService: AuthService,
+              private router: Router
+    ) { }
 
   ngOnInit(): void {
     this._authService.getSignedIn()
@@ -21,6 +24,7 @@ export class MenuUserComponent implements OnInit {
 
   logOut(){
     this._authService.logOut();
+    this.router.navigateByUrl('index');
   }
 
 }

@@ -75,7 +75,9 @@
                 <p>Telefono: {{ user.phone || 'No tenemos su telefono' }}</p>
             </div>
 
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Agregar teléfono</button>
+            <button *ngIf="user.phone" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Cambiar teléfono</button>
+            <button *ngIf="!user.phone" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Agregar teléfono</button>
+            
         </div>
 
     </div>

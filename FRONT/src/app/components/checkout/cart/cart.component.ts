@@ -90,7 +90,7 @@ export class CartComponent implements OnInit {
   checkout(): void{
   
       /**si esta logado */
-      if(this._authService.loggedIn()) this.router.navigateByUrl('checkout/detalles');
+      if(this._authService.loggedIn()) this.router.navigateByUrl('/main/checkout/detalles');
       
       else {
         /**si no esta logado mostramos un alert con opcion de login o continuar como invitado */
@@ -108,7 +108,7 @@ export class CartComponent implements OnInit {
         
       }).then((result) => {
         //si se elige logar/registrar
-        if(result.isConfirmed) this.router.navigateByUrl('login');
+        if(result.isConfirmed) this.router.navigateByUrl('/main/login');
       });
     }
   

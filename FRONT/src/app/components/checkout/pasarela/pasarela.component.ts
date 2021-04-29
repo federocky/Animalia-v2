@@ -47,6 +47,7 @@ export class PasarelaComponent implements OnInit {
           allowOutsideClick: false,
           showConfirmButton: true,
         }).then((result) => {
+          this.deleteShoppingInfo();
           if(result.isConfirmed) this.router.navigateByUrl('home');
         });
 
@@ -59,11 +60,14 @@ export class PasarelaComponent implements OnInit {
           title: 'Oops...',
           html: '<h6 class="text-success">Alguien se te ha adelantado y el stock de alguno de tus productos ha cambiado</h6>',
           allowOutsideClick: false
+
         }).then((result) => {
-          //TODO: seria mejor saber que producto tiro el erro y actualizarlo en el carro.
+
+          //TODO: seria mejor saber que producto tiro el error y actualizarlo en el carro.
           //Lo dejo como posible mejora.
           this.deleteShoppingInfo();
           this.router.navigateByUrl('tienda');
+
         });
       }); 
   }
