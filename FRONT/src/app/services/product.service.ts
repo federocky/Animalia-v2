@@ -35,5 +35,8 @@ export class ProductService {
     return this.http.delete(`${this.url}${this.route}/${id}`);
   }
 
+  recoverProduct( id: number ){
+    return this.http.get(`${this.url}${this.route}/recover/${id}`);
+  }
 
 }

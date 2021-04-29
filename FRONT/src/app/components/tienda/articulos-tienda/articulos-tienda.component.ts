@@ -75,8 +75,12 @@ export class ArticulosTiendaComponent implements OnInit, OnChanges {
   getProducts(){
     this.productService.getProducts()
       .subscribe( (res:any) => {
+
         this.products = res.data;
         this.productsToShow = [...res.data];
+        
+        this.productsToShow = this.productsToShow.filter( product => product.active);
+        this.products = this.products.filter( product => product.active);
       }, err => {
         Swal.fire({
           allowOutsideClick: true,
@@ -142,7 +146,7 @@ export class ArticulosTiendaComponent implements OnInit, OnChanges {
    * @param id id del producto
    */
   viewProductDetails( id: number ):void {
-    this._router.navigate(['tienda', id]); 
+    this._router.navigate(['main/tienda', id]); 
   }
 
 

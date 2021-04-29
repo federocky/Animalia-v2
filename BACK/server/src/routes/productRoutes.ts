@@ -21,6 +21,7 @@ class ProductRoutes {
         //this.router.get('/edit/:id', productsController.edit);
         this.router.put('/:id', productValidation ,productsController.update);
         this.router.delete('/:id', productsController.destroy);
+        this.router.get('/recover/:id', productsController.unDestroy);
     }
 }
 

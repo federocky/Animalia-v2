@@ -4,6 +4,7 @@ import { json, Request, Response } from 'express';
 //traemos la bbdd
 import db from '../database';
 
+
 class ProductsController {
 
 
@@ -17,7 +18,6 @@ class ProductsController {
                                                 FROM product p
                                                 LEFT JOIN product_rating pr
                                                 ON pr.product_id = p.id
-                                                WHERE p.active = 1
                                                 GROUP BY p.id`);
     
             
@@ -134,6 +134,26 @@ class ProductsController {
         try {
 
             const response = await db.query('UPDATE product SET active = 0 WHERE id = ?', [id]);
+
+            //si encuentra el producto
+            if( response.affectedRows > 0 ) return res.status(200).json({ok: true});
+
+            //si no lo encuentra
+            return res.status(400).json({ok: false, message: "Item not found", code: 1});
+
+        } catch (error) {
+            return res.status(400).json({ok: false, message: "Connection error", code: 2});
+        }
+    }
+
+    /**Funcion que elimina un producto por id */
+    public async unDestroy (req: Request, res: Response) {
+        
+        const { id } = req.params;
+
+        try {
+
+            const response = await db.query('UPDATE product SET active = 1 WHERE id = ?', [id]);
 
             //si encuentra el producto
             if( response.affectedRows > 0 ) return res.status(200).json({ok: true});
