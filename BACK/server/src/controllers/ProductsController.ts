@@ -83,7 +83,7 @@ class ProductsController {
         }catch(error){
 
             if(error.errno == 1054) {
-                return res.status(404).json({ok: false, message: 'Incorrect parameter'});
+                return res.status(404).json({ok: false, message: 'Incorrect parameters'});
             }
             
             res.status(404).json({ok: false, message: 'Server not working'});
@@ -125,7 +125,6 @@ class ProductsController {
 
 
 
-
     /**Funcion que elimina un producto por id */
     public async destroy (req: Request, res: Response) {
         
@@ -146,7 +145,7 @@ class ProductsController {
         }
     }
 
-    /**Funcion que elimina un producto por id */
+    /**Funcion que recupera un producto por id */
     public async unDestroy (req: Request, res: Response) {
         
         const { id } = req.params;
@@ -166,6 +165,32 @@ class ProductsController {
         }
     }
 
+    /**Funcion que devuelve todas las categorias */
+    public async indexCategory(req: Request, res: Response) {
+
+        try{
+            const category = await db.query(`SELECT  * FROM category`);
+                
+            res.status(200).json({ok:true, data: category});
+
+        } catch(error){
+            res.status(404).json({ok: false, message: 'Server not working'});
+        }
+
+    }
+
+    /**Funcion que devuelve todas las providers */
+    public async indexProvider(req: Request, res: Response) {
+
+        try{
+            const provider = await db.query(`SELECT  * FROM provider`);
+                
+            res.status(200).json({ok:true, data: provider});
+
+        } catch(error){
+            res.status(404).json({ok: false, message: 'Server not working'});
+        }
+    }
 }
 
 

@@ -34,7 +34,6 @@ export const productValidation = (req: Request, res: Response, next: NextFunctio
     if(!img) errors.push('img is required');
 
     if(!active) errors.push('active is required');
-    else if(typeof active != 'boolean') errors.push('active is must be a boolean value');
 
     if(errors.length > 0) return res.status(400).json({ok: false, errors});
 

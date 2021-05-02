@@ -37,15 +37,15 @@ export class AddressFormComponent implements OnInit {
   createForm(): void {
 
     this.myForm = new FormGroup({
-      street_name: new FormControl( this.addressRecived.street_name ? this.addressRecived.street_name : '', Validators.required), 
-      street_number: new FormControl(this.addressRecived.street_number ? this.addressRecived.street_number : '', Validators.required),
-      floor: new FormControl(this.addressRecived.floor ? this.addressRecived.floor : '', Validators.required),
-      letter: new FormControl(this.addressRecived.letter ? this.addressRecived.letter : '', Validators.required),
-      province: new FormControl(this.addressRecived.province ? this.addressRecived.province : '', Validators.required),
-      locality: new FormControl(this.addressRecived.locality ? this.addressRecived.locality : '', Validators.required),
-      town: new FormControl(this.addressRecived.town ? this.addressRecived.town : '', Validators.required),
-      postcode: new FormControl(this.addressRecived.postcode ? this.addressRecived.postcode : '', [Validators.required, Validators.pattern('[0-9]{5}')]),
-      details: new FormControl(this.addressRecived.details ? this.addressRecived.details : '')
+      street_name: new FormControl('', Validators.required), 
+      street_number: new FormControl('', Validators.required),
+      floor: new FormControl('', Validators.required),
+      letter: new FormControl('', Validators.required),
+      province: new FormControl('', Validators.required),
+      locality: new FormControl('', Validators.required),
+      town: new FormControl('', Validators.required),
+      postcode: new FormControl('', [Validators.required, Validators.pattern('[0-9]{5}')]),
+      details: new FormControl('')
   });
 
   this.setFormControlsVariables();
@@ -66,6 +66,22 @@ export class AddressFormComponent implements OnInit {
     this.postcode       = this.myForm.controls.postcode       as FormControl;
     this.details        = this.myForm.controls.details        as FormControl;
 
+
+    
+    if(this.addressRecived){
+
+      this.myForm.setValue({
+        street_name: this.addressRecived.street_name,
+        street_number: this.addressRecived.street_number,
+        floor: this.addressRecived.floor,
+        letter: this.addressRecived.letter,
+        province: this.addressRecived.province,
+        locality: this.addressRecived.locality,
+        town: this.addressRecived.town,
+        postcode: this.addressRecived.postcode,
+        details: this.addressRecived.details
+      });
+    }
   }
 
   onSubmit(){

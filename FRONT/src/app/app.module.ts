@@ -47,7 +47,8 @@ import { AdminOrdersComponent } from './components/admin/pages/orders/admin-orde
 import { OrdersFilterPipe } from './pipes/orders.pipe';
 import { ProductsCrudComponent } from './components/admin/pages/products-crud/products-crud.component';
 import { UsersCrudComponent } from './components/admin/pages/users-crud/users-crud.component';
-import { CrudFiltersComponent } from './components/admin/pages/crud-filters/crud-filters.component'
+import { CrudFiltersComponent } from './components/admin/pages/crud-filters/crud-filters.component';
+import { ProductFormComponent } from './components/admin/utils/product-form/product-form.component'
 
 
 
@@ -85,7 +86,8 @@ import { CrudFiltersComponent } from './components/admin/pages/crud-filters/crud
     OrdersFilterPipe,
     ProductsCrudComponent,
     UsersCrudComponent,
-    CrudFiltersComponent
+    CrudFiltersComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,

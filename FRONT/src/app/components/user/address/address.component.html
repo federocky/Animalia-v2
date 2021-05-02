@@ -29,7 +29,7 @@
 
             <p class="title">Ciudad:<span> {{ address.town }}</span></p>
 
-            <p class="title">Codigo Postal:<span> {{ address.details }}</span></p>
+            <p class="title">Codigo Postal:<span> {{ address.postcode }}</span></p>
 
             <a (click)="showAddressForm(address)" *ngIf="address.main_address">Editar</a>
 

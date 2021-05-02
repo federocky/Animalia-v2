@@ -1,0 +1,133 @@
+<div class="container">
+
+    <h2>Producto</h2>
+    <i class="far fa-times-circle" (click)="close.emit(true)"></i>
+    
+    <form novalidate *ngIf="myForm" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+        <!--NOMBRE-->
+        <div class="form-group">
+            <label>Nombre:</label>
+            <input 
+                type="text" 
+                class="form-control"
+                [ngClass]="{ 'is-invalid': name.invalid && ( name.dirty || name.touched),
+                        'is-valid': name.valid       && ( name.dirty || name.touched)}"
+                formControlName="name"
+                >
+
+            <div class="invalid-feedback" *ngIf="name.errors && (name.dirty || name.touched)">
+                <span *ngIf="name.errors.required">Debe rellenar el nombre</span>
+            </div>
+        </div>
+
+        <!--DESCRIPCION-->
+        <div class="form-group">
+            <label>Descripción:</label>
+            <input 
+                type="text" 
+                class="form-control"
+                [ngClass]="{ 'is-invalid': description.invalid && ( description.dirty || description.touched),
+                        'is-valid': description.valid       && ( description.dirty || description.touched)}"
+                formControlName="description">
+                
+            <div class="invalid-feedback" *ngIf="description.errors && (description.dirty || description.touched)">
+                <span *ngIf="description.errors.required">Debe rellenar algúna descripción</span>
+            </div>
+        </div>
+
+        <!--PRECIO-->
+        <div class="form-group">
+            <label>Precio:</label>
+            <input 
+                type="text" 
+                class="form-control"
+                [ngClass]="{ 'is-invalid': price.invalid && ( price.dirty || price.touched),
+                          'is-valid': price.valid     && ( price.dirty || price.touched)}"
+                formControlName="price">
+
+            <div class="invalid-feedback" *ngIf="price.errors && (price.dirty || price.touched)">
+                <span *ngIf="price.errors.required">Debe ingresar su precio</span>
+            </div>
+        </div>
+
+
+        <!--IMG-->
+        <div class="form-group">
+            <label>Imagen:</label>
+            <input 
+                type="text" 
+                class="form-control"
+                [ngClass]="{ 'is-invalid': img.invalid && ( img.dirty || img.touched),
+                          'is-valid': img.valid     && ( img.dirty || img.touched)}"
+                formControlName="img">
+
+            <div class="invalid-feedback" *ngIf="img.errors && (img.dirty || img.touched)">
+                <span *ngIf="img.errors.required">Debe ingresar una imagen</span>
+            </div>
+        </div>
+
+        <!--BRAND-->
+        <div class="form-group">
+            <label>Marca:</label>
+            <input 
+                type="text" 
+                class="form-control"
+                [ngClass]="{ 'is-invalid': brand.invalid && ( brand.dirty || brand.touched),
+                          'is-valid': brand.valid     && ( brand.dirty || brand.touched)}"
+                formControlName="brand">
+
+            <div class="invalid-feedback" *ngIf="brand.errors && (brand.dirty || brand.touched)">
+              <span *ngIf="brand.errors.required">¿Que marca es?</span>
+            </div>
+        </div>
+
+         <!-- CATEGORIA -->
+        <div class="form-group" *ngIf="categories">
+            <label>Categoría:</label>
+
+            <select class="form-control is-valid" formControlName="category_id">
+
+                <option [value]="category.id" *ngFor="let category of categories">{{ category.name }}</option>
+            </select>
+        </div> 
+
+        <!-- PROVEEDOR -->
+        <div class="form-group" *ngIf="providers">
+            <label>Proveedor:</label>
+
+            <select class="form-control is-valid" formControlName="provider_id">
+                <option [value]="provider.id" *ngFor="let provider of providers">{{ provider.name }}</option>
+            </select>
+        </div> 
+
+        <!--STOCK-->
+        <div class="form-group">
+            <label>Stock:</label>
+            <input 
+                type="number" 
+                class="form-control"
+                [ngClass]="{ 'is-invalid': stock.invalid && ( stock.dirty || stock.touched),
+                          'is-valid': stock.valid     && ( stock.dirty || stock.touched)}"
+                formControlName="stock">
+
+            <div class="invalid-feedback" *ngIf="stock.errors && (stock.dirty || stock.touched)">
+              <span *ngIf="stock.errors.required">Debe ingesar algun stock</span>
+            </div>
+        </div>
+
+        <!-- ACTIVO -->
+        <div class="form-group" >
+            <label>Activo:
+                <input class="form-check-input form-check-inlin" type="checkbox" formControlName="active">
+            </label>
+        </div> 
+
+        <button type="submit">Guardar Producto</button>
+
+        
+    </form>
+
+    
+
+</div>

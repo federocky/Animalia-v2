@@ -28,7 +28,7 @@ export class ProductService {
   }
 
   updateProduct( product: Product ){
-    return this.http.put(`${this.url}${this.route}`, product);
+    return this.http.put(`${this.url}${this.route}/${product.id}`, product);
   }
 
   deleteProduct( id: number ){
@@ -37,6 +37,14 @@ export class ProductService {
 
   recoverProduct( id: number ){
     return this.http.get(`${this.url}${this.route}/recover/${id}`);
+  }
+
+  getCategories(){
+    return this.http.get(`${this.url}${this.route}/category/index`);
+  }
+
+  getProviders(){
+    return this.http.get(`${this.url}${this.route}/provider/index`);
   }
 
 }

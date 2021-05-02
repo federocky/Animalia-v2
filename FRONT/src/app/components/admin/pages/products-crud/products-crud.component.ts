@@ -1,6 +1,6 @@
+import { Product } from './../../../../models/product';
 import { ProductService } from './../../../../services/product.service';
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/models/product';
 
 //sweet alert
 import Swal from 'sweetalert2';
@@ -13,6 +13,8 @@ import Swal from 'sweetalert2';
 export class ProductsCrudComponent implements OnInit {
 
   products: Product[] = [];
+  openForm = false;
+  product: Product;
   
 
   constructor( private _productService: ProductService) { }
@@ -62,6 +64,47 @@ export class ProductsCrudComponent implements OnInit {
       })
   }
 
+  showForm( product: Product ) {
+    this.product = product;
+    this.openForm = true;
+  }
+
+  productRecived( product: Product ){
+    
+    this.openForm = false;
+    this.showLoading();
+
+    if(product.id) this.updateProduct(product);
+    else this.saveNewProduct(product);
+  }
+
+  openNewForm(){
+    this.product = null;
+    this.openForm = true;
+  }
+
+  updateProduct(product: Product){
+    this._productService.updateProduct( product )
+      .subscribe( (res: any) => {
+        this.showSuccess('Producto actualizado con exito.');
+        this.loadProducts();
+      }, err => {
+        console.log(err);
+        this.showError();
+      })
+  }
+
+  saveNewProduct(product: Product){
+    
+    this._productService.setNewProduct( product )
+      .subscribe( (res: any) => {
+        this.showSuccess('Producto creado con exito.');
+        this.loadProducts();
+      }, err => {
+        console.log(err);
+        this.showError();
+      })
+  }
 
 
   showLoading(){
@@ -79,6 +122,15 @@ export class ProductsCrudComponent implements OnInit {
       title: 'Oops...',
       icon: 'warning',
       text: 'Algo ha ido mal, intentelo mas tarde'
+    });
+  }
+
+  showSuccess( message: string ){
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Genial',
+      text: message,
     });
   }
 
