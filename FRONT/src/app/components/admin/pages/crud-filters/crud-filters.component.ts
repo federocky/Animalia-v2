@@ -7,9 +7,13 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class CrudFiltersComponent implements OnInit {
   @Output() createNew: EventEmitter<boolean>;
+  @Output() search: EventEmitter<string>;
+  @Output() orderBy: EventEmitter<string>;
 
   constructor() { 
     this.createNew = new EventEmitter();
+    this.search = new EventEmitter();
+    this.orderBy = new EventEmitter();
   }
 
   ngOnInit(): void {

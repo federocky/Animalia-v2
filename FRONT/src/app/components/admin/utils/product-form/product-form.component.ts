@@ -48,7 +48,7 @@ export class ProductFormComponent implements OnInit {
       price:            new FormControl('', Validators.required),
       img:              new FormControl('', Validators.required),
       brand:            new FormControl('', Validators.required),
-      active:           new FormControl('', Validators.required),
+      active:           new FormControl(''),
       category_id:      new FormControl(1, Validators.required),
       provider_id:      new FormControl(1, Validators.required),
       stock:            new FormControl('', Validators.required)

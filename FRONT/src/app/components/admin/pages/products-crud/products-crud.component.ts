@@ -15,6 +15,8 @@ export class ProductsCrudComponent implements OnInit {
   products: Product[] = [];
   openForm = false;
   product: Product;
+  term: string;
+  order:string;
   
 
   constructor( private _productService: ProductService) { }
@@ -88,6 +90,7 @@ export class ProductsCrudComponent implements OnInit {
       .subscribe( (res: any) => {
         this.showSuccess('Producto actualizado con exito.');
         this.loadProducts();
+        console.log(product);
       }, err => {
         console.log(err);
         this.showError();
@@ -101,7 +104,6 @@ export class ProductsCrudComponent implements OnInit {
         this.showSuccess('Producto creado con exito.');
         this.loadProducts();
       }, err => {
-        console.log(err);
         this.showError();
       })
   }

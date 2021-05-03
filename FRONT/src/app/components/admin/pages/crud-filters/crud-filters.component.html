@@ -1,7 +1,7 @@
 <section>
     <div class="order">
         <label for="orderBy">Ordenar: </label>
-        <select name="orderBy">
+        <select name="orderBy" (change)="orderBy.emit( selectOrder.value )" #selectOrder>
             <option value="id">Id</option>
             <option value="name">Nombre</option>
             <option value="price">Precio</option>
@@ -10,7 +10,7 @@
 
     
     <div class="searchBar">
-        <input type="text" placeholder="Buscar...">
+        <input #searchBar (keyup)="search.emit( searchBar.value )" type="text" placeholder="Buscar...">
     </div>
     <button (click)="createNew.emit(true)">Nuevo</button>
 </section>

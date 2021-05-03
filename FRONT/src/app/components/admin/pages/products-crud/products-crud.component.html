@@ -2,7 +2,7 @@
 
     <section>
         
-        <app-crud-filters (createNew)="openNewForm()"></app-crud-filters>
+        <app-crud-filters (createNew)="openNewForm()" (search)="term = $event" (orderBy)="order = $event"></app-crud-filters>
 
         <div class="form" *ngIf="openForm">
             <app-product-form (product)="productRecived( $event )" (close)="openForm = false" [productRecived]="product"></app-product-form>
@@ -14,17 +14,17 @@
                     <th scope="col">ID</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">stock</th>
-                    <th scope="col">Precio</th>
+                    <th scope="col" class="price">Precio</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
             
             <tbody>
-                <tr *ngFor="let product of products" >
+                <tr *ngFor="let product of products | search: term | orderBy: order" >
                     <th scope="row"> {{ product.id }} </th>
                     <td>{{ product.name }}</td>
                     <td>{{ product.stock }}</td>
-                    <td>€{{ product.price }}</td>
+                    <td class="price">€{{ product.price }}</td>
                     <td>
                         <button class="btn btn-success me-1" (click)="showForm( product )"><i class="fas fa-edit"></i></button>
                         <button *ngIf="product.active" class="btn btn-danger" (click)="delete(product.id)"><i class="far fa-trash-alt"></i></button>

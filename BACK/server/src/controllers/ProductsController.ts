@@ -101,17 +101,17 @@ class ProductsController {
 
         const { ...product }: Product = req.body;
         const { id } = req.params;
-
+        
         try{
             const response = await db.query(`UPDATE product SET name = ?, description = ?,
                                              price = ?, brand = ?, stock = ?,
-                                             category_id = ?, provider_id = ?, img = ?
+                                             category_id = ?, provider_id = ?, img = ?,
+                                             active = ?
                                              WHERE id = ?`, 
                                            [product.name, product.description, product.price,
                                             product.brand, product.stock, product.category_id,
-                                            product.provider_id, product.img, +id]);
+                                            product.provider_id, product.img, product.active, +id]);
 
-            
             if( response.affectedRows > 0) return res.status(200).json({ok: true, data: product });
 
             //si no encuentra el producto manda el error

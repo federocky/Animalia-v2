@@ -7,6 +7,7 @@ section{
     background-color: $blue_light;
     height: 100%;
     padding-bottom: 20px;
+    min-height: 800px;
     @include escritorio{
         padding-left: 75px;
     }
@@ -16,6 +17,13 @@ section{
     table{
         background-color: #fff;
         border: 1px solid #3c3c3c;
+
+        .price{
+            display: none;
+            @include tablet{
+                display: table-cell;
+            }
+        }
     }
 }
 
