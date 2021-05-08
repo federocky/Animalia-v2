@@ -44,6 +44,10 @@ export class UserService {
     return this.http.delete(`${this.url}${this.route}/${id}`, {headers: headers});
   }
 
+  recoverUser( id: number ){
+    return this.http.get(`${this.url}${this.route}/recover/${id}`);
+  }
+
   updatePassword( id: number, oldPassword: string, newPassword: string ){
 
     const headers = new HttpHeaders({

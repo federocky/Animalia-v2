@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-crud-filters',
@@ -9,6 +9,7 @@ export class CrudFiltersComponent implements OnInit {
   @Output() createNew: EventEmitter<boolean>;
   @Output() search: EventEmitter<string>;
   @Output() orderBy: EventEmitter<string>;
+  @Input() filterType: string;
 
   constructor() { 
     this.createNew = new EventEmitter();

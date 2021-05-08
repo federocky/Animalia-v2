@@ -2,7 +2,7 @@
 
     <section>
         
-        <app-crud-filters (createNew)="openNewForm()" (search)="term = $event" (orderBy)="order = $event"></app-crud-filters>
+        <app-crud-filters [filterType]="'product'" (createNew)="openNewForm()" (search)="term = $event" (orderBy)="order = $event"></app-crud-filters>
 
         <div class="form" *ngIf="openForm">
             <app-product-form (product)="productRecived( $event )" (close)="openForm = false" [productRecived]="product"></app-product-form>

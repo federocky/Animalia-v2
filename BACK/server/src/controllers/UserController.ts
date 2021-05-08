@@ -171,6 +171,26 @@ class UserController {
 
     }
 
+        /**Funcion que recupera un producto por id */
+        public async unDestroy (req: Request, res: Response) {
+        
+            const { id } = req.params;
+    
+            try {
+    
+                const response = await db.query('UPDATE user SET active = 1 WHERE id = ?', [id]);
+    
+                //si encuentra el producto
+                if( response.affectedRows > 0 ) return res.status(200).json({ok: true});
+    
+                //si no lo encuentra
+                return res.status(400).json({ok: false, message: "User not found", code: 1});
+    
+            } catch (error) {
+                return res.status(400).json({ok: false, message: "Connection error", code: 2});
+            }
+        }
+
 
     /**Funcion que devuelve la direccion principal del usuario utilizando el id
      * desencriptado del jwt

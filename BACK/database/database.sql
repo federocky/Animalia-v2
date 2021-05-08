@@ -123,6 +123,26 @@ CREATE TABLE employee_history (
 	details VARCHAR(200)
 );
 
+CREATE TABLE service (
+	id INT (10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR (120),
+	description VARCHAR (250),
+	hour_start DATETIME,
+	hour_end DATETIME,
+	price DECIMAL (8,2),
+	active BOOLEAN DEFAULT 1
+);
+
+CREATE TABLE appointment(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	service_id INT (10),
+	date_apppointment_from DATETIME,
+	date_apppointment_to DATETIME,
+	user_id INT (10),
+	employee_id INT (10),
+	price DECIMAL (8,2),
+	address_id INT (10)
+);
 
 
 
@@ -168,7 +188,17 @@ add constraint delivery_employee_delivered foreign key (employee_id_delivered) r
 alter table employee_history
 add constraint history_employee foreign key (employee_id) references employee (id);
 
+alter table appointment
+add constraint appointment_service foreign key (service_id) references service (id);
 
+alter table appointment
+add constraint appointment_user foreign key (user_id) references user (id);
+
+alter table appointment
+add constraint appointment_employee foreign key (employee_id) references employee (id);
+
+alter table appointment
+add constraint appointment_address foreign key (address_id) references address (id);
 
 
 
@@ -178,7 +208,8 @@ insert into user (name, surname, email, password) values
 insert into user (name, surname, email, password) values
 	("admin", "admin", "admin@gmail.com", "1234");
 
-
+insert into employee (name, surname, email, password, is_admin) values
+	("admin", "admin", "admin@gmail.com", "1234", 1);
 
 
 
@@ -307,4 +338,6 @@ insert into product_rating (product_id, rating) values
 	(8, 4);
 
 
-
+insert into service (name, description, hour_start, hour_end, price) values
+	("Peluqueria", "Lavado y corte de pelo de cualquier tipo de mascota", '0001-01-01 08:00:00', '0001-01-01 20:00:00', 29.99),
+	("Paseos", "Paseos de mascota por horas", '0001-01-01 08:00:00', '0001-01-01 20:00:00', 14.99);

@@ -23,6 +23,7 @@ class UserRoutes {
         this.router.put('/:id', tokenValidation, userValidation, userController.update);
         this.router.put('/password/:id', tokenValidation, userController.updatePassword); 
         this.router.delete('/:id', userController.destroy);
+        this.router.get('/recover/:id', userController.unDestroy);
 
         this.router.get('/address/:id', tokenValidation, userController.showAddress);
         this.router.post('/address', tokenValidation, addressValidation, userController.storeAddress);

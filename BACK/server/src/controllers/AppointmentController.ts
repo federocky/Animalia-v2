@@ -1,89 +1,93 @@
-import { Order } from './../models/order.model';
-import { Cart } from './../models/cart.model';
-import { ProductQty } from './../models/productQty.model';
-import { Product } from '../models/product.model';
 import { Request, Response } from 'express';
 
 //traemos la bbdd
 import db from '../database';
 
-class OrderController {
+class AppointmentController {
 
-    /**devuelve todos los productos con su rating y numero de votos. */
+    /**devuelve todas las citas. */
     public async index (req: Request, res: Response) {
 
         try{
-
-            const orders: Order[] = await db.query(`SELECT * FROM orders`);
+            const appointments = await db.query(`SELECT * FROM appointment`);
     
-            /**Funcion que por cada pediido carga sus productos
-             * tenemos que poner la funcion asi porque si no no funciona la asincronia.
-             */
-             async function loadInfo() {
-
-                let delivery;
-                
-                for (const order of orders){
-
-                    order.details =  await db.query(`SELECT * FROM order_details
-                                                    WHERE order_id = ?`, [order.id]);     
-                    
-                    delivery = await db.query(`SELECT * FROM delivery WHERE order_id = ?`,[order.id]);
-
-                    order.delivery = delivery[0];
-
-                    await loadProductInfo(order);
-                }
-            }
-
-            await loadInfo();
             
-            res.status(200).json({ok:true, data: orders});
+            res.status(200).json({ok:true, data: appointments});
 
         } catch(error){
             res.status(404).json({ok: false, message: 'Server not working'});
         }
     }
 
+
+
+    /**devuelve todas las citas de un usuario */
+    public async indexByUser (req: Request, res: Response) {
+
+        const { id } = req.params;
+
+        try{
+            const appointments = await db.query(`SELECT * FROM appointment WHERE id = ?`, [+id]);
+    
+            /**si no encuentra ningún appointment devolvemos el resultado*/
+            if (appointments.length < 1) return res.status(200).json({ok: false, message: 'The user has no appointments'});
+            
+            res.status(200).json({ok:true, data: appointments});
+
+        } catch(error){
+            res.status(404).json({ok: false, message: 'Server not working'});
+        }
+    }
+
+
+        /**devuelve hora de inicio y fin de las citas en una fecha determinada de un determinado servicio */
+        public async indexByDate (req: Request, res: Response) {
+
+            const id = req.params.id;
+            const date: Date = req.body.date; 
+            
+            //TODO: castear la date a solo date si la mando completa o mandarla ya casteada
+
+            try{
+                const appointments = await db.query(`SELECT date_appointment_from, date_appointment_from 
+                                                     FROM appointment WHERE DATE(date_appointment_from) = ?
+                                                     AND service_id = ?`, [+date, id]);
+        
+                /**si no encuentra ningún appointment devolvemos el resultado*/
+                if (appointments.length < 1) return res.status(200).json({ok: false, message: 'The user has no appointments'});
+
+                res.status(200).json({ok:true, data: appointments});
+    
+            } catch(error){
+                res.status(404).json({ok: false, message: 'Server not working'});
+            }
+        }
+
+
     public async create(req: Request, res: Response) {
         
     }
     
-    /**Funcion que recibe un carro y una direccion asi como el usuario encriptado en el token
-     * Se comprueba si el stock es correcto. De ser asi se guarda el pedido y actualiza el stock
-     * si el stock es incorrecto se devuelve el error.
+
+    /**Funcion para almacenar una nueva cita.
      */
     public async store (req: Request, res: Response) {
         
         //recibimos el desencriptado del token
         const user_id = req.user_id;
 
-        //TODO:validacion al carro???
-        //recibimos la direccion de envío y el carro
-        const address_id = req.body.address_id;
-        const cart: Cart = req.body.cart;
+        //recibimos los datos del servicio
+        const {service_id, date_appointment_from, date_appointment_to, address_id, price } = req.body;
 
-
-        //comprobamnos y actualizamos el stock de los productos
-        if(!await updateStock(user_id, cart)) return res.status(400).json({ok:false, message: 'Invalid stock'});
-
-
-        //TODO: esto deberia ser una transaction, pero esta complicada la cosa.
 
         try{
-            const response = await db.query(`INSERT INTO orders (user_id, address_id, total) VALUES (?,?,?)`, 
-                                        [user_id, address_id, cart.total]);
             
-            cart.productQty.forEach( async (element: ProductQty) => {
-                await db.query(`INSERT INTO order_details (order_id, product_id, qty, price) 
-                                VALUES (?,?,?, ?)`, 
-                                [response.insertId, element.product.id, element.qty, element.product.price]);
+            const response = db.query(`INSERT INTO appointment (service_id, date_appointment_from, date_appointment_to
+                                        user_id, price, address_id ) values (?,?,?,?,?,?)`, 
+                                        [service_id, date_appointment_from, date_appointment_to, user_id, address_id]);
 
-            });
-
-        await db.query('INSERT INTO delivery (order_id) VALUES (?)', [response.insertId]);
-
-        res.status(200).json({ok: true, order_id: response.insertId});
+            ///TODO: mirar el tema de los errores y tal
+            res.status(200).json({ok: true, order_id: response.insertId});
 
         } catch (error){
             console.log(error);
@@ -116,41 +120,6 @@ class OrderController {
 
     }
 
-    /**Funcion que devuelve todos los pedidos de un usuario */
-    public async indexByUser( req: Request, res: Response){
-
-        //recibimos el id encriptado jwt
-        const id = req.user_id;
-    
-        try{
-    
-            const orders: Order[] = await db.query(`SELECT * FROM orders where user_id = ?`, [id]);
-    
-            /**Funcion que por cada pediido carga su informacion
-             */
-            async function loadInfo() {
-    
-                for (let order of orders){
-    
-                    order.details =  await db.query(`SELECT * FROM order_details
-                                                    WHERE order_id = ?`, [order.id]);     
-                    
-                    order.delivery = await db.query(`SELECT * FROM delivery WHERE order_id = ?`,[order.id])
-                    
-                    await loadProductInfo(order);
-                }
-            }
-    
-            await loadInfo();
-            
-            res.status(200).json({ok:true, data: orders});
-    
-        } catch(error){
-            res.status(404).json({ok: false, message: 'Server not working'});
-            console.log(error);
-        }
-    
-    }
 
     public async changeState( req: Request, res: Response) {
 

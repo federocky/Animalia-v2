@@ -1,4 +1,3 @@
-import { Product } from './../models/product';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
@@ -6,14 +5,15 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class OrderByPipe implements PipeTransform {
 
-  transform(products: Product[], order: string): unknown {
+  transform(items: any[], order: string): unknown {
 
 
-    if(!products || !order) return products;
+    if(!items || !order) return items;
 
-    if( order == 'price') return products.sort( (a, b)  => a.price - b.price);
-    else if( order == 'name') return products.sort( (a, b) => {
+    if( order == 'price') return items.sort( (a, b)  => a.price - b.price);
+    else if( order == 'name') return items.sort( (a, b) => {
       
+
       let fa = a.name.toLowerCase(),
       fb = b.name.toLowerCase();
       
@@ -27,6 +27,6 @@ export class OrderByPipe implements PipeTransform {
       
     });
     
-    else return products.sort( (a, b) => a.id - b.id);
+    else return items.sort( (a, b) => a.id - b.id);
 }
 }

@@ -4,7 +4,7 @@
         <select name="orderBy" (change)="orderBy.emit( selectOrder.value )" #selectOrder>
             <option value="id">Id</option>
             <option value="name">Nombre</option>
-            <option value="price">Precio</option>
+            <option value="price" *ngIf="filterType == 'product'">Precio</option>
         </select>
     </div>
 
@@ -12,5 +12,5 @@
     <div class="searchBar">
         <input #searchBar (keyup)="search.emit( searchBar.value )" type="text" placeholder="Buscar...">
     </div>
-    <button (click)="createNew.emit(true)">Nuevo</button>
+    <button *ngIf="filterType != 'user'" (click)="createNew.emit(true)">Nuevo</button>
 </section>
