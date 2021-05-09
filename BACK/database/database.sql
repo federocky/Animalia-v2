@@ -136,12 +136,12 @@ CREATE TABLE service (
 CREATE TABLE appointment(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	service_id INT (10),
-	date_apppointment_from DATETIME,
-	date_apppointment_to DATETIME,
-	user_id INT (10),
+	date_appointment_from DATETIME NOT NULL,
+	date_appointment_to DATETIME NOT NULL,
+	user_id INT (10) NOT NULL,
 	employee_id INT (10),
 	price DECIMAL (8,2),
-	address_id INT (10)
+	address_id INT (10) NOT NULL
 );
 
 

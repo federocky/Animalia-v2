@@ -14,6 +14,8 @@ import productRoutes from './routes/productRoutes';
 import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
 import orderRoutes from './routes/orderRoutes';
+import serviceRoutes from './routes/serviceRoutes';
+import appointmentRoutes from './routes/appointmentRoutes';
 
 class Server {
 
@@ -45,6 +47,8 @@ class Server {
         this.app.use('/api/auth', authRoutes);
         this.app.use('/api/user', userRoutes);
         this.app.use('/api/order', orderRoutes);
+        this.app.use('/api/service', serviceRoutes);
+        this.app.use('/api/appointment', appointmentRoutes);
     }
 
     start(): void {

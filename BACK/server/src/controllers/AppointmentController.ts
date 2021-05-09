@@ -1,3 +1,4 @@
+import { Appointment } from './../models/appointment.model';
 import { Request, Response } from 'express';
 
 //traemos la bbdd
@@ -40,28 +41,32 @@ class AppointmentController {
     }
 
 
-        /**devuelve hora de inicio y fin de las citas en una fecha determinada de un determinado servicio */
-        public async indexByDate (req: Request, res: Response) {
+    /**devuelve hora de inicio y fin de las citas en una fecha determinada de un determinado servicio */
+    public async indexByDate (req: Request, res: Response) {
 
-            const id = req.params.id;
-            const date: Date = req.body.date; 
-            
-            //TODO: castear la date a solo date si la mando completa o mandarla ya casteada
+        const date: Date = req.body.date; 
 
-            try{
-                const appointments = await db.query(`SELECT date_appointment_from, date_appointment_from 
-                                                     FROM appointment WHERE DATE(date_appointment_from) = ?
-                                                     AND service_id = ?`, [+date, id]);
+        if(!date)return res.status(400).json({ok: false, message: 'Date needed'});
         
-                /**si no encuentra ningún appointment devolvemos el resultado*/
-                if (appointments.length < 1) return res.status(200).json({ok: false, message: 'The user has no appointments'});
+        console.log(date);
+        //TODO: castear la date a solo date si la mando completa o mandarla ya casteada
 
-                res.status(200).json({ok:true, data: appointments});
+        try{
+            const appointments = await db.query(`SELECT DATE_FORMAT(date_appointment_from, '%H:%i') AS hour_from, DATE_FORMAT(date_appointment_to, '%H:%i') AS hour_to
+                                                    FROM appointment WHERE date_appointment_from LIKE  ?
+                                                    ORDER BY hour_from
+                                                    `, [date+'%']);
     
-            } catch(error){
-                res.status(404).json({ok: false, message: 'Server not working'});
-            }
+            /**si no encuentra ningún appointment devolvemos el resultado*/
+            if (appointments.length < 1) return res.status(200).json({ok: false, message: 'The user has no appointments'});
+
+            res.status(200).json({ok:true, data: appointments});
+
+        } catch(error){
+            console.log(error);
+            res.status(404).json({ok: false, message: 'Server not working'});
         }
+    }
 
 
     public async create(req: Request, res: Response) {
@@ -77,23 +82,28 @@ class AppointmentController {
         const user_id = req.user_id;
 
         //recibimos los datos del servicio
-        const {service_id, date_appointment_from, date_appointment_to, address_id, price } = req.body;
+        const { ...appointment }: Appointment = req.body;
+        //const {service_id, date_appointment_from, date_appointment_to, address_id, price } = req.body;
 
 
         try{
-            
-            const response = db.query(`INSERT INTO appointment (service_id, date_appointment_from, date_appointment_to
-                                        user_id, price, address_id ) values (?,?,?,?,?,?)`, 
-                                        [service_id, date_appointment_from, date_appointment_to, user_id, address_id]);
+            const checkAvailability = await db.query(`SELECT id FROM appointment WHERE date_appointment_from = ?`, [appointment.date_appointment_from]);
 
-            ///TODO: mirar el tema de los errores y tal
-            res.status(200).json({ok: true, order_id: response.insertId});
+            //TODO: meter validacion que la hora debe ser una posterior y no inferior o cosas raras. tambien que sea la misma fecha.
+
+            if (checkAvailability.length >= 2) return res.status(400).json({ok: false, message: 'Date and time already reserved'});
+            
+            const response = await db.query(`INSERT INTO appointment (service_id, date_appointment_from, date_appointment_to,
+                                        user_id, price, address_id ) values (?,?,?,?,?,?)`, 
+                                        [appointment.service_id, appointment.date_appointment_from, appointment.date_appointment_to, 
+                                        appointment.user_id, appointment.price, appointment.address_id]);
+
+            
+            res.status(200).json({ok: true, appointment_id: response.insertId});
 
         } catch (error){
-            console.log(error);
-            //TODO: aqui irial el rollback() y devolver el stock de los productos.
-            
-            res.status(400).json({ok: false});
+            console.log(error);            
+            res.status(400).json({ok: false, message: 'Something went wrong'});
         }
 
     } 
@@ -102,6 +112,19 @@ class AppointmentController {
 
     /**devuelve un producto por id asi como su rating y numero de votos */
     public async show (req: Request, res: Response) {
+
+        const id = req.params.id;
+
+        try{
+            const appointments = await db.query(`SELECT * FROM appointment WHERE id = ?`, [+id]);
+    
+            if(appointments.length < 1) return res.status(400).json({ok: false, message: 'Appointment not found'});
+            
+            res.status(200).json({ok:true, data: appointments});
+
+        } catch(error){
+            res.status(404).json({ok: false, message: 'Something went wrong'});
+        }
     }
 
     public async edit(req: Request, res: Response) {
@@ -117,140 +140,26 @@ class AppointmentController {
     }
 
     public async destroy (req: Request, res: Response) {
-
-    }
-
-
-    public async changeState( req: Request, res: Response) {
-
-        const state = req.body.state;
-        const id = req.params.id;
-
-        let date = '';
-
-        if( !id || !state ) return res.status(400).json({ok: false, message: 'Invalid parameters', code: 1});
-
-       
         
-        if( state != 'sent' && state != 'delivered') return res.status(400).json({ok: false, message: 'Invalid state', code: 2});
+        const id = req.params.id;
 
         try {
 
-            let response;
+            const response = await db.query(`DELETE FROM appointment WHERE id = ?`, [+id]);
 
-            if(state == 'sent') response = await db.query(`UPDATE delivery SET state = ?, date_sent = curdate() WHERE id = ?`, [state, +id]);
-            else if( state == 'delivered') response = await db.query(`UPDATE delivery SET state = ?, date_delivered = curdate() WHERE id = ?`, [state, +id]);
+            console.log(response);
+            if(response.affectedRows < 1 ) res.status(400).json({ok: false, message: 'No appointmens found'}); 
 
-            //si encuentra el producto
-            if( response.affectedRows > 0 ) return res.status(200).json({ok: true});
-    
-            //si no lo encuentra
-            return res.status(400).json({ok: false, message: "Item not found", code: 3});
-
-        } catch (error) {
-            console.log(error);
-            return res.status(400).json({ok: false, message: "Connection error", code: 4});
-        }
-
-    }
-
-    public async reverseState( req: Request, res: Response) {
-
-        const state = req.body.state;
-        const id = req.params.id;
-
-        let date = '';    
-
-        if( !id || !state ) return res.status(400).json({ok: false, message: 'Invalid parameters', code: 1});
-
-       
-        
-        if( state != 'ordered' && state != 'sent') return res.status(400).json({ok: false, message: 'Invalid state', code: 2});
-
-        try {
-
-            let response;
-
-            if(state == 'ordered') response = await db.query(`UPDATE delivery SET state = ?, date_sent = null WHERE id = ?`, [state, +id]);
-            else if( state == 'sent') response = await db.query(`UPDATE delivery SET state = ?, date_delivered = null WHERE id = ?`, [state, +id]);
-
-            //si encuentra el producto
-            if( response.affectedRows > 0 ) return res.status(200).json({ok: true});
-    
-            //si no lo encuentra
-            return res.status(400).json({ok: false, message: "Item not found", code: 3});
-
-        } catch (error) {
-            console.log(error);
-            return res.status(400).json({ok: false, message: "Connection error", code: 4});
-        }
-
-    }
-
-}
-
-/**Funcion en la que actualizamos el stock de los productos comprados. */
-async function updateStock( user_id: number, cart: Cart): Promise<boolean>{
-
-    //TODO: esto deberia ser una transacción.
-
-    if(!await recorreProducto(user_id, cart)) return false;
-
-    //TODO:aqui iria la confirmacion de la transaccion
-
-    return true;
-
-}
-
-
-async function recorreProducto(user_id: number, cart: Cart) {
-
-    let stock;
-
-    ///cart.productQty.forEach( async (element: ProductQty) => {
-    for ( const element of cart.productQty){    
-
-        console.log(element);
-        try{
-            //recogemos el stock de cada producto
-            stock = await db.query(`SELECT stock FROM product WHERE id = ?`, [element.product.id]);
-            
-            /*la consulta nos devuelve un array de RowDataPacket por lo que accedemos a la 
-            primera posicion y propiedad stock*/
-            stock = stock[0].stock;
-            
-            //si el stock es menor que la cantidad lanzamos error.
-            if(stock < element.qty)  throw new Error('Invalid stock');
-            
-            //actualizamos el stock en la BBDD
-            await db.query(`UPDATE product SET stock = ? where id = ?`, [stock - element.qty, element.product.id]);
+            res.status(200).json({ok: true, message: 'Appointment deleted'});
 
         } catch (error){
-
-            //TODO:aqui iria el rollback de la transaccion.
-
-            return false;
-
+            console.log(error);
+            res.status(200).json({ok: false, message: 'Something went wrong'});
         }
-    };
 
-    return true;
-}
-
-/**Funcion que carga toda la información de los productos pertenecientes a un pedido. */
-async function loadProductInfo(order: Order){
-
-    let productAux: Product[];
-    for (const product of order.details){
-    
-        productAux = await db.query(`SELECT * FROM product WHERE id = ?`, [product.id]);
-
-        product.product = productAux[0];
     }
 
-    return order;
-    
 }
 
 
-export const orderController = new OrderController();
+export const appointmentController = new AppointmentController();

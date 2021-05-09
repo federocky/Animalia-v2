@@ -15,7 +15,6 @@ class ServiceController {
 
         try{
             const services = await db.query(`SELECT * FROM service`);
-    
             
             res.status(200).json({ok:true, data: services});
 
