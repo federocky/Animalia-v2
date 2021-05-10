@@ -1,0 +1,31 @@
+@import '../../../../assets/styles/mixins';
+@import '../../../../assets/styles/variables';
+
+
+h2, h3{
+    font-family: $font_titulos;
+    text-decoration: underline;
+    padding: 10px 0px;
+    text-align: center;
+
+    @include escritorio{
+        padding: 20px 0px;
+    }
+}
+
+p{
+    font-family: $font_contenido;
+}
+
+main{
+    
+    .main{
+        text-align: center;
+        background-color: $gray_light;
+    }
+    
+    
+    
+    
+}
+    

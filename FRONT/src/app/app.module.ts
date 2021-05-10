@@ -51,6 +51,10 @@ import { CrudFiltersComponent } from './components/admin/pages/crud-filters/crud
 import { ProductFormComponent } from './components/admin/utils/product-form/product-form.component';
 import { SearchPipe } from './pipes/search.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
+import { PaseosComponent } from './components/services-appointments/paseos/paseos.component';
+import { PeluqueriaComponent } from './components/services-appointments/peluqueria/peluqueria.component';
+import { FormMakeAppointmentComponent } from './components/services-appointments/shared/form-make-appointment/form-make-appointment.component';
+import { AreaComponent } from './components/services-appointments/shared/area/area.component';
 
 
 
@@ -91,7 +95,11 @@ import { OrderByPipe } from './pipes/order-by.pipe';
     CrudFiltersComponent,
     ProductFormComponent,
     SearchPipe,
-    OrderByPipe
+    OrderByPipe,
+    PaseosComponent,
+    PeluqueriaComponent,
+    FormMakeAppointmentComponent,
+    AreaComponent
   ],
   imports: [
     BrowserModule,

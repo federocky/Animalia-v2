@@ -1,5 +1,5 @@
 import { Service } from './../models/service.model';
-import { json, Request, Response } from 'express';
+import { Request, Response } from 'express';
 
 //traemos la bbdd
 import db from '../database';

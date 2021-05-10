@@ -25,7 +25,7 @@ class AppointmentController {
     /**devuelve todas las citas de un usuario */
     public async indexByUser (req: Request, res: Response) {
 
-        const { id } = req.params;
+        const id = req.user_id;
 
         try{
             const appointments = await db.query(`SELECT * FROM appointment WHERE id = ?`, [+id]);

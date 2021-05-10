@@ -1,0 +1,67 @@
+@import '../../../../../assets/styles/mixins';
+@import '../../../../../assets/styles/variables';
+
+h2{
+    font-family: $font_titulos;
+    text-decoration: underline;
+    padding: 10px 0px;
+    text-align: center;
+
+    @include escritorio{
+        padding: 20px 0px;
+    }
+}
+
+p{
+    font-family: $font_contenido;
+}
+
+span{
+    display: none;
+    @include escritorio{
+        display: inline;
+    }
+}
+
+.area{
+
+    display: grid;
+    justify-items: center;
+    background-color: #fff;
+
+    section{
+        
+        display: grid;
+        justify-items: center;
+
+        @include escritorio{
+            grid-template-columns: 1fr 1fr;
+        }
+
+        img{
+            max-width: 450px;
+        }
+        
+        p{
+            text-align: center;
+
+            @include escritorio{
+                text-align: start;
+            }
+        }
+    }
+    
+    a{
+        @include crearBoton ($blue_dark);
+        margin: 16px 0px;
+        text-align: center;
+        width: 100%;
+        max-width: 750px;
+        justify-self: center;
+
+        @include escritorio{
+            padding: 10px 0px;
+        }
+    }
+}
+

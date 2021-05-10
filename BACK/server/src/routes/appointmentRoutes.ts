@@ -13,7 +13,7 @@ class AppointmentRoutes {
 
     config(): void {
         this.router.get('/', appointmentController.index);
-        this.router.get('/byUser/:id', appointmentController.indexByUser);
+        this.router.get('/byUser', appointmentController.indexByUser);
         this.router.get('/byDate', appointmentController.indexByDate);
         //this.router.get('/create', appointmentController.create);
         this.router.post('/', appointmentController.store);

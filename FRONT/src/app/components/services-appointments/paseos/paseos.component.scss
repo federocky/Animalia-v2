@@ -1,0 +1,44 @@
+@import '../../../../assets/styles/mixins';
+@import '../../../../assets/styles/variables';
+
+
+h2{
+    font-family: $font_titulos;
+    text-decoration: underline;
+    padding: 10px 0px;
+    text-align: center;
+
+    @include escritorio{
+        padding: 20px 0px;
+    }
+}
+
+p{
+    font-family: $font_contenido;
+}
+
+span{
+    display: none;
+    @include escritorio{
+        display: inline;
+    }
+}
+
+
+.main{
+    background-color: $gray_light;
+    text-align: center;
+
+    .image-info{
+        p{
+            padding: 12px 0px;
+            margin: 0px;
+
+           
+        }
+    }
+}
+
+
+
+
