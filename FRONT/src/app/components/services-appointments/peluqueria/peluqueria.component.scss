@@ -22,6 +22,38 @@ main{
     .main{
         text-align: center;
         background-color: $gray_light;
+        padding-bottom: 26px;
+
+        .container{
+
+            .content{
+                
+                article{
+
+                    display: grid;
+
+                    @include escritorio{
+                        grid-template-columns: 1fr 1fr;
+                        margin-bottom: 32px;
+                        .text{
+                            align-self: center;
+                            padding: 12px;
+                        }                        
+                    }
+                }
+
+                .article2{
+                    .text{
+                        grid-column: 2 / 3;
+                    }
+
+                    img{
+                        grid-column: 1 / 2;
+                        grid-row: 1/2;
+                    }
+                }
+            }
+        }
     }
     
     

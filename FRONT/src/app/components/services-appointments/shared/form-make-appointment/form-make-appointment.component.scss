@@ -1,0 +1,45 @@
+@import '../../../../../assets/styles/mixins';
+@import '../../../../../assets/styles/variables';
+
+.filters{
+    background-color: $green_primary;
+    padding: 16px;
+    border-radius: 16px;
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include escritorio{
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    input, select{
+        border-radius: 8px;
+        max-width: 250px;
+        padding: 4px 4px;
+        width: 100%;
+        margin-bottom: 10px;
+        width: auto;
+    }
+
+    select{
+    }
+
+    div{
+        display: flex;
+        color: #fff;
+        p{
+            display: none;
+            margin-right: 6px;
+            align-self: center
+        }
+    }
+
+    button{
+        @include crearBoton($orange_secondary);
+        min-width: 200px;
+    }
+
+}
