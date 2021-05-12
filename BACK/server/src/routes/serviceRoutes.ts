@@ -20,6 +20,7 @@ class ServiceRoutes {
         this.router.put('/:id', serviceController.update);
         this.router.delete('/:id', serviceController.destroy);
         this.router.get('/recover/:id', serviceController.unDestroy);
+        this.router.get('/postCodes/index', serviceController.indexPostcode);
     }
 }
 

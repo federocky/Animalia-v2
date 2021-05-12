@@ -32,4 +32,8 @@ export class ServiceService {
   recoverService( id: number ){
     return this.http.get(`${this.url}${this.route}/recover/${id}`);
   }
+
+  getPostcodes(){
+    return this.http.get(`${this.url}${this.route}/postCodes/index`);
+  }
 }

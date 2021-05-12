@@ -1,23 +1,28 @@
 <div class="filters">
 
-    <div>
-        <p>Introduzca su codigo postal: </p>
-        <input type="text" placeholder="Codigo postal....">
+    <div class="postCodeContainer">
+        <input #postCode (keyup)="showButton( $event, postCode )" type="text" placeholder="Codigo postal....">
+        <div class="iContainer">
+            <i [ngClass]="{'spinner' : spin == true}" class="fas fa-paw"></i>
+            <i [ngClass]="{'check' : cpFound == true}" class="far fa-check-circle"></i>
+            <i [ngClass]="{'unCheck' : cpNotFound == true}" class="far fa-times-circle"></i>
+            <button 
+                (click)="checkingPostcode( postCode.value)"
+                [ngStyle]="{'display': button ? 'inline' : 'none' }"
+                ><i class="fas fa-search"></i></button>
+        </div>
     </div>
 
+    <!-- [disabled]="dateInactive" -->
 
-            <input type="date" class="date">
+            <input type="date" class="date"  [min]="today" #datePicked (change)="dateSelected(datePicked)">
             
-            <select name="hour" id="">
-                <option value="">8:00 - 9:00</option>
-                <option value="">9:00 - 10:00</option>
-                <option value="">10:00 - 11:00</option>
-                <option value="">11:00 - 12:00</option>
-                <option value="">12:00 - 13:00</option>
+            <select name="hour" id="" [disabled]="hourInactive">
+                <option *ngFor="let hour of hoursAvailable" value="">{{ hour }}</option>
             </select>
 
 
-        <button>Reservar <i class="fas fa-paw"></i></button>
+        <button [ngClass]="{'disabled' : !buttonActive}">Reservar <i class="fas fa-paw"></i></button>
 
 
 </div>

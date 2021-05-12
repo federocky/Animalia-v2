@@ -44,7 +44,7 @@ class AppointmentController {
     /**devuelve hora de inicio y fin de las citas en una fecha determinada de un determinado servicio */
     public async indexByDate (req: Request, res: Response) {
 
-        const date: Date = req.body.date; 
+        const date: string = req.body.date; 
 
         if(!date)return res.status(400).json({ok: false, message: 'Date needed'});
         
@@ -58,9 +58,9 @@ class AppointmentController {
                                                     `, [date+'%']);
     
             /**si no encuentra ningún appointment devolvemos el resultado*/
-            if (appointments.length < 1) return res.status(200).json({ok: false, message: 'The user has no appointments'});
+            if (appointments.length < 1) return res.status(200).json({ok: true, code: 1, message: 'All day available'});
 
-            res.status(200).json({ok:true, data: appointments});
+            res.status(200).json({ok:true, code: 2, data: appointments});
 
         } catch(error){
             console.log(error);

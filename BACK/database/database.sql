@@ -144,6 +144,10 @@ CREATE TABLE appointment(
 	address_id INT (10) NOT NULL
 );
 
+CREATE TABLE postcode(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	postcode INT (5)
+);
 
 
 
@@ -200,6 +204,13 @@ add constraint appointment_employee foreign key (employee_id) references employe
 alter table appointment
 add constraint appointment_address foreign key (address_id) references address (id);
 
+insert into postcode(postcode) values
+	(29640),
+	(29649),
+	(29650),
+	(29651),
+	(29630),
+	(29631);
 
 
 insert into user (name, surname, email, password) values

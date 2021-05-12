@@ -134,6 +134,24 @@ class ServiceController {
         }
     }
 
+    public async indexPostcode (req: Request, res: Response){
+
+        try{
+            const result = await db.query(`SELECT postcode FROM postcode`);
+            
+            let postCodes: number[] = [];
+
+            result.forEach( (elem:any) => {
+                postCodes.push(elem.postcode);    
+            });
+
+            res.status(200).json({ok:true, data: postCodes});
+
+        } catch(error){
+            res.status(404).json({ok: false, message: 'Something went wrong'});
+        }
+    }
+
 }
 
 

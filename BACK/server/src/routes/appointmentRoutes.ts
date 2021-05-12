@@ -14,7 +14,7 @@ class AppointmentRoutes {
     config(): void {
         this.router.get('/', appointmentController.index);
         this.router.get('/byUser', appointmentController.indexByUser);
-        this.router.get('/byDate', appointmentController.indexByDate);
+        this.router.post('/byDate', appointmentController.indexByDate);
         //this.router.get('/create', appointmentController.create);
         this.router.post('/', appointmentController.store);
         this.router.get('/:id', appointmentController.show);
