@@ -30,6 +30,7 @@ class UserRoutes {
         this.router.put('/address/:id', tokenValidation, addressValidation, userController.updateAddress);
         this.router.post('/address/:id', tokenValidation, userController.setAddressAsMain);
         this.router.delete('/address/:id', tokenValidation, userController.destroyAddress);
+        this.router.get('/address/index/get', tokenValidation, userController.indexAddressByUser);
     }
 }
 

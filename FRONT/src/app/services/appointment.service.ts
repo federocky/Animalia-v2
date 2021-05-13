@@ -25,8 +25,8 @@ export class AppointmentService {
     return this.http.get(`${this.url}${this.route}/byUser`);
   }
 
-  getAppointmentsByDate( date: string ){
-    return this.http.post(`${this.url}${this.route}/byDate`, {date: date});
+  getAppointmentsByDate( date: string, service: string ){
+    return this.http.post(`${this.url}${this.route}/byDate`, {date: date, service: service});
   }
 
   setNewAppointment( appointment: Appointment ){

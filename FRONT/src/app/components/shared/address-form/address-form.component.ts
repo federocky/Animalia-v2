@@ -24,7 +24,7 @@ export class AddressFormComponent implements OnInit {
   postcode:  FormControl;
   details:  FormControl;
 
-  constructor() { 
+  constructor() {
     this.address = new EventEmitter();
     this.close = new EventEmitter();
   }
@@ -37,7 +37,7 @@ export class AddressFormComponent implements OnInit {
   createForm(): void {
 
     this.myForm = new FormGroup({
-      street_name: new FormControl('', Validators.required), 
+      street_name: new FormControl('', Validators.required),
       street_number: new FormControl('', Validators.required),
       floor: new FormControl('', Validators.required),
       letter: new FormControl('', Validators.required),
@@ -59,7 +59,7 @@ export class AddressFormComponent implements OnInit {
     this.street_name    = this.myForm.controls.street_name    as FormControl;
     this.street_number  = this.myForm.controls.street_number  as FormControl;
     this.floor          = this.myForm.controls.floor          as FormControl;
-    this.letter         = this.myForm.controls.letter         as FormControl;    
+    this.letter         = this.myForm.controls.letter         as FormControl;
     this.province       = this.myForm.controls.province       as FormControl;
     this.locality       = this.myForm.controls.locality       as FormControl;
     this.town           = this.myForm.controls.town           as FormControl;
@@ -67,7 +67,7 @@ export class AddressFormComponent implements OnInit {
     this.details        = this.myForm.controls.details        as FormControl;
 
 
-    
+
     if(this.addressRecived){
 
       this.myForm.setValue({
@@ -87,11 +87,11 @@ export class AddressFormComponent implements OnInit {
   onSubmit(){
 
     if( !this.myForm.valid ) this.myForm.markAllAsTouched();
-    
+
     else {
       const address: Address = this.myForm.value;
-      
-      if( this.addressRecived.id ) address.id = this.addressRecived.id;
+
+      if( this.addressRecived ) address.id = this.addressRecived.id;
 
       this.address.emit( address );
     }

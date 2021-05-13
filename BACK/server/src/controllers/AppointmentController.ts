@@ -45,22 +45,73 @@ class AppointmentController {
     public async indexByDate (req: Request, res: Response) {
 
         const date: string = req.body.date; 
+        const service: string = req.body.service;
 
-        if(!date)return res.status(400).json({ok: false, message: 'Date needed'});
+        if(!date || !service)return res.status(400).json({ok: false, message: 'Invalid info'});
         
-        console.log(date);
         //TODO: castear la date a solo date si la mando completa o mandarla ya casteada
 
         try{
-            const appointments = await db.query(`SELECT DATE_FORMAT(date_appointment_from, '%H:%i') AS hour_from, DATE_FORMAT(date_appointment_to, '%H:%i') AS hour_to
-                                                    FROM appointment WHERE date_appointment_from LIKE  ?
-                                                    ORDER BY hour_from
-                                                    `, [date+'%']);
-    
-            /**si no encuentra ningún appointment devolvemos el resultado*/
-            if (appointments.length < 1) return res.status(200).json({ok: true, code: 1, message: 'All day available'});
+            
+            let response = await db.query(`SELECT DATE_FORMAT(hour_start, '%H:%i') AS hour_from, DATE_FORMAT(hour_end, '%H:%i') AS hour_to FROM service WHERE name = ?`, [service]);
+            
+            let from:           string = response[0].hour_from;
+            let to:             string = response[0].hour_to;
 
-            res.status(200).json({ok:true, code: 2, data: appointments});
+                        
+            from = from.slice(0, 2);
+            to = to.slice(0,2);
+            
+            let numberFrom: number = +from;
+            let numberTo: number = +to;
+            
+            let serviceHours:    number[] = [];
+            let bookedHours:     number[] = [];
+            let availableHours:  number[] = [];
+
+            const formatedDate = new Date(date);
+
+            if(isToday( formatedDate )) {
+                const hourNow = new Date().getHours();
+
+                if(hourNow >= 19) return res.status(200).json({ok: true, data: []});
+                numberFrom = hourNow + 1;
+            }
+            
+
+            for(let i = numberFrom; i <= numberTo; i++){
+                serviceHours.push(i);
+            }
+
+            response = await db.query(`SELECT DATE_FORMAT(date_appointment_from, '%H:%i') AS hour_from, DATE_FORMAT(date_appointment_to, '%H:%i') AS hour_to
+                                                    FROM appointment WHERE date_appointment_from LIKE  ?
+                                                    ORDER BY hour_from`, [date+'%']);
+    
+                   
+            //if no appointments all the hours are available
+            if (response.length < 1) return res.status(200).json({ok: true, data: serviceHours});
+
+            let bookedFrom: string;
+
+            response.forEach( (elem:any) => {
+                bookedFrom       = elem.hour_from;    
+                bookedFrom       = bookedFrom.slice(0,2);
+                bookedHours.push(+bookedFrom);
+            });
+            
+            
+            let count = 0;
+            for(let i = 0; i < serviceHours.length; i++){
+                count = 0;
+                for(let j = 0; j < bookedHours.length; j++){
+                    if(serviceHours[i] == bookedHours[j]) count++;
+                }
+                if(count < 2) availableHours.push(serviceHours[i]);
+                else i++;
+            }
+
+
+            res.status(200).json({ok:true, data: availableHours});
 
         } catch(error){
             console.log(error);
@@ -159,6 +210,14 @@ class AppointmentController {
 
     }
 
+}
+
+function isToday (someDate : Date) {
+
+    const today = new Date()
+    return  someDate.getDate() == today.getDate() &&
+            someDate.getMonth() == today.getMonth() &&
+            someDate.getFullYear() == today.getFullYear();
 }
 
 

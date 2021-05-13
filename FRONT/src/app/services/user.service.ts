@@ -109,6 +109,16 @@ export class UserService {
     return this.http.delete(`${this.url}${this.route}/address/${address_id}`, {headers: headers});
   }
 
+  getUserAddresses(){
+
+    const headers = new HttpHeaders({
+      'auth-token': localStorage.getItem('auth-token'),
+      'token-expire': localStorage.getItem('token-expire')
+    });
+
+    return this.http.get(`${this.url}${this.route}/address/index/get`, {headers: headers});
+  }
+
 
 
 }

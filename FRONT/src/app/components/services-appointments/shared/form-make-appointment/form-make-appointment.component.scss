@@ -69,6 +69,7 @@
         }
     }
 
+
     >button{
         @include crearBoton($orange_secondary);
         min-width: 200px;
@@ -79,6 +80,21 @@
         cursor: not-allowed;
     }
 
+}
+
+/*---------------MODAL-------------------------*/
+
+h5{
+    font-family: $font_titulos;
+}
+
+.cancelModal{
+    @include crearBoton($orange_secondary);
+}
+
+
+.confirmModal{
+    @include crearBoton($green_primary);
 }
 
 /*------------------ ANIMACIONES------------------ */

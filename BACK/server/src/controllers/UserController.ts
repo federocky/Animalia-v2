@@ -171,25 +171,25 @@ class UserController {
 
     }
 
-        /**Funcion que recupera un producto por id */
-        public async unDestroy (req: Request, res: Response) {
-        
-            const { id } = req.params;
+    /**Funcion que recupera un producto por id */
+    public async unDestroy (req: Request, res: Response) {
     
-            try {
-    
-                const response = await db.query('UPDATE user SET active = 1 WHERE id = ?', [id]);
-    
-                //si encuentra el producto
-                if( response.affectedRows > 0 ) return res.status(200).json({ok: true});
-    
-                //si no lo encuentra
-                return res.status(400).json({ok: false, message: "User not found", code: 1});
-    
-            } catch (error) {
-                return res.status(400).json({ok: false, message: "Connection error", code: 2});
-            }
+        const { id } = req.params;
+
+        try {
+
+            const response = await db.query('UPDATE user SET active = 1 WHERE id = ?', [id]);
+
+            //si encuentra el producto
+            if( response.affectedRows > 0 ) return res.status(200).json({ok: true});
+
+            //si no lo encuentra
+            return res.status(400).json({ok: false, message: "User not found", code: 1});
+
+        } catch (error) {
+            return res.status(400).json({ok: false, message: "Connection error", code: 2});
         }
+    }
 
 
     /**Funcion que devuelve la direccion principal del usuario utilizando el id
@@ -221,6 +221,37 @@ class UserController {
 
         }catch(error) {
             res.status(400).json({ok: false, error: {code: error.errno, message: error.code}});
+            console.log(error);
+        }
+
+    }
+
+
+    public async indexAddressByUser (req: Request, res: Response) {
+
+        //recibimos el id encriptado jwt
+        const id = req.user_id;
+
+        try{
+
+            
+            const address = await db.query(`SELECT address.* FROM user
+                                            JOIN user_address ua 
+                                            ON user.id = ua.user_id
+                                            JOIN address
+                                            ON ua.address_id = address.id
+                                            WHERE user.id = ${id}`);
+            
+            if( address.length == 0) return res.status(200).json({ok: false, code:1, message: 'No address found'});
+            
+            
+            //const address: Address = { ...query };
+            
+            //Devuelvo los datos respuesta.
+            res.status(200).json({ok: true, code:2,  data: address});
+
+        }catch(error) {
+            res.status(400).json({ok: false, error: {code: 3, message: error.code}});
             console.log(error);
         }
 

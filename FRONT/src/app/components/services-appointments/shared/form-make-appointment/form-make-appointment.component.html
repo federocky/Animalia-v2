@@ -6,23 +6,64 @@
             <i [ngClass]="{'spinner' : spin == true}" class="fas fa-paw"></i>
             <i [ngClass]="{'check' : cpFound == true}" class="far fa-check-circle"></i>
             <i [ngClass]="{'unCheck' : cpNotFound == true}" class="far fa-times-circle"></i>
-            <button 
+            <button
                 (click)="checkingPostcode( postCode.value)"
                 [ngStyle]="{'display': button ? 'inline' : 'none' }"
                 ><i class="fas fa-search"></i></button>
         </div>
     </div>
 
-    <!-- [disabled]="dateInactive" -->
+            <input type="date" class="date"  [min]="today" [disabled]="dateInactive" #datePicked (change)="dateSelected(datePicked)">
 
-            <input type="date" class="date"  [min]="today" #datePicked (change)="dateSelected(datePicked)">
-            
-            <select name="hour" id="" [disabled]="hourInactive">
-                <option *ngFor="let hour of hoursAvailable" value="">{{ hour }}</option>
-            </select>
+            <div>
+                <select name="hour" id="" [disabled]="hourInactive" #hour>
+                    <option *ngFor="let hour of hoursAvailable" [value]="hour">{{ hour }}:00 - {{ hour+1 }}:00</option>
+                </select>
+            </div>
 
 
-        <button [ngClass]="{'disabled' : !buttonActive}">Reservar <i class="fas fa-paw"></i></button>
+        <button (click)="getAddresses()" [ngClass]="{'disabled' : !buttonActive}" data-bs-target="#confirmModal" data-bs-toggle="modal">Reservar <i class="fas fa-paw"></i></button>
 
 
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmModalLabel">Confirma tu reserva</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+            <h6>{{ serviceType }}</h6>
+            <p class="date">{{ datePicked.value }}</p>
+            <p class="hour">{{ hour.value }}:00 - {{+hour.value+1}}:00</p>
+            <p class="price">€{{ servicePrice }}</p>
+
+            <div class="hasAddress" *ngIf="addresses.length > 0">
+                <div for="adressesContainer">
+                  <label [for]="address.id" *ngFor="let address of addresses">
+                    <input name="addressRadio" type="radio" [value]="address.id"> {{ address.street_name}}
+                  </label>
+                </div>
+            </div>
+
+            <div class="noAddress" *ngIf="addresses.length < 1">
+              <button>Introduzca su dirección</button>
+            </div>
+        </div>
+
+
+        <div class="modal-footer">
+          <button type="button" class="cancelModal" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="confirmModal">Reservar ahora</button>
+        </div>
+
+      </div>
+    </div>
+  </div>

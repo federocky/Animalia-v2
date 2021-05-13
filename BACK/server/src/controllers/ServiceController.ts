@@ -50,7 +50,7 @@ class ServiceController {
             if (service.length < 1) return res.status(404).json({ok: false, message: 'Service not found'});
                 
             
-            res.status(200).json({ok: true, data: service});
+            res.status(200).json({ok: true, data: service[0]});
 
         }catch(error){
 

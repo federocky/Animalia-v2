@@ -1,5 +1,7 @@
+import { Address } from 'src/app/models/address.model';
+import { UserService } from 'src/app/services/user.service';
 import { AppointmentService } from './../../../../services/appointment.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ServiceService } from 'src/app/services/service.service';
 
 //sweet alert
@@ -12,6 +14,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./form-make-appointment.component.scss']
 })
 export class FormMakeAppointmentComponent implements OnInit {
+  @Input() serviceType: string;
 
   postcodes: number[] = [];
 
@@ -22,15 +25,20 @@ export class FormMakeAppointmentComponent implements OnInit {
   dateInactive = true;
   hourInactive = true;
   buttonActive = false;
+  noHoursMessage = false;
 
   today = new Date().toISOString().slice(0, 10);
 
-  hoursAvailable: string[] = ['8:00 - 9:00', '9:00 - 10:00', '10:00 - 11:00']; 
-  hoursBooked: string[] = []; 
-  hoursUnabailable: string[] = [];
-  
+  hoursAvailable: number[] = [];
+
+  postcode: number;
+  datePicked: string;
+  addresses: Address[] = [];
+  servicePrice: number;
+
   constructor( private _servicesService: ServiceService,
-               private _appointmentService: AppointmentService
+               private _appointmentService: AppointmentService,
+               private _userService: UserService
     ) { }
 
   ngOnInit(): void {
@@ -41,7 +49,14 @@ export class FormMakeAppointmentComponent implements OnInit {
         console.log(err);
         this.showError();
       });
+
+      this._servicesService.getService( this.serviceType == 'peluqueria' ? 5 : 6)
+        .subscribe( (res:any) => {
+          this.servicePrice = res.data.price;
+      });
+    
   }
+
 
   checkingPostcode( term: string ){
     this.spin = true;
@@ -53,7 +68,8 @@ export class FormMakeAppointmentComponent implements OnInit {
       
       if( this.postcodes.includes(+term) ) {
         this.cpFound = true;
-        this.dateInactive = false;        
+        this.dateInactive = false;       
+        this.postcode = +term; 
       } 
       else {
         this.cpNotFound = true;
@@ -63,9 +79,10 @@ export class FormMakeAppointmentComponent implements OnInit {
       
       this.spin = false;
       
-    }, 2000);    
+    }, 50);    
   }
-
+  
+  /*salta al escribir en el input del postcode*/ 
   showButton( e, postcode ){
     if( e.keyCode == 13 ) this.checkingPostcode( postcode.value );
     else {      
@@ -77,29 +94,30 @@ export class FormMakeAppointmentComponent implements OnInit {
   }
 
   dateSelected( date ){
-    this._appointmentService.getAppointmentsByDate( date.value )
+    this.datePicked = date.value;
+    this._appointmentService.getAppointmentsByDate( date.value, this.serviceType )
       .subscribe( (res:any) => {
-        this.hoursBooked = res.data;
-        this.loadHours();
+        this.hoursAvailable = res.data;
+        if(this.hoursAvailable.length < 1) this.noHoursMessage = true;
+        else {
+          this.hourInactive = false;
+          this.buttonActive = true;
+        }
       }, err => {
         console.log(err);
       })
+  }  
+
+  getAddresses(){
+    this._userService.getUserAddresses()
+      .subscribe( (res:any) => {
+        if(res.code == 2)  this.addresses = res.data;
+      }, err => {
+        console.log(err);
+        this.showError();
+      })
   }
-
-  loadHours(){
-
-
-    for(let i = 0; i < this.hoursBooked.length; i++){
-      for(let j = i+1; j < this.hoursBooked.length; j++){
-         if(this.hoursBooked[i] == this.hoursBooked[j])  this.hoursUnabailable.push(this.hoursBooked[i]);
-      }
-    }
-
-
-    this.hourInactive = false;
-    console.log(this.hoursUnabailable);
-
-  }
+  
 
 
   showError(){
