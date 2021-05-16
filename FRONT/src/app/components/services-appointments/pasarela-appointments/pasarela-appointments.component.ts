@@ -31,18 +31,17 @@ export class PasarelaAppointmentsComponent implements OnInit {
 
   pay(){
 
-    /* this._orderService.store( this.address.id, this.cart)
+     this._appointmentService.setNewAppointment( this.appointment )
       .subscribe( (res:any)  => {
 
         Swal.fire({
           icon: 'success',
-          title: 'Pedido realizado con éxito',
-          html: '<h3 class="text-success">numero de pedido '+res.order_id+'</h3>',
+          title: 'Servicio contratado con éxito',
+          html: '<h3 class="text-success">numero de cita '+res.appointment_id+'</h3>',
           allowOutsideClick: false,
           showConfirmButton: true,
         }).then((result) => {
-          this.deleteShoppingInfo();
-          if(result.isConfirmed) this.router.navigateByUrl('home');
+          if(result.isConfirmed) this._router.navigateByUrl('home');
         });
 
       }, err => {
@@ -52,26 +51,17 @@ export class PasarelaAppointmentsComponent implements OnInit {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          html: '<h6 class="text-success">Alguien se te ha adelantado y el stock de alguno de tus productos ha cambiado</h6>',
+          html: '<h6 class="text-success">Algo ha ido mal, intentalo mas tarde.</h6>',
           allowOutsideClick: false
 
         }).then((result) => {
 
           //TODO: seria mejor saber que producto tiro el error y actualizarlo en el carro.
           //Lo dejo como posible mejora.
-          this.deleteShoppingInfo();
-          this.router.navigateByUrl('tienda');
+          this._router.navigateByUrl('tienda');
 
         });
-      }); */
-      console.log('pay');
-  }
-
-
-  deleteShoppingInfo(){
-   /*  localStorage.removeItem('cart');
-    localStorage.removeItem('cartItemCount');
-    localStorage.removeItem('address'); */
+      });
   }
 
   showError(){

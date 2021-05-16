@@ -7,7 +7,7 @@
              <tr><th>Importe:</th> <td>{{ appointment.price.toFixed(2)}}</td></tr>
              <tr><th>Comercio:</th> <td>Mimascota.com</td></tr>
              <tr><th>Terminal:</th> <td>x2365164</td></tr>
-             <tr><th>Fecha:</th> <td>22/10/2021</td></tr>
+             <tr><th>Fecha:</th> <td>{{ appointment.date_appointment_from | date }}</td></tr>
           </table>
   </div>
 

@@ -133,6 +133,7 @@ export class FormMakeAppointmentComponent implements OnInit {
         if(res.code == 2) {
           this.addresses = res.data;
           this.addresses = this.addresses.filter( address => address.postcode == this.userAddress.postcode);
+          //this.showModal = true;
         }
       }, err => {
         console.log(err);
@@ -174,7 +175,7 @@ export class FormMakeAppointmentComponent implements OnInit {
     }
 
     const appointment: Appointment = {
-      service_id : 0,
+      service_id : this.service.id,
       date_appointment_from: new Date(this.datePicked),
       date_appointment_to: new Date(this.datePicked),
       user_id: this.user.id,
@@ -182,8 +183,10 @@ export class FormMakeAppointmentComponent implements OnInit {
       address_id: this.address_id
     }
 
+
+
     localStorage.setItem('appointment', JSON.stringify(appointment));
-    this._router.navigateByUrl('/servicios/pasarela');
+    this._router.navigateByUrl('main/servicios/pasarela');
   }
 
   showError(){

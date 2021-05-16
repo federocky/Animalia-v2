@@ -58,7 +58,7 @@
             <div class="hasAddress" *ngIf="addresses.length > 0">
                 <div for="adressesContainer">
                   <label [for]="address.id" *ngFor="let address of addresses">
-                    <input name="addressRadio" type="radio" [value]="address.id" [(ngModel)]="address_id">
+                    <input name="addressRadio" type="radio" [value]="address.id" checked [(ngModel)]="address_id">
                       {{ address.street_name}} Nº {{address.street_number}}, CP: {{ address.postcode }}
                   </label>
                   <a (click)="openAddressForm = true">Agregar otra dirección...</a>
@@ -74,7 +74,7 @@
             <div class="modal-footer">
               <span id="addressError" *ngIf="addressError">Debe ingresar una direccion</span>
               <button type="button" class="cancelModal" data-bs-dismiss="modal">Cerrar</button>
-              <button type="button" class="confirmModal" (click)="makeAppointment()">Reservar ahora</button>
+              <button type="button" class="confirmModal" data-bs-dismiss="modal" (click)="makeAppointment()">Reservar ahora</button>
             </div>
 
         </div>
