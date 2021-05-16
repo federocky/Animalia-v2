@@ -1,5 +1,6 @@
 <div class="filters">
 
+
     <div class="postCodeContainer">
         <input #postCode (keyup)="showButton( $event, postCode )" type="text" placeholder="Codigo postal....">
         <div class="iContainer">
@@ -22,14 +23,15 @@
             </div>
 
 
-        <button (click)="getAddresses()" [ngClass]="{'disabled' : !buttonActive}" data-bs-target="#confirmModal" data-bs-toggle="modal">Reservar <i class="fas fa-paw"></i></button>
+        <button (click)="onReserve()" [ngClass]="{'disabled' : !buttonActive}" data-bs-target="#confirmModal" data-bs-toggle="modal">Reservar <i class="fas fa-paw"></i></button>
+
 
 
 </div>
 
 
 <!-- Modal -->
-<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+<div class="modal fade" id="confirmModal" *ngIf="service" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
     <div class="modal-dialog">
 
       <div class="modal-content">
@@ -38,32 +40,78 @@
           <h5 class="modal-title" id="confirmModalLabel">Confirma tu reserva</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div *ngIf="!openAddressForm">
 
-        <div class="modal-body">
+          <div class="modal-body">
+
             <h6>{{ serviceType }}</h6>
             <p class="date">{{ datePicked.value }}</p>
             <p class="hour">{{ hour.value }}:00 - {{+hour.value+1}}:00</p>
-            <p class="price">€{{ servicePrice }}</p>
+            <p class="price">€{{ service.price }}</p>
+            <p class="user" *ngIf="user">{{ user.name }} {{ user.surname }}</p>
+
+            <div class="tlf" *ngIf="user">
+              <p class="user" *ngIf="user.phone">{{ user.phone }} <button data-bs-target="#phone_modal" data-bs-toggle="modal" class="btn btn-secondary"><i class="fas fa-phone"></i></button></p>
+              <button *ngIf="!user.phone" data-bs-target="#phone_modal" data-bs-toggle="modal">Introduzca su telefono</button>
+            </div>
 
             <div class="hasAddress" *ngIf="addresses.length > 0">
                 <div for="adressesContainer">
                   <label [for]="address.id" *ngFor="let address of addresses">
-                    <input name="addressRadio" type="radio" [value]="address.id"> {{ address.street_name}}
+                    <input name="addressRadio" type="radio" [value]="address.id" [(ngModel)]="address_id">
+                      {{ address.street_name}} Nº {{address.street_number}}, CP: {{ address.postcode }}
                   </label>
+                  <a (click)="openAddressForm = true">Agregar otra dirección...</a>
                 </div>
             </div>
 
             <div class="noAddress" *ngIf="addresses.length < 1">
-              <button>Introduzca su dirección</button>
+              <button (click)="openAddressForm = true">Introduzca su dirección</button>
             </div>
+
+            </div>
+
+            <div class="modal-footer">
+              <span id="addressError" *ngIf="addressError">Debe ingresar una direccion</span>
+              <button type="button" class="cancelModal" data-bs-dismiss="modal">Cerrar</button>
+              <button type="button" class="confirmModal" (click)="makeAppointment()">Reservar ahora</button>
+            </div>
+
         </div>
-
-
-        <div class="modal-footer">
-          <button type="button" class="cancelModal" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="confirmModal">Reservar ahora</button>
-        </div>
-
+        <!--ADDRESS FORM-->
+        <app-address-form
+        *ngIf="openAddressForm"
+          [addressRecived]="userAddress"
+          (address)="setAddress($event)"
+          (close)="openAddressForm = false">
+        </app-address-form>
       </div>
+
+
     </div>
   </div>
+
+
+  <!--FORMULARIO MOVIL - MODAL BOOTSTRAP-->
+  <div class="modal fade phone_form" *ngIf="user" id="phone_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="staticBackdropLabel">Movil</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <form>
+                <input type="number" [(ngModel)]="user.phone" name="phone" placeholder="Introduzca su movil...">
+                <input type="submit" (click)="savePhone()" data-bs-dismiss="modal">
+            </form>
+
+        </div>
+        <div class="modal-footer">
+
+        </div>
+      </div>
+    </div>
+</div>
+

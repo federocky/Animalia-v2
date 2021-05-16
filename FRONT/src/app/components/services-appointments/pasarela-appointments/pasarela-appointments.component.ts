@@ -1,41 +1,37 @@
-import { CartService } from './../../../services/cart.service';
-import { OrderService } from './../../../services/order.service';
-import { Cart } from './../../../models/cart.model';
-import { Component, OnInit } from '@angular/core';
-import { Address } from '../../../models/address.model';
-import { User } from 'src/app/models/user.model';
-import  Swal  from 'sweetalert2';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { AppointmentService } from 'src/app/services/appointment.service';
+import { Appointment } from 'src/app/models/appointment.model';
+
+//sweet alert
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-pasarela',
-  templateUrl: './pasarela.component.html',
-  styleUrls: ['./pasarela.component.scss']
+  selector: 'app-pasarela-appointments',
+  templateUrl: './pasarela-appointments.component.html',
+  styleUrls: ['./pasarela-appointments.component.scss']
 })
-export class PasarelaComponent implements OnInit {
+export class PasarelaAppointmentsComponent implements OnInit {
 
-  address: Address;
-  user: User;
-  cart: Cart;
+  appointment: Appointment;
 
-  pagado: boolean = false;
-
-
-
-  constructor( private _orderService: OrderService,
-               private router: Router,
-               private _cartService: CartService
+  constructor( private _router: Router,
+               private _appointmentService: AppointmentService
     ) { }
 
   ngOnInit(): void {
-    this.address = JSON.parse(localStorage.getItem('address'));
-    this.user = JSON.parse(localStorage.getItem('user'));
-    this.cart = JSON.parse(localStorage.getItem('cart'));
+    try {
+      this.appointment = JSON.parse(localStorage.getItem('appointment'));
+      localStorage.removeItem('appointment');
+    } catch (error) {
+      this.showError();
+    }
   }
+
 
   pay(){
 
-    this._orderService.store( this.address.id, this.cart)
+    /* this._orderService.store( this.address.id, this.cart)
       .subscribe( (res:any)  => {
 
         Swal.fire({
@@ -67,14 +63,24 @@ export class PasarelaComponent implements OnInit {
           this.router.navigateByUrl('tienda');
 
         });
-      });
+      }); */
+      console.log('pay');
   }
 
 
   deleteShoppingInfo(){
-    localStorage.removeItem('cart');
+   /*  localStorage.removeItem('cart');
     localStorage.removeItem('cartItemCount');
-    localStorage.removeItem('address');
-    this._cartService.emptyCart();
+    localStorage.removeItem('address'); */
   }
+
+  showError(){
+    Swal.fire({
+      allowOutsideClick: true,
+      title: 'Oops...',
+      icon: 'warning',
+      text: 'Algo ha id mal'
+    });
+  }
+
 }

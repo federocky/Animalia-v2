@@ -1,3 +1,4 @@
+import { PasarelaAppointmentsComponent } from './components/services-appointments/pasarela-appointments/pasarela-appointments.component';
 import { PeluqueriaComponent } from './components/services-appointments/peluqueria/peluqueria.component';
 import { PaseosComponent } from './components/services-appointments/paseos/paseos.component';
 import { UsersCrudComponent } from './components/admin/pages/users-crud/users-crud.component';
@@ -29,18 +30,19 @@ const APP_ROUTES: Routes = [
         { path: "index", component: MainIndexComponent },
         { path: "tienda", component: MainTiendaComponent },
         { path: "tienda/:id", component: ArticuloCardTiendaComponent },
-        
-    
+
+
         { path: "registro", component: RegisterComponent },
         { path: "login", component: LoginComponent },
-    
+
         { path: "checkout/carrito", component: CartComponent },
         { path: "checkout/detalles", component: OrderDetailsComponent, canActivate: [AuthGuard] },
         { path: "checkout/pasarela", component: PasarelaComponent, canActivate: [AuthGuard] },
 
         { path: "paseos", component: PaseosComponent },
         { path: "peluqueria", component: PeluqueriaComponent },
-    
+        { path: "servicios/pasarela", component: PasarelaAppointmentsComponent },
+
         { path: "usuario", component: MainUserComponent, children: [
             { path: "pedidos", component: OrdersComponent },
             { path: "configuracion", component: SettingsComponent },
@@ -49,19 +51,19 @@ const APP_ROUTES: Routes = [
 
         { path: '**', pathMatch: 'full', redirectTo: 'index' }
     ] },
-    
+
 
 
 
 
     { path: "admin/login", component: AdminLoginComponent},
     { path: "admin", component: MainAdminComponent, children: [
-        
+
         {path: "todo", component: TodoComponent},
         {path: "pedidos", component: AdminOrdersComponent},
         {path: "productos", component: ProductsCrudComponent},
         {path: "usuarios", component: UsersCrudComponent},
-        
+
         { path: '**', pathMatch: 'full', redirectTo: 'todo' }
     ] },
 

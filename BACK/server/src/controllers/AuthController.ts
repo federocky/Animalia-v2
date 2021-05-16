@@ -28,7 +28,7 @@ class AuthController {
 
         /**Si el email no existe guardamos los datos */
         try {
-            await db.query('INSERT INTO user (name, surname, email, password) VALUES (?,?,?,?)', [user.name, user.surname, user.email, user.password]);
+            await db.query('INSERT INTO user (name, surname, email, password, phone) VALUES (?,?,?,?)', [user.name, user.surname, user.email, user.password, user.phone]);
             res.status(200).json({ok: true, data: user.email });
 
         } catch (error) {

@@ -1,0 +1,49 @@
+<main>
+
+
+  <div class="datos" *ngIf="appointment">
+          <h3>Datos de la operación</h3>
+          <table>
+             <tr><th>Importe:</th> <td>{{ appointment.price.toFixed(2)}}</td></tr>
+             <tr><th>Comercio:</th> <td>Mimascota.com</td></tr>
+             <tr><th>Terminal:</th> <td>x2365164</td></tr>
+             <tr><th>Fecha:</th> <td>22/10/2021</td></tr>
+          </table>
+  </div>
+
+  <div class="pago">
+
+      <div>
+          <h3>Pagar con tarjeta</h3>
+          <div class="img">
+              <img src="../../../../assets/icons/visa.svg" alt="">
+              <img src="../../../../assets/icons/mastercard.svg" alt="">
+              <img src="../../../../assets/icons/maesro.svg" alt="">
+          </div>
+      </div>
+
+      <form (ngSubmit)="pay()">
+          <label>Nº tarjeta:</label>
+          <div>
+              <i class="fas fa-credit-card"></i> <input type="text" placeholder="xxxx-xxxx-xxxx-xxxx">
+          </div>
+
+          <label>Caducidad:</label>
+          <div>
+              <i class="fas fa-calendar-alt"></i> <input type="number" class="date" placeholder="mm"> <input class="date" type="number" placeholder="aa">
+          </div>
+
+          <label>Cód.Seguridad:</label>
+          <div>
+              <i class="fas fa-lock"></i><input type="text" placeholder="xxx">
+          </div>
+
+          <div class="botones">
+              <button routerLink="/main/checkout/detalles">Cancelar</button>
+              <button type="submit">Pagar</button>
+          </div>
+      </form>
+
+  </div>
+
+</main>

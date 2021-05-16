@@ -8,7 +8,7 @@ export interface Address {
     locality: string;
     town: string;
     postcode: number;
-    details: string;
+    details?: string;
     active?: boolean;
     main_address?: boolean;
 }
