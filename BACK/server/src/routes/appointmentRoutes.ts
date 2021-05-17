@@ -1,3 +1,4 @@
+import { tokenValidation } from './../middlewares/auth.middleware';
 import { Router } from 'express';
 
 import { appointmentController } from './../controllers/AppointmentController';
@@ -13,7 +14,7 @@ class AppointmentRoutes {
 
     config(): void {
         this.router.get('/', appointmentController.index);
-        this.router.get('/byUser', appointmentController.indexByUser);
+        this.router.get('/byUser', tokenValidation, appointmentController.indexByUser);
         this.router.post('/byDate', appointmentController.indexByDate);
         //this.router.get('/create', appointmentController.create);
         this.router.post('/', appointmentController.store);

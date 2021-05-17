@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 
 //traemos la bbdd
 import db from '../database';
+import { Address } from '../models/address.model';
 
 class AppointmentController {
 
@@ -28,14 +29,22 @@ class AppointmentController {
         const id = req.user_id;
 
         try{
-            const appointments = await db.query(`SELECT * FROM appointment WHERE id = ?`, [+id]);
+            const appointments = await db.query(`SELECT appointment.*, service.name, address.street_name, address.street_number,
+                                                address.postcode
+                                                 FROM service 
+                                                 JOIN appointment on service.id = appointment.service_id
+                                                 JOIN address on appointment.address_id = address.id
+                                                 WHERE appointment.user_id = ?`, [+id]);
     
             /**si no encuentra ningún appointment devolvemos el resultado*/
             if (appointments.length < 1) return res.status(200).json({ok: false, message: 'The user has no appointments'});
             
+        
+
             res.status(200).json({ok:true, data: appointments});
 
         } catch(error){
+            console.log(error);
             res.status(404).json({ok: false, message: 'Server not working'});
         }
     }

@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { Appointment } from './../../../../BACK/server/src/models/appointment.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -21,8 +21,14 @@ export class AppointmentService {
     return this.http.get(`${this.url}${this.route}/${id}`);
   }
 
-  getAppointmentsByUser( id: number ){
-    return this.http.get(`${this.url}${this.route}/byUser`);
+  getAppointmentsByUser(  ){
+
+    const headers = new HttpHeaders({
+      'auth-token': localStorage.getItem('auth-token'),
+      'token-expire': localStorage.getItem('token-expire')
+    });
+
+    return this.http.get(`${this.url}${this.route}/byUser`, {headers});
   }
 
   getAppointmentsByDate( date: string, service: string ){

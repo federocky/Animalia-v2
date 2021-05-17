@@ -1,3 +1,4 @@
+import { UserAppointmentsComponent } from './components/user/user-appointments/user-appointments.component';
 import { PasarelaAppointmentsComponent } from './components/services-appointments/pasarela-appointments/pasarela-appointments.component';
 import { PeluqueriaComponent } from './components/services-appointments/peluqueria/peluqueria.component';
 import { PaseosComponent } from './components/services-appointments/paseos/paseos.component';
@@ -46,7 +47,8 @@ const APP_ROUTES: Routes = [
         { path: "usuario", component: MainUserComponent, children: [
             { path: "pedidos", component: OrdersComponent },
             { path: "configuracion", component: SettingsComponent },
-            { path: "direccion", component: AddressComponent }
+            { path: "direccion", component: AddressComponent },
+            { path: "citas", component: UserAppointmentsComponent }
         ] },
 
         { path: '**', pathMatch: 'full', redirectTo: 'index' }

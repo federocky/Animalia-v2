@@ -2,31 +2,31 @@
 
     <div class="header container">
 
-        
-        
+
+
         <img src="assets/icons/logo-pagina.png" alt="logo-animalia" title="logo">
-        
+
         <a href="#" class="h1">
             <h1>Mimascota<span>.com</span></h1>
         </a>
-        
-        
+
+
         <div class="contenedor-menu">
 
             <div class="contenedor-carro">
 
-                
+
                 <input type="checkbox" id="cart-input" name="menubar">
                 <label class="cart-icon" for="cart-input"> <small>{{ itemCount | async }}</small><i class="fas fa-shopping-cart"></i></label>
-                
+
                 <div class="cart-container">
                     <app-carro></app-carro>
                 </div>
             </div>
-            
+
             <input type="checkbox" id="menu-bar" name="menubar">
 			<label class="icon-menu" for="menu-bar"><i class="fas fa-bars"></i></label>
-            
+
             <nav class="menu">
                 <a routerLink="login" *ngIf="!signedIn">Iniciar sesión</a>
                 <a routerLink="registro" *ngIf="!signedIn">Registrarse</a>
@@ -34,6 +34,7 @@
                 <a href="#">Guardería</a>
                 <a routerLink="paseos">Paseos</a>
                 <a routerLink="peluqueria">Peluquería</a>
+                <a routerLink="usuario/citas">Citas</a>
                 <a routerLink="tienda">Tienda</a>
                 <a href="#">Contacto</a>
                 <a routerLink="usuario/configuracion" *ngIf="signedIn">Ver perfíl</a>
@@ -52,7 +53,7 @@
 
         </div>
 
-    </div>    
+    </div>
 
     <app-nav-bar></app-nav-bar>
 

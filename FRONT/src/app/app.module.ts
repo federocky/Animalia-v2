@@ -56,6 +56,7 @@ import { PeluqueriaComponent } from './components/services-appointments/peluquer
 import { FormMakeAppointmentComponent } from './components/services-appointments/shared/form-make-appointment/form-make-appointment.component';
 import { AreaComponent } from './components/services-appointments/shared/area/area.component';
 import { PasarelaAppointmentsComponent } from './components/services-appointments/pasarela-appointments/pasarela-appointments.component';
+import { UserAppointmentsComponent } from './components/user/user-appointments/user-appointments.component';
 
 
 
@@ -101,7 +102,8 @@ import { PasarelaAppointmentsComponent } from './components/services-appointment
     PeluqueriaComponent,
     FormMakeAppointmentComponent,
     AreaComponent,
-    PasarelaAppointmentsComponent
+    PasarelaAppointmentsComponent,
+    UserAppointmentsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,38 @@
+
+
+<div class="container container-gray" *ngIf="appointmentWithAddress">
+
+  <h2>Mis Citas</h2>
+
+  <article class="appointment-container" *ngFor="let appointment of appointmentWithAddress">
+
+      <div class="texto">
+          <h3>Nº de cita {{ appointment.id }}</h3>
+          <p>Concertada para el <small>{{ appointment.date_appointment_from | date }}</small></p>
+      </div>
+
+      <div class="detail-container">
+
+          <div class="info">
+               <img *ngIf="appointment.service_id == 5" src="/assets/img/peluqueria1.jpg" alt="">
+               <img *ngIf="appointment.service_id == 6" src="/assets/img/index-paseo 2.jpg" alt="">
+
+              <div class="details">
+                  <h3> {{ appointment.service_id == 6 ? 'Paseos' : 'Peluquería' }} </h3>
+                  <p class="price"> €{{ appointment.price }}</p>
+
+                  <div class="botones">
+                      <button >Volver a pedir</button>
+                      <button href="">Valorar experiencia</button>
+                  </div>
+
+              </div>
+
+          </div>
+
+      </div>
+
+  </article>
+
+</div>
+
