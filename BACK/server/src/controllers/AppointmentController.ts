@@ -30,11 +30,12 @@ class AppointmentController {
 
         try{
             const appointments = await db.query(`SELECT appointment.*, service.name, address.street_name, address.street_number,
-                                                address.postcode
+                                                address.postcode, address.floor, address.letter, address.town, address.locality
                                                  FROM service 
                                                  JOIN appointment on service.id = appointment.service_id
                                                  JOIN address on appointment.address_id = address.id
-                                                 WHERE appointment.user_id = ?`, [+id]);
+                                                 WHERE appointment.user_id = ?
+                                                 ORDER BY appointment.date_appointment_from`, [+id]);
     
             /**si no encuentra ningún appointment devolvemos el resultado*/
             if (appointments.length < 1) return res.status(200).json({ok: false, message: 'The user has no appointments'});

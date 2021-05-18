@@ -1,4 +1,5 @@
 import { User } from '../models/user.model';
+import { Employee } from '../models/employee.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -54,8 +55,24 @@ export class AuthService {
       );
   }
 
+    /**Registra usuario */
+  employeeSignUp( employee: Employee ){
+    employee.active = true;
+    return this.http.post(`${this.url}${this.route}/employeeSignup`, employee);
+  }
 
-  
+
+  employeeSignIn( email: string, password: String ){
+     return this.http.post(`${this.url}${this.route}/employeeSignin`, {email, password})
+      .pipe(
+        map ( (res: any) => {
+          //guardamos el token
+          this.guardarToken( res['token'] );
+          this.signedIn.next(true);
+          return res;
+        })
+      );
+  }
 
 
   logOut(){

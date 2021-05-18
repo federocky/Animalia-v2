@@ -17,6 +17,8 @@ class AuthRoutes {
     config(): void {
         this.router.post('/signup', userValidation, authController.signUp);
         this.router.post('/signin', authController.signIn);
+        this.router.post('/employeeSignup', authController.employeeSignUp);
+        this.router.post('/employeeSignin', authController.employeeSignIn);
     }
 
 }

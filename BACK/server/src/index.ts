@@ -16,6 +16,7 @@ import userRoutes from './routes/userRoutes';
 import orderRoutes from './routes/orderRoutes';
 import serviceRoutes from './routes/serviceRoutes';
 import appointmentRoutes from './routes/appointmentRoutes';
+import employeeRoutes from './routes/employeeRoutes';
 
 class Server {
 
@@ -49,6 +50,7 @@ class Server {
         this.app.use('/api/order', orderRoutes);
         this.app.use('/api/service', serviceRoutes);
         this.app.use('/api/appointment', appointmentRoutes);
+        this.app.use('/api/employee', employeeRoutes);
     }
 
     start(): void {

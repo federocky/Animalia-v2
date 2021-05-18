@@ -1,5 +1,3 @@
-import { Address } from './../../../models/address.model';
-import { Appointment } from './../../../models/appointment.model';
 import { Component, OnInit } from '@angular/core';
 
 //sweet alert
@@ -14,6 +12,7 @@ import { AppointmentService } from 'src/app/services/appointment.service';
 export class UserAppointmentsComponent implements OnInit {
 
   appointmentWithAddress: any[] = [];
+  orderTerm: string = 'new';
 
   constructor( private _appointmentService: AppointmentService ) {  }
 
@@ -31,7 +30,6 @@ export class UserAppointmentsComponent implements OnInit {
     this._appointmentService.getAppointmentsByUser()
       .subscribe( (res:any) => {
         this.appointmentWithAddress = res.data;
-        console.log(this.appointmentWithAddress);
       }, err => {
         console.log(err);
         this.showError();

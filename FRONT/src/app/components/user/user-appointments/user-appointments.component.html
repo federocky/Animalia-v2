@@ -4,11 +4,16 @@
 
   <h2>Mis Citas</h2>
 
-  <article class="appointment-container" *ngFor="let appointment of appointmentWithAddress">
+  <div class="changeApp">
+    <a *ngIf="orderTerm != 'old'" (click)="orderTerm = 'old'"><i class="far fa-hand-point-left"></i> Ver Citas pasadas</a>
+    <a *ngIf="orderTerm == 'old'" (click)="orderTerm = 'new'">Ver Citas pendientes <i class="far fa-hand-point-right"></i></a>
+  </div>
+
+  <article class="appointment-container" *ngFor="let appointment of appointmentWithAddress | pastOrNewAppointments : orderTerm ">
 
       <div class="texto">
           <h3>Nº de cita {{ appointment.id }}</h3>
-          <p>Concertada para el <small>{{ appointment.date_appointment_from | date }}</small></p>
+          <p>Concertada para el <small>{{ appointment.date_appointment_from | date:'medium' }}</small></p>
       </div>
 
       <div class="detail-container">
@@ -19,10 +24,12 @@
 
               <div class="details">
                   <h3> {{ appointment.service_id == 6 ? 'Paseos' : 'Peluquería' }} </h3>
+                  <p>{{ appointment.street_name }} {{ appointment.street_number}} {{ appointment.floor }} {{ appointment.letter }}</p>
+                  <p>{{ appointment.postcode }} {{ appointment.town}}, {{ appointment.locality}}</p>
                   <p class="price"> €{{ appointment.price }}</p>
 
                   <div class="botones">
-                      <button >Volver a pedir</button>
+                      <button routerLink="/main/peluqueria">Volver a pedir</button>
                       <button href="">Valorar experiencia</button>
                   </div>
 

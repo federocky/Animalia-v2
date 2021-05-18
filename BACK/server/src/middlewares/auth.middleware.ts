@@ -29,6 +29,27 @@ export const tokenValidation = (req: Request, res: Response, next: NextFunction)
     }
 }
 
+/**Middleware que comprueba que se tenga un token válido, verificando la fecha de expiracion */
+export const employeeValidation = (req: Request, res: Response, next: NextFunction) => {
+
+    const token = req.header('auth-token');
+    const expire_date = req.header('token-expire');
+
+    if(!token || !expire_date) return res.status(401).json({ok:false, messsage: 'Unauthorized'});
+
+    try{
+        const decoded = jwt.verify(token, process.env.TOKEN_SECRET || 'tokentest') as Payload;
+
+        if(!expire(expire_date)) throw Error();
+
+        req.employee_id = decoded.id;
+        next();
+
+    } catch(error){
+        res.status(201).json({ok: false, message: 'Invalid token'});
+    }
+}
+
 function expire( expire_date: any){
 
     //creamos una nueva fecha

@@ -53,6 +53,7 @@ export class FormMakeAppointmentComponent implements OnInit {
     postcode: 5,
     details: ''
   }
+  selectedHour: number;
 
   constructor( private _servicesService: ServiceService,
                private _appointmentService: AppointmentService,
@@ -127,13 +128,13 @@ export class FormMakeAppointmentComponent implements OnInit {
       })
   }
 
-  onReserve(){
+  onReserve( hour: string = '' ){
+    if(hour != '') this.selectedHour = +hour;
     this._userService.getUserAddresses()
       .subscribe( (res:any) => {
         if(res.code == 2) {
           this.addresses = res.data;
           this.addresses = this.addresses.filter( address => address.postcode == this.userAddress.postcode);
-          //this.showModal = true;
         }
       }, err => {
         console.log(err);
@@ -174,16 +175,18 @@ export class FormMakeAppointmentComponent implements OnInit {
       return
     }
 
+    const cuttedDate = this.datePicked.split('-');
+
     const appointment: Appointment = {
       service_id : this.service.id,
-      date_appointment_from: new Date(this.datePicked),
-      date_appointment_to: new Date(this.datePicked),
+      date_appointment_from: new Date(+cuttedDate[0], +cuttedDate[1], +cuttedDate[2], this.selectedHour+2),
+      date_appointment_to: new Date(+cuttedDate[0], +cuttedDate[1], +cuttedDate[2], this.selectedHour+2+1),
       user_id: this.user.id,
       price: this.service.price,
       address_id: this.address_id
     }
 
-
+    console.log(appointment);
 
     localStorage.setItem('appointment', JSON.stringify(appointment));
     this._router.navigateByUrl('main/servicios/pasarela');

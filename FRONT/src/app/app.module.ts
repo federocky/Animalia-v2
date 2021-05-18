@@ -57,6 +57,7 @@ import { FormMakeAppointmentComponent } from './components/services-appointments
 import { AreaComponent } from './components/services-appointments/shared/area/area.component';
 import { PasarelaAppointmentsComponent } from './components/services-appointments/pasarela-appointments/pasarela-appointments.component';
 import { UserAppointmentsComponent } from './components/user/user-appointments/user-appointments.component';
+import { PastOrNewAppointmentsPipe } from './pipes/past-or-new-appointments.pipe';
 
 
 
@@ -103,7 +104,8 @@ import { UserAppointmentsComponent } from './components/user/user-appointments/u
     FormMakeAppointmentComponent,
     AreaComponent,
     PasarelaAppointmentsComponent,
-    UserAppointmentsComponent
+    UserAppointmentsComponent,
+    PastOrNewAppointmentsPipe,
   ],
   imports: [
     BrowserModule,

@@ -17,13 +17,13 @@
             <input type="date" class="date"  [min]="today" [disabled]="dateInactive" #datePicked (change)="dateSelected(datePicked)">
 
             <div>
-                <select name="hour" id="" [disabled]="hourInactive" #hour>
-                    <option *ngFor="let hour of hoursAvailable" [value]="hour">{{ hour }}:00 - {{ hour+1 }}:00</option>
+                <select name="hours" id="" [disabled]="hourInactive" #hour>
+                    <option *ngFor="let hours of hoursAvailable" [value]="hours">{{ hours }}:00 - {{ hours+1 }}:00</option>
                 </select>
             </div>
 
 
-        <button (click)="onReserve()" [ngClass]="{'disabled' : !buttonActive}" data-bs-target="#confirmModal" data-bs-toggle="modal">Reservar <i class="fas fa-paw"></i></button>
+        <button (click)="onReserve(hour.value)" [ngClass]="{'disabled' : !buttonActive}" data-bs-target="#confirmModal" data-bs-toggle="modal">Reservar <i class="fas fa-paw"></i></button>
 
 
 
