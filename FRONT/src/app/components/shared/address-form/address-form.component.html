@@ -2,14 +2,14 @@
 
         <h2>Dirección</h2>
         <i class="far fa-times-circle" (click)="close.emit(true)"></i>
-        
+
         <form novalidate [formGroup]="myForm" (ngSubmit)="onSubmit()">
 
             <!--CALLE-->
             <div class="form-group">
                 <label>Calle:</label>
-                <input 
-                    type="text" 
+                <input
+                    type="text"
                     class="form-control"
                     [ngClass]="{ 'is-invalid': street_name.invalid && ( street_name.dirty || street_name.touched),
                             'is-valid': street_name.valid       && ( street_name.dirty || street_name.touched)}"
@@ -24,13 +24,13 @@
             <!--NUMBERO-->
             <div class="form-group">
                 <label>Numero:</label>
-                <input 
-                    type="text" 
+                <input
+                    type="text"
                     class="form-control"
                     [ngClass]="{ 'is-invalid': street_number.invalid && ( street_number.dirty || street_number.touched),
                             'is-valid': street_number.valid       && ( street_number.dirty || street_number.touched)}"
                     formControlName="street_number">
-                    
+
                 <div class="invalid-feedback" *ngIf="street_number.errors && (street_number.dirty || street_number.touched)">
                     <span *ngIf="street_number.errors.required">Debe rellenar algún apellido</span>
                 </div>
@@ -39,8 +39,8 @@
             <!--PISO-->
             <div class="form-group">
                 <label>Piso:</label>
-                <input 
-                    type="text" 
+                <input
+                    type="text"
                     class="form-control"
                     [ngClass]="{ 'is-invalid': floor.invalid && ( floor.dirty || floor.touched),
                               'is-valid': floor.valid     && ( floor.dirty || floor.touched)}"
@@ -55,8 +55,8 @@
             <!--LETTER-->
             <div class="form-group">
                 <label>Letra:</label>
-                <input 
-                    type="text" 
+                <input
+                    type="text"
                     class="form-control"
                     [ngClass]="{ 'is-invalid': letter.invalid && ( letter.dirty || letter.touched),
                               'is-valid': letter.valid     && ( letter.dirty || letter.touched)}"
@@ -70,8 +70,8 @@
             <!--PROVINCIA-->
             <div class="form-group">
                 <label>Provincia:</label>
-                <input 
-                    type="text" 
+                <input
+                    type="text"
                     class="form-control"
                     [ngClass]="{ 'is-invalid': province.invalid && ( province.dirty || province.touched),
                               'is-valid': province.valid     && ( province.dirty || province.touched)}"
@@ -85,8 +85,8 @@
             <!--LOCALIDAD-->
             <div class="form-group">
                 <label>Localidad:</label>
-                <input 
-                    type="text" 
+                <input
+                    type="text"
                     class="form-control"
                     [ngClass]="{ 'is-invalid': locality.invalid && ( locality.dirty || locality.touched),
                               'is-valid': locality.valid     && ( locality.dirty || locality.touched)}"
@@ -100,8 +100,8 @@
             <!--CIUDAD-->
             <div class="form-group">
                 <label>Ciudad:</label>
-                <input 
-                    type="text" 
+                <input
+                    type="text"
                     class="form-control"
                     [ngClass]="{ 'is-invalid': town.invalid && ( town.dirty || town.touched),
                               'is-valid': town.valid     && ( town.dirty || town.touched)}"
@@ -115,8 +115,8 @@
             <!--CODIGO POSTAL-->
             <div class="form-group">
                 <label>Codigo postal:</label>
-                <input 
-                    type="text" 
+                <input
+                    type="text"
                     class="form-control"
                     [ngClass]="{ 'is-invalid': postcode.invalid && ( postcode.dirty || postcode.touched),
                               'is-valid': postcode.valid     && ( postcode.dirty || postcode.touched)}"
@@ -130,8 +130,8 @@
             <!--MAS INFORMACIÓN-->
             <div class="form-group">
                 <label>Detalles:</label>
-                <input 
-                    type="text" 
+                <input
+                    type="text"
                     class="form-control"
                     [ngClass]="{ 'is-invalid': details.invalid && ( details.dirty || details.touched),
                               'is-valid': details.valid     && ( details.dirty || details.touched)}"
@@ -146,6 +146,6 @@
 
         </form>
 
-        
+
 
     </div>

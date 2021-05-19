@@ -1,14 +1,19 @@
 <main>
     <div class="container">
 
-        <h2>Animalia</h2>
+      <h2>Animalia<span (click)="showNewEmployee = !showNewEmployee">.</span></h2>
 
-        <form novalidate [formGroup]="myForm" (ngSubmit)="onSubmit()">
+      <div *ngIf="showNewEmployee">
+        <app-employee-form (close)="showNewEmployee = false" (employee)="registerEmployee($event)"></app-employee-form>
+      </div>
+
+
+        <form novalidate *ngIf="!showNewEmployee" [formGroup]="myForm" (ngSubmit)="onSubmit()">
 
             <!--EMAIL-->
             <div class="form-group">
-                <input 
-                    type="email" 
+                <input
+                    type="email"
                     class="form-control"
                     [ngClass]="{ 'is-invalid': email.invalid && ( email.dirty || email.touched),
                               'is-valid': email.valid     && ( email.dirty || email.touched)}"
@@ -24,8 +29,8 @@
 
             <!--PASSWORD-->
             <div class="form-group">
-                <input 
-                    type="password" 
+                <input
+                    type="password"
                     class="form-control"
                     [ngClass]="{ 'is-invalid': password.invalid && ( password.dirty || password.touched),
                               'is-valid': password.valid     && ( password.dirty || password.touched)}"
@@ -44,6 +49,5 @@
             </div>
 
         </form>
-
     </div>
 </main>

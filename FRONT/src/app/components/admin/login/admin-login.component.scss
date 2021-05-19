@@ -4,7 +4,7 @@
 main {
     background-color: $blue_dark;
     padding: 16px 6px;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
 
@@ -26,7 +26,7 @@ main {
             font-size: 50px;
             letter-spacing: 10px;
         }
-        
+
         form{
             width: 100%;
             padding: 6px 12px 12px 12px;

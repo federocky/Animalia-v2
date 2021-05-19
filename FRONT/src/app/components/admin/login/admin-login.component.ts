@@ -11,6 +11,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminLoginComponent implements OnInit {
 
+  showNewEmployee = false;
+
   myForm: FormGroup;
 
   email: FormControl;
@@ -36,15 +38,15 @@ export class AdminLoginComponent implements OnInit {
   setFormControlsVariables(): void {
 
     const fgName: FormGroup = this.myForm.controls.name as FormGroup;
-  
+
     this.email          = this.myForm.controls.email           as FormControl;
-    this.password       = this.myForm.controls.password        as FormControl;    
+    this.password       = this.myForm.controls.password        as FormControl;
   }
 
   onSubmit(): void{
 
     if (this.myForm.valid){
-  
+
       Swal.fire({
         //para que no se cierre al hacer click fuera como un modal
         allowOutsideClick: false,
@@ -52,19 +54,19 @@ export class AdminLoginComponent implements OnInit {
         text: 'Espere por favor'
       });
       Swal.showLoading();
-  
+
       this._authService.signIn(this.email.value, this.password.value)
         .subscribe( res => {
-  
+
           Swal.close();
           this.router.navigateByUrl('/tienda');
-  
+
         }, err => {
-  
+
           let errorMessage = 'Connection error';
           if(err.error.code == 1) errorMessage = 'El email no existe';
           else if( err.error.code == 2) errorMessage = 'Password incorrecto';
-  
+
           Swal.fire({
             allowOutsideClick: true,
             title: 'ERROR',
@@ -73,9 +75,14 @@ export class AdminLoginComponent implements OnInit {
           });
         })
     }
-    
+
     //lo marca como touched para mostrar los errores.
     this.myForm.markAllAsTouched();
+  }
+
+
+  registerEmployee( empleado ){
+    console.log(empleado);
   }
 
 
