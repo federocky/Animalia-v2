@@ -120,7 +120,8 @@ CREATE TABLE employee_history (
 	id INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	employee_id INT(10),
 	salary DECIMAL (8,2),
-	details VARCHAR(200)
+	details VARCHAR(200),
+	date DATE DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE service (

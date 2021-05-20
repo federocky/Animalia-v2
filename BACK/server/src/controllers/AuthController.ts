@@ -80,7 +80,6 @@ class AuthController {
 
         //creamos un usuario con los datos recibidos en el body
         let { ...employee }: Employee = req.body;
-        let { salary, details } = req.body;
 
         //Validamos el passowrd
         if(!employee.password || employee.password.length < 8) return res.status(400).json({ok: false, error: 'password must be at least 8 chars long'});
@@ -93,11 +92,12 @@ class AuthController {
         /**Si el email no existe guardamos los datos */
         try {
             const insertedEmployee = await db.query('INSERT INTO employee (name, surname, email, password, phone, is_admin) VALUES (?,?,?,?,?,?)', [employee.name, employee.surname, employee.email, employee.password, employee.phone, employee.is_admin]);
-            await db.query('INSERT INTO employee_details (employee_id, salary, details) VALUES (?,?,?)', [insertedEmployee, salary, details]);
+            await db.query('INSERT INTO employee_history (employee_id, salary, details) VALUES (?,?,?)', [insertedEmployee.insertId, employee.salary, employee.details]);
             res.status(200).json({ok: true, data: employee.email });
 
 
         } catch (error) {
+            console.log(error);
             /**si existe el email */
             if(error.errno == 1062) return res.status(400).json({ok: false, message: 'the email already exists', code: 1});
 

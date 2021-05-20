@@ -8,4 +8,5 @@ export interface Employee {
     phone: number;
     active?: boolean;
     salary?: number;
+    details?: string;
 }

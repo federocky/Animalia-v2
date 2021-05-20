@@ -1,3 +1,4 @@
+import { EmpGuardGuard } from './guards/emp-guard.guard';
 import { UserAppointmentsComponent } from './components/user/user-appointments/user-appointments.component';
 import { PasarelaAppointmentsComponent } from './components/services-appointments/pasarela-appointments/pasarela-appointments.component';
 import { PeluqueriaComponent } from './components/services-appointments/peluqueria/peluqueria.component';
@@ -61,10 +62,10 @@ const APP_ROUTES: Routes = [
     { path: "admin/login", component: AdminLoginComponent},
     { path: "admin", component: MainAdminComponent, children: [
 
-        {path: "todo", component: TodoComponent},
-        {path: "pedidos", component: AdminOrdersComponent},
-        {path: "productos", component: ProductsCrudComponent},
-        {path: "usuarios", component: UsersCrudComponent},
+        {path: "todo", component: TodoComponent, canActivate: [EmpGuardGuard]},
+        {path: "pedidos", component: AdminOrdersComponent, canActivate: [EmpGuardGuard]},
+        {path: "productos", component: ProductsCrudComponent, canActivate: [EmpGuardGuard]},
+        {path: "usuarios", component: UsersCrudComponent, canActivate: [EmpGuardGuard]},
 
         { path: '**', pathMatch: 'full', redirectTo: 'todo' }
     ] },

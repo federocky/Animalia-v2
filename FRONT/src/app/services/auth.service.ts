@@ -21,7 +21,7 @@ export class AuthService {
 
 
   //Se comprueba si se esta logado al entrar en la página
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.leerToken();
   }
 
@@ -58,6 +58,7 @@ export class AuthService {
     /**Registra usuario */
   employeeSignUp( employee: Employee ){
     employee.active = true;
+
     return this.http.post(`${this.url}${this.route}/employeeSignup`, employee);
   }
 
@@ -67,8 +68,8 @@ export class AuthService {
       .pipe(
         map ( (res: any) => {
           //guardamos el token
-          this.guardarToken( res['token'] );
-          this.signedIn.next(true);
+          localStorage.setItem('emp-token', res['token'])
+          this.guardaFecha();
           return res;
         })
       );
@@ -82,6 +83,10 @@ export class AuthService {
     this.userToken = '';
   }
 
+  employeeLogout(){
+    localStorage.removeItem('emp-token');
+  }
+
 
 
 
@@ -91,6 +96,11 @@ export class AuthService {
     this.userToken = idToken;
     localStorage.setItem('auth-token', idToken);
 
+    this.guardaFecha();
+  }
+
+
+  guardaFecha(){
     //coge la fecha actual
     let hoy = new Date();
 
@@ -99,9 +109,6 @@ export class AuthService {
 
     localStorage.setItem('token-expire', hoy.getTime().toString());
   }
-
-
-
 
 
   /**Recupera el token del local storage en caso de existir */
@@ -118,7 +125,7 @@ export class AuthService {
   }
 
 
-
+  //TODO: pasar a el back y mirar el contenido, si el id existe en la bbdd ...
   /**Comprobanmos si el usuario esta logado, esto es, si tenemos token y si este sigue siendo válido */
   loggedIn(): boolean {
 
@@ -131,6 +138,26 @@ export class AuthService {
     const expira = Number(localStorage.getItem('token-expire'));
     const expiraDate = new Date();
     //ese tiempo del local storage lo 'convertimos en fecha'
+    expiraDate.setTime(expira);
+
+    //comparamos esa fecha con la actual y resolvemos.
+    if( expiraDate > new Date() ){
+      return true
+    }
+    return false;
+  }
+
+  //TODO: tambien pasar al back y mirar el contenido del token si es valido y si  es admin
+  employeeLoggedIn(): boolean {
+
+    if(!localStorage.getItem('emp-token') || !localStorage.getItem('token-expire')) return false;
+
+    const token = localStorage.getItem('emp-token');
+    const expira = Number(localStorage.getItem('token-expire'));
+
+
+    //ese tiempo del local storage lo 'convertimos en fecha'
+    const expiraDate = new Date();
     expiraDate.setTime(expira);
 
     //comparamos esa fecha con la actual y resolvemos.

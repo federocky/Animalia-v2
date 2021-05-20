@@ -1,4 +1,6 @@
+import { AuthService } from './../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-admin',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainAdminComponent implements OnInit {
 
-  constructor() { }
+  constructor( private _authService: AuthService,
+               private router: Router
+    ) { }
 
   ngOnInit(): void {
+  }
+
+  logout(){
+    this._authService.employeeLogout();
+    this.router.navigateByUrl('admin/login');
   }
 
 }

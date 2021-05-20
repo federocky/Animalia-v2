@@ -19,7 +19,7 @@ export class AdminLoginComponent implements OnInit {
   password: FormControl;
 
   constructor( private _authService: AuthService,
-                private router: Router) { }
+               private router: Router) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -55,14 +55,15 @@ export class AdminLoginComponent implements OnInit {
       });
       Swal.showLoading();
 
-      this._authService.signIn(this.email.value, this.password.value)
+      this._authService.employeeSignIn(this.email.value, this.password.value)
         .subscribe( res => {
 
           Swal.close();
-          this.router.navigateByUrl('/tienda');
+          this.router.navigateByUrl('/admin/todo');
 
         }, err => {
 
+          console.log(err);
           let errorMessage = 'Connection error';
           if(err.error.code == 1) errorMessage = 'El email no existe';
           else if( err.error.code == 2) errorMessage = 'Password incorrecto';
@@ -81,8 +82,24 @@ export class AdminLoginComponent implements OnInit {
   }
 
 
-  registerEmployee( empleado ){
-    console.log(empleado);
+  registerEmployee( newEmployee ){
+
+    this._authService.employeeSignUp( newEmployee )
+      .subscribe( (res:any) => {
+
+        this.email.setValue(res.data);
+        this.showNewEmployee = false;
+
+      }, err => {
+
+        console.log(err);
+        Swal.fire({
+          allowOutsideClick: true,
+          title: 'ERROR',
+          icon: 'error',
+          text: 'Algo ha ido mal'
+        });
+      } )
   }
 
 

@@ -1,13 +1,13 @@
 <app-admin-header></app-admin-header>
 
 <main>
-    
+
 <!--     <div class="container-mvl">
 
         <label class="icon-menu" for="menu-user-check"><i class="fas fa-bars"></i></label>
         <div id="contenedor-menu">
-            
-            
+
+
             <input type="checkbox" id="menu-user-check" name="menubar" >
             <nav class="menu-user">
                 <a routerLink="/usuario/pedidos">Mis pedidos</a>
@@ -16,11 +16,11 @@
                 <a routerLink="/usuario/direccion">Mis direcciones</a>
                 <a [routerLink]="['/tienda']">Tienda</a>
             </nav>
-            
+
         </div>
     </div> -->
-        
-    
+
+
     <div class="wrapper">
         <div class="sidebar">
             <h2>Hola, Federico</h2>
@@ -32,12 +32,13 @@
                 <li><a routerLink="/admin/usuarios"><i class="fas fa-address-card"></i>Usuarios</a></li>
                 <li><a href="#"><i class="fas fa-address-book"></i>Empleados</a></li>
                 <li><a href="#"><i class="fas fa-chart-line"></i>Estadisticas</a></li>
+                <li><a (click)="logout()"><i class="fas fa-sign-out-alt"></i>Salir</a></li>
             </ul>
         </div>
     </div>
 
-        
-                
+
+
     <router-outlet></router-outlet>
-    
+
 </main>
