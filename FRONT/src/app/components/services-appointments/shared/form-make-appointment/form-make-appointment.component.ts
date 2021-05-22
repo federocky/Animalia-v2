@@ -179,14 +179,12 @@ export class FormMakeAppointmentComponent implements OnInit {
 
     const appointment: Appointment = {
       service_id : this.service.id,
-      date_appointment_from: new Date(+cuttedDate[0], +cuttedDate[1], +cuttedDate[2], this.selectedHour+2),
-      date_appointment_to: new Date(+cuttedDate[0], +cuttedDate[1], +cuttedDate[2], this.selectedHour+2+1),
+      date_appointment_from: new Date(+cuttedDate[0], +cuttedDate[1]-1, +cuttedDate[2], this.selectedHour+2),
+      date_appointment_to: new Date(+cuttedDate[0], +cuttedDate[1]-1, +cuttedDate[2], this.selectedHour+2+1),
       user_id: this.user.id,
       price: this.service.price,
       address_id: this.address_id
     }
-
-    console.log(appointment);
 
     localStorage.setItem('appointment', JSON.stringify(appointment));
     this._router.navigateByUrl('main/servicios/pasarela');

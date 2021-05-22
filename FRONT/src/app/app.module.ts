@@ -61,6 +61,7 @@ import { PastOrNewAppointmentsPipe } from './pipes/past-or-new-appointments.pipe
 import { EmployeeFormComponent } from './components/admin/utils/employee-form/employee-form.component';
 import { EmployeeCrudComponent } from './components/admin/pages/employee-crud/employee-crud.component';
 import { AppointmentsComponent } from './components/admin/pages/appointments/appointments.component';
+import { PetcareComponent } from './components/petcare/petcare.component';
 
 
 
@@ -112,6 +113,7 @@ import { AppointmentsComponent } from './components/admin/pages/appointments/app
     EmployeeFormComponent,
     EmployeeCrudComponent,
     AppointmentsComponent,
+    PetcareComponent,
   ],
   imports: [
     BrowserModule,

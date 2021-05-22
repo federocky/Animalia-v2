@@ -24,8 +24,7 @@
         overflow: hidden;
 
         img{
-            width:100%;
-            transition: all 500ms ease-out;           
+            transition: all 500ms ease-out;
         }
 
         .contenido{
@@ -53,6 +52,69 @@
 
         //CAPA HOVER
         .descripcion {
+          position: absolute;
+          bottom: 0px;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+
+
+          >p{
+              display: none;
+          }
+
+          .botones {
+            display: flex;
+            justify-content: space-between;
+
+            button{
+              @include crearBoton($orange_secondary);
+
+
+              .escritorioAdd{display: none;}
+              .escritorioMas{display: none;}
+
+              &:first-child{border-radius: 0px 10px 0px 0px;}
+              &:last-child{border-radius: 10px 0px 0px 0px;}
+
+              padding: 10px 10px;
+
+            }
+
+            button:nth-child(1){
+              background-color: $blue_light;
+            }
+
+            .outOfStock{
+              margin: 0px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background-color: red;
+              width: 20px;
+              margin: 0px;
+              border-radius: 10px 0px 0px 0px;
+              padding: 0px 20px;
+              color: #fff;
+              font-weight: bolder;
+
+              .escritorio{
+                display: none;
+              }
+
+            }
+          }
+
+
+      }
+
+
+
+        @include escritorio{
+
+
+        //CAPA HOVER
+        .descripcion {
             position: absolute;
             background-color: rgba($color: rgb(224, 224, 224), $alpha: 0.8);
             height: 100%;
@@ -61,10 +123,11 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            opacity: 0; 
+            opacity: 0;
             transition: all 500ms ease-out;
 
             p{
+              display: block;
                 margin: 2px;
                 text-shadow: 1px 1px 6px #fff;
                 text-shadow: 1px 1px 6px #fff inset;
@@ -72,26 +135,51 @@
                 //display: none; pensar si quieres texto o no creo que mejor no, no se lee bien
             }
 
-            button{
-                @include crearBoton($orange_secondary);
+            .botones{
+              flex-direction: column;
+              align-items: center;
+              width: 100%;
+
+              button{
                 width: 80%;
                 margin: 4px 0px;
                 transition: all 1s;
                 border: none;
-                
-                &:hover{
-                    box-shadow: 1px 1px 6px #333;
-                    text-shadow: 1px 1px 4px #333;
-                }
-                
-            }
-            
-            button:nth-child(1){
-                background-color: $blue_light;
-            }
+                @include crearBoton($orange_secondary);
+                border-radius: 16px !important;
 
-            .outOfStock{
+                &:hover{
+                  box-shadow: 1px 1px 6px #333;
+                  text-shadow: 1px 1px 4px #333;
+                }
+
+                .movilAdd{display: none;}
+                .movilMas{display: none;}
+
+                .escritorioAdd{display: block;}
+                .escritorioMas{display: block;}
+
+              }
+
+              button:nth-child(1){
+                background-color: $blue_light;
+              }
+
+              .outOfStock{
                 color: red;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: transparent;
+                width: 100%;
+
+                .escritorio{
+                  display: block;
+                }
+                .movil{
+                  display: none;
+                }
+              }
             }
 
 
@@ -103,6 +191,8 @@
         &:hover > img{
             transform: scale(1.1);
         }
+      }
+
 
     }
 }

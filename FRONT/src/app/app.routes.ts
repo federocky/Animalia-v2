@@ -1,3 +1,4 @@
+import { PetcareComponent } from './components/petcare/petcare.component';
 import { AppointmentsComponent } from './components/admin/pages/appointments/appointments.component';
 import { appointmentController } from './../../../BACK/server/src/controllers/AppointmentController';
 import { EmployeeCrudComponent } from './components/admin/pages/employee-crud/employee-crud.component';
@@ -46,6 +47,7 @@ const APP_ROUTES: Routes = [
 
         { path: "paseos", component: PaseosComponent },
         { path: "peluqueria", component: PeluqueriaComponent },
+        { path: "guarderia", component: PetcareComponent },
         { path: "servicios/pasarela", component: PasarelaAppointmentsComponent },
 
         { path: "usuario", component: MainUserComponent, children: [

@@ -1,8 +1,8 @@
 <div class="contenedor-menu" *ngIf="signedIn">
     <a routerLink="usuario/configuracion"><i class="fas fa-user-check"></i>Ver perfíl</a>
     <a routerLink="usuario/pedidos"><i class="fas fa-truck"></i>Mis pedidos</a>
-    <a routerLink="usuario/direccion"><i class="fas fa-address-card"></i>Mis direcciones</a>
     <a routerLink="usuario/citas"><i class="fas fa-address-card"></i>Mis citas</a>
+    <a routerLink="usuario/direccion"><i class="fas fa-map-pin"></i>Mis direcciones</a>
     <!-- <p><i class="fas fa-user-check"></i>Mi cuenta</p> -->
     <a (click)="logOut()"><i class="fas fa-unlock-alt"></i>Cerrar sesión</a>
 </div>

@@ -27,11 +27,47 @@
         </div>
     </div>
 
-      
+    <!-- MODAL CAMBIAR DIRECCION -->
+    <div class="modal fade" id="modal_cambiar_direccion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Otras direcciones</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+            <!--has address-->
+            <section *ngIf="addresses">
+
+                <label [for]="address.id" *ngFor="let address of addresses">
+                  <input  name="addressRadio" type="radio" [value]="address.id" [(ngModel)]="address_id">
+                    {{ address.street_name}} Nº {{address.street_number}}, CP: {{ address.postcode }}
+                </label>
+
+            </section>
+
+            <!--has no more address-->
+            <section *ngIf="!addresses">
+              <p>No tienes más direcciones guardadas</p>
+              <a routerLink="/main/usuario/direccion" data-bs-dismiss="modal">Gestiona tus direcciones</a>
+            </section>
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button (click)="changeAddress()" type="button" class="btn btn-primary" data-bs-dismiss="modal" >Seleccionar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 
     <h2>Detalles del pedido</h2>
 
-    
+
     <div class="side_container container">
         <h3>Resumen de compra</h3>
         <p class="subtotal">Subtotal( 3 productos )</p>
@@ -40,19 +76,22 @@
     </div>
 
     <div class="container-general" >
-        
+
         <!--SI TIENE DIRECCION-->
         <div class="card container" *ngIf="hasAddress">
-            
-            <div>
+
+            <div class="addres_info">
                 <h3>Datos de envío</h3>
                 <p>{{ address.street_name }} Nº{{ address.street_number }} <span>letra:{{ address.letter }} Piso:{{ address.floor }}</span> </p>
                 <p>{{ address.postcode }} {{ address.town }} {{ address.locality }} {{ address.province }}</p>
                 <p>{{ address.details }}</p>
             </div>
 
-            <button (click)="openAddressForm = true">Cambiar dirección</button>
-         
+            <div class="botones">
+              <button data-bs-toggle="modal" data-bs-target="#modal_cambiar_direccion">Elegír otra dirección</button>
+              <button (click)="openAddressForm = true">Agregar dirección</button>
+            </div>
+
         </div>
 
         <!--SI NO TIENE DIRECCION-->
@@ -75,9 +114,11 @@
                 <p>Telefono: {{ user.phone || 'No tenemos su telefono' }}</p>
             </div>
 
-            <button *ngIf="user.phone" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Cambiar teléfono</button>
-            <button *ngIf="!user.phone" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Agregar teléfono</button>
-            
+            <div class="botones">
+              <button *ngIf="user.phone" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Cambiar teléfono</button>
+              <button *ngIf="!user.phone" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Agregar teléfono</button>
+            </div>
+
         </div>
 
     </div>

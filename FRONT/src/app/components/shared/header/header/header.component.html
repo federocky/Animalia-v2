@@ -31,14 +31,14 @@
                 <a routerLink="login" *ngIf="!signedIn">Iniciar sesión</a>
                 <a routerLink="registro" *ngIf="!signedIn">Registrarse</a>
                 <a routerLink="index">Inicio</a>
-                <a href="#">Guardería</a>
+                <a routerLink="guarderia">Guardería</a>
                 <a routerLink="paseos">Paseos</a>
                 <a routerLink="peluqueria">Peluquería</a>
-                <a routerLink="usuario/citas">Citas</a>
                 <a routerLink="tienda">Tienda</a>
                 <a href="#">Contacto</a>
                 <a routerLink="usuario/configuracion" *ngIf="signedIn">Ver perfíl</a>
                 <a routerLink="usuario/pedidos" *ngIf="signedIn">Mis pedidos</a>
+                <a routerLink="usuario/citas" *ngIf="signedIn">Mis citas</a>
                 <a routerLink="usuario/direccion" *ngIf="signedIn">Mis direcciones</a>
                 <a (click)="logOut()" *ngIf="signedIn">Cerrar sesión</a>
             </nav>

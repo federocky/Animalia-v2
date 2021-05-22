@@ -99,6 +99,19 @@ export class AppointmentsComponent implements OnInit {
 
   }
 
+  cancelEmployeeEncharge( appointment_id: number) {
+
+    this._appointmentService.cancelEmployeeAsigned( appointment_id )
+        .subscribe( (res:any) => {
+          Swal.fire('Saved!', '', 'success');
+          this.loadAppointments();
+          console.log(res);
+        }, err => {
+          console.log(err);
+          this.showError();
+        });
+  }
+
 
 
   showError(){

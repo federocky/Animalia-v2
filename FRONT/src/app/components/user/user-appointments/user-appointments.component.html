@@ -9,7 +9,7 @@
     <a *ngIf="orderTerm == 'old'" (click)="orderTerm = 'new'">Ver Citas pendientes <i class="far fa-hand-point-right"></i></a>
   </div>
 
-  <article class="appointment-container" *ngFor="let appointment of appointmentWithAddress | pastOrNewAppointments : orderTerm ">
+  <article  class="appointment-container" *ngFor="let appointment of appointmentWithAddress | pastOrNewAppointments : orderTerm ">
 
       <div class="texto">
           <h3>Nº de cita {{ appointment.id }}</h3>
@@ -43,3 +43,7 @@
 
 </div>
 
+<div class="container container-gray noAppointments" *ngIf="!appointmentWithAddress">
+  <h2>Mis Citas</h2>
+  <img src="assets/icons/appointment.png" alt="">
+</div>

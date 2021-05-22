@@ -2,9 +2,9 @@
 
     <!--UTILIZAMOS LA NAVEGACION DE ngx-pagination-->
     <article *ngFor="let product of productsToShow | paginate: { itemsPerPage: qtyPerPage, currentPage: curPage }">
-        
+
         <img [src]="imgRoute + product.img" alt="">
-        
+
 
         <div class="contenido">
             <h5>{{ product.name }}</h5>
@@ -29,9 +29,9 @@
         <div class="descripcion">
             <p>{{ product.description }}</p>
             <div class="botones">
-                <button (click)="viewProductDetails(product.id)">Más información</button>
-                <button *ngIf="product.stock > 0" (click)="addProduct(product)">Añadir al carro</button>
-                <p *ngIf="product.stock <= 0" class="outOfStock">Producto actualmente no disponible</p>
+                <button (click)="viewProductDetails(product.id)"><span class="escritorioMas">Más información</span> <i class="fas fa-info-circle movilMas"></i></button>
+                <button *ngIf="product.stock > 0" (click)="addProduct(product)"><span class="escritorioAdd"> Añadir al carro </span><i class="fas fa-cart-plus movilAdd"></i></button>
+                <span *ngIf="product.stock <= 0" class="outOfStock"> <span class="escritorio">Producto actualmente no disponible</span> <span class="movil">X</span></span>
             </div>
         </div>
 
@@ -41,5 +41,5 @@
 
 <pagination-controls (pageChange)="curPage = $event" class="pagination"></pagination-controls>
 
- 
+
 

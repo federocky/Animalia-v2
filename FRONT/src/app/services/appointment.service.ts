@@ -46,4 +46,8 @@ export class AppointmentService {
   asignEmployeeToAppointment( employee_id: number, appointment_id: number){
     return this.http.post(`${this.url}${this.route}/asignEmployee`, {employee_id: employee_id, appointment_id: appointment_id});
   }
+
+  cancelEmployeeAsigned( appointment_id: number ){
+    return this.http.post(`${this.url}${this.route}/cancelEmployee`, {appointment_id: appointment_id});
+  }
 }

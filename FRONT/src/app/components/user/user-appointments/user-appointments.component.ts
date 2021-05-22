@@ -30,6 +30,7 @@ export class UserAppointmentsComponent implements OnInit {
     this._appointmentService.getAppointmentsByUser()
       .subscribe( (res:any) => {
         this.appointmentWithAddress = res.data;
+        console.log(res);
       }, err => {
         console.log(err);
         this.showError();

@@ -32,23 +32,23 @@ main{
 
         grid-column: 2/3;
         align-self: flex-start;
-        
+
         button{
             text-align: center;
             font-weight: bold;
             font-family: $font_contenido;
-            
+
             @include crearBoton($orange_secondary);
 
         }
     }
-    
+
     .container-general{
         grid-column: 1/2;
         grid-row-start: 2;
         display: grid;
         grid-gap: 12px;
-        
+
         .card {
             display: grid;
             width: 95%;
@@ -59,23 +59,29 @@ main{
                 align-items: center;
                 padding: 20px;
             }
-            
+
             border-radius: 8px;
             box-shadow: 3px 3px 6px #444;
-            
+
             h3{
                 font-family: $font_titulos;
                 font-size: 30px;
                 margin-top: 8px;
-            }     
+            }
+            .botones{
+              display: grid;
+              width: 100%;
 
-            button{
-                @include crearBoton($green_primary);
-                max-width: 450px;
+              button{
+                @include crearBoton($blue_dark);
+                margin: 6px 0px;
+                &:last-child{@include crearBoton($green_primary);}
+              }
+
             }
         }
-        
-        
+
+
     }
 
     .address_form{
@@ -98,5 +104,16 @@ main{
 
             input[type="submit"]{@include crearBoton($green_primary)}
         }
+    }
+
+    #modal_cambiar_direccion{
+      h5{
+        font-family: $font_titulos;
+      }
+
+      section {
+        display: grid;
+        grid-gap: 6px;
+      }
     }
 }

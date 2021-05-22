@@ -128,3 +128,14 @@
       }
 }
 }
+
+.noAppointments{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img{
+    margin-top: 40px;
+    max-width: 350px;
+  }
+}

@@ -3,7 +3,6 @@ import { Request, Response } from 'express';
 
 //traemos la bbdd
 import db from '../database';
-import { Address } from '../models/address.model';
 
 class AppointmentController {
 
@@ -11,7 +10,7 @@ class AppointmentController {
     public async index (req: Request, res: Response) {
 
         try{
-            const appointments = await db.query(`SELECT * FROM appointment`);
+            const appointments = await db.query(`SELECT * FROM appointment ORDER BY date_appointment_from`);
     
             
             res.status(200).json({ok:true, data: appointments});
@@ -27,7 +26,7 @@ class AppointmentController {
     public async indexByUser (req: Request, res: Response) {
 
         const id = req.user_id;
-
+        //const id = 1;
         try{
             const appointments = await db.query(`SELECT appointment.*, service.name, address.street_name, address.street_number,
                                                 address.postcode, address.floor, address.letter, address.town, address.locality
@@ -38,7 +37,7 @@ class AppointmentController {
                                                  ORDER BY appointment.date_appointment_from`, [+id]);
     
             /**si no encuentra ningún appointment devolvemos el resultado*/
-            if (appointments.length < 1) return res.status(200).json({ok: false, message: 'The user has no appointments'});
+            if (appointments.length < 1) return res.status(404).json({ok: false, message: 'The user has no appointments'});
             
         
 
@@ -138,7 +137,8 @@ class AppointmentController {
     public async store (req: Request, res: Response) {
         
         //recibimos el desencriptado del token
-        const user_id = req.user_id;
+        //const user_id = req.user_id;
+        //const id = 1;
 
         //recibimos los datos del servicio
         const { ...appointment }: Appointment = req.body;
@@ -215,6 +215,23 @@ class AppointmentController {
 
         }
 
+    }
+
+    public async cancelEmployeeAsign(req: Request, res: Response){
+
+        const appointment_id: string = req.body.appointment_id;
+
+        try{
+
+            await db.query(`UPDATE appointment SET employee_id = null WHERE id = ?`, [appointment_id]);
+
+            res.status(200).json({ok: true, message: 'Appointment updated'});
+
+        } catch(error){
+            console.log(error);
+            res.status(400).json({ok: false, message: 'Something went wrong'});
+
+        }
     }
 
     public async destroy (req: Request, res: Response) {

@@ -7,11 +7,11 @@
         text-align: center;
         min-height: 500px;
         @include escritorio{
-            display: grid;           
+            display: grid;
             text-align: left;
             padding-left: 60px;
         }
-        
+
         h2{
             text-align: center;
             text-decoration: underline;
@@ -25,7 +25,7 @@
             box-shadow: 3px 3px 6px #444;
             padding: 12px;
             margin-bottom: 20px;
-            
+
             .texto{
                 @include escritorio{
                     display: flex;
@@ -33,13 +33,13 @@
                     justify-content: space-around;
                 }
             }
-            
+
             h3{
                 font-family: $font_titulos;
                 font-size: 30px;
                 margin-top: 8px;
             }
-            
+
             .product-container{
                 display: grid;
                 justify-content: center;
@@ -53,25 +53,27 @@
                     display: block;
                 }
 
-                
+
                 .info{
                     display: grid;
                     align-items: center;
+                    justify-content: center;
 
                     @include escritorio{
                         grid-template-columns: auto 1fr;
                         justify-content: space-between;
                         grid-gap: 14px;
                     }
-                    
+
                     img{
                         max-width: 400px;
                         border-radius: 8px;
+                        justify-self: center;
                     }
-                    
+
                     .details{
                         display: grid;
-                        
+
                         h3{
                             font-family: $font_titulos;
                             font-size: 22px;
@@ -81,11 +83,11 @@
                                 font-size: 30px;
                             }
                         }
-                        
+
                         .descripcion{
                             font-family: $font_contenido;
                         }
-                        
+
                         .price {
                             font-family: $font_titulos;
                             font-size: 36px;
@@ -95,11 +97,11 @@
                                 font-size: 20px;
                             }
                         }
-                        
+
                         a{
                             margin-bottom: 8px;
                         }
-                        
+
                         .botones{
                             display: grid;
                             @include escritorio{
@@ -111,16 +113,16 @@
                                 }
                             }
                         }
-                        
+
                         button:nth-of-type(1){
                             @include crearBoton($green_primary)
                         }
                         button:nth-of-type(2){
                             @include crearBoton($orange_secondary)
                         }
-                        
+
                     }
-                    
+
                 }
             }
     }

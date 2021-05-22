@@ -18,12 +18,14 @@ export class OrderDetailsComponent implements OnInit {
 
   user: User;
   address: Address;
+  addresses: Address[] = [];
+  address_id: number;
 
   openAddressForm: boolean = false;
 
   constructor( private _userService: UserService,
                //private _authService: AuthService,
-               private router: Router          
+               private router: Router
     ) { }
 
   ngOnInit(): void {
@@ -39,6 +41,9 @@ export class OrderDetailsComponent implements OnInit {
         this.hasAddress = true;
         this.address = res.data;
 
+        //pedimos las direcciones secundarias
+        this.loadMoreAddresses();
+
       }, err => {
         //si no tiene direccion
         this.hasAddress = false;
@@ -47,6 +52,14 @@ export class OrderDetailsComponent implements OnInit {
 
   }
 
+  loadMoreAddresses(){
+    this._userService.getUserAddresses()
+      .subscribe( (res:any) => {
+        this.addresses = res.data;
+      }, err => {
+        console.log(err);
+      });
+  }
 
   addressRecived( address: Address ){
     this.address = address;
@@ -60,6 +73,10 @@ export class OrderDetailsComponent implements OnInit {
       }, err => {
         console.log(err);
       });
+  }
+
+  changeAddress(){
+    this.address = this.addresses.find( address => address.id == this.address_id);
   }
 
 

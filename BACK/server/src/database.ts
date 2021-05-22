@@ -1,4 +1,4 @@
-import mysql from 'promise-mysql';
+import  mysql  from 'promise-mysql';
 
 import keys from './keys';
 

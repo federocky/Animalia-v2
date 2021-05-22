@@ -50,8 +50,8 @@
       </div>
 
       <div class="botones" *ngIf="term == 'asigned'">
-          <button (click)="changeState( order.delivery.id, 'delivered', true )">Asignado a {{ appointment.employee_id }}</button>
-          <button (click)="changeState( order.delivery.id, 'ordered', false )">Cancelar asignación</button>
+          <button disabled>Asignado a {{ appointment.employee_id }}</button>
+          <button (click)="cancelEmployeeEncharge( appointment.id )">Cancelar asignación</button>
       </div>
 
       <div class="botones" *ngIf="term == 'past'">

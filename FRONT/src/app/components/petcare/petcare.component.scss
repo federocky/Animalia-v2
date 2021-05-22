@@ -1,0 +1,19 @@
+@import '../../../assets/styles/mixins';
+@import '../../../assets/styles/variables';
+
+main{
+  background-color: $gray_light;
+
+  .main{
+    text-align: center;
+    h1{
+      font-family: $font_titulos;
+      text-decoration: underline;
+      margin: 10px 0px;
+    }
+
+    img{
+      max-width: 350px;
+    }
+  }
+}
