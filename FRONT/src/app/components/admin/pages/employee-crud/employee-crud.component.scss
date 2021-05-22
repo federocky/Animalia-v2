@@ -1,0 +1,38 @@
+@import '../../../../../assets/styles/mixins';
+@import '../../../../../assets/styles/variables';
+
+section{
+    background-color: #fff;
+    padding-top: 20px;
+    background-color: $blue_light;
+    height: 100%;
+    padding-bottom: 20px;
+    min-height: 800px;
+    @include escritorio{
+        padding-left: 75px;
+    }
+
+
+
+    table{
+        background-color: #fff;
+        border: 1px solid #3c3c3c;
+
+        .hide{
+            display: none;
+            @include tablet{
+                display: table-cell;
+            }
+        }
+    }
+}
+
+.form{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: rgba($color: #3c3c3c, $alpha: 0.7);
+}
+

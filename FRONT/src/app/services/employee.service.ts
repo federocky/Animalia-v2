@@ -1,3 +1,4 @@
+import { Employee } from './../models/employee.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -11,20 +12,43 @@ export class EmployeeService {
 
   constructor(private http: HttpClient) { }
 
-  //devuelve los empleado 
+  //devuelve los empleado
   getEmployees(){
-    return this.http.get(`${this.url}${this.route}`);
+
+    const headers = new HttpHeaders({
+      'emp-token': localStorage.getItem('emp-token'),
+      'token-expire': localStorage.getItem('token-expire')
+    });
+
+    return this.http.get(`${this.url}${this.route}`, {headers: headers});
   }
 
   //devuelve un empleado .
   getEmployee( id: number ){
-    return this.http.get(`${this.url}${this.route}/${id}`);
+
+    const headers = new HttpHeaders({
+      'emp-token': localStorage.getItem('emp-token'),
+      'token-expire': localStorage.getItem('token-expire')
+    });
+
+    return this.http.get(`${this.url}${this.route}/${id}`, {headers: headers});
   }
 
+    //devuelve un empleado en una hora especifica.
+ /*    getEmployeeOnCertainDateAndTime( date: string ){
+
+      const headers = new HttpHeaders({
+        'emp-token': localStorage.getItem('emp-token'),
+        'token-expire': localStorage.getItem('token-expire')
+      });
+
+      return this.http.post(`${this.url}${this.route}/byDate`, {date: date}, {headers: headers});
+    } */
 
   updateEmployee( employee: Employee ){
+
     const headers = new HttpHeaders({
-      'auth-token': localStorage.getItem('auth-token'),
+      'emp-token': localStorage.getItem('emp-token'),
       'token-expire': localStorage.getItem('token-expire')
     });
 
@@ -35,7 +59,7 @@ export class EmployeeService {
   deleteEmployee( id: number ){
 
     const headers = new HttpHeaders({
-      'auth-token': localStorage.getItem('auth-token'),
+      'emp-token': localStorage.getItem('emp-token'),
       'token-expire': localStorage.getItem('token-expire')
     });
 
@@ -43,6 +67,12 @@ export class EmployeeService {
   }
 
   recoverEmployee( id: number ){
-    return this.http.get(`${this.url}${this.route}/recover/${id}`);
+
+    const headers = new HttpHeaders({
+      'emp-token': localStorage.getItem('emp-token'),
+      'token-expire': localStorage.getItem('token-expire')
+    });
+
+    return this.http.get(`${this.url}${this.route}/recover/${id}`, {headers: headers});
   }
 }

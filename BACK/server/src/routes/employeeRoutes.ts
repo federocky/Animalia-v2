@@ -16,6 +16,7 @@ class EmployeeRoutes {
         this.router.get('/', employeeValidation, employeeController.index);
         //this.router.get('/create', employeeController.create);
         //this.router.post('/', employeeController.store);
+        //this.router.post('/byDate', employeeValidation, employeeController.indexOnCertainDateAndTime);
         this.router.get('/:id', employeeValidation, employeeController.show);
         //this.router.get('/edit/:id', employeeController.edit);
         this.router.put('/:id', employeeValidation, employeeController.update);

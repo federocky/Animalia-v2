@@ -59,8 +59,6 @@ class AppointmentController {
 
         if(!date || !service)return res.status(400).json({ok: false, message: 'Invalid info'});
         
-        //TODO: castear la date a solo date si la mando completa o mandarla ya casteada
-
         try{
             
             let response = await db.query(`SELECT DATE_FORMAT(hour_start, '%H:%i') AS hour_from, DATE_FORMAT(hour_end, '%H:%i') AS hour_to FROM service WHERE name = ?`, [service]);
@@ -198,6 +196,25 @@ class AppointmentController {
     */
     public async update (req: Request, res: Response) {
         
+    }
+
+    public async asignEmployee(req: Request, res: Response){
+
+        const employee_id: string = req.body.employee_id;
+        const appointment_id: string = req.body.appointment_id;
+        
+        try{
+
+            await db.query(`UPDATE appointment SET employee_id = ? WHERE id = ?`, [employee_id, appointment_id]);
+
+            res.status(200).json({ok: true, message: 'Appointment updated'});
+
+        } catch(error){
+            console.log(error);
+            res.status(400).json({ok: false, message: 'Something went wrong'});
+
+        }
+
     }
 
     public async destroy (req: Request, res: Response) {

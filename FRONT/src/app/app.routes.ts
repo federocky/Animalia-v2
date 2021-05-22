@@ -1,3 +1,6 @@
+import { AppointmentsComponent } from './components/admin/pages/appointments/appointments.component';
+import { appointmentController } from './../../../BACK/server/src/controllers/AppointmentController';
+import { EmployeeCrudComponent } from './components/admin/pages/employee-crud/employee-crud.component';
 import { EmpGuardGuard } from './guards/emp-guard.guard';
 import { UserAppointmentsComponent } from './components/user/user-appointments/user-appointments.component';
 import { PasarelaAppointmentsComponent } from './components/services-appointments/pasarela-appointments/pasarela-appointments.component';
@@ -66,6 +69,8 @@ const APP_ROUTES: Routes = [
         {path: "pedidos", component: AdminOrdersComponent, canActivate: [EmpGuardGuard]},
         {path: "productos", component: ProductsCrudComponent, canActivate: [EmpGuardGuard]},
         {path: "usuarios", component: UsersCrudComponent, canActivate: [EmpGuardGuard]},
+        {path: "empleados", component: EmployeeCrudComponent, canActivate: [EmpGuardGuard]},
+        {path: "servicios", component: AppointmentsComponent, canActivate: [EmpGuardGuard]},
 
         { path: '**', pathMatch: 'full', redirectTo: 'todo' }
     ] },

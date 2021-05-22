@@ -42,4 +42,8 @@ export class AppointmentService {
   deleteAppointment( id: number ){
     return this.http.delete(`${this.url}${this.route}/${id}`);
   }
+
+  asignEmployeeToAppointment( employee_id: number, appointment_id: number){
+    return this.http.post(`${this.url}${this.route}/asignEmployee`, {employee_id: employee_id, appointment_id: appointment_id});
+  }
 }

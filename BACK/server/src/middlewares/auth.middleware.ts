@@ -32,7 +32,7 @@ export const tokenValidation = (req: Request, res: Response, next: NextFunction)
 /**Middleware que comprueba que se tenga un token válido, verificando la fecha de expiracion */
 export const employeeValidation = (req: Request, res: Response, next: NextFunction) => {
 
-    const token = req.header('auth-token');
+    const token = req.header('emp-token');
     const expire_date = req.header('token-expire');
 
     if(!token || !expire_date) return res.status(401).json({ok:false, messsage: 'Unauthorized'});

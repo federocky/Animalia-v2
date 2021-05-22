@@ -1,0 +1,64 @@
+<nav>
+
+  <div class="nav container">
+      <ul>
+          <li><a (click)="term = 'notAsigned'">Sin asignar</a></li>
+          <li><a (click)="term = 'asigned'">Asignadas</a></li>
+          <li><a (click)="term = 'past'">Pasados</a></li>
+      </ul>
+  </div>
+</nav>
+
+<div class="container container-gray" *ngIf="appointments">
+
+  <article class="order-container" *ngFor="let appointment of appointments | pastOrNewAppointments: term">
+
+      <div class="texto">
+          <h3>Nº de cita {{ appointment.id }}</h3>
+          <p>Cita para el <small>{{ appointment.date_appointment_from | date:"short"}} </small></p>
+      </div>
+
+      <div class="product-container">
+
+          <div class="info">
+              <img *ngIf="appointment.service_id == 6" src="/assets/img/index-paseo2.jpg" alt="">
+              <img *ngIf="appointment.service_id != 6" src="/assets/img/peluqueria2.jpg" alt="">
+
+              <div class="details">
+                  <h3 *ngIf="appointment.service_id == 6"> Paseo </h3>
+                  <h3 *ngIf="appointment.service_id != 6"> Peluquería </h3>
+
+                  <p class="descripcion" *ngIf="appointment.service_id == 6">Paseo por horas para relajar a tu mascota</p>
+                  <p class="descripcion" *ngIf="appointment.service_id != 6">Peluquería de mascotas, servicio a domicilio</p>
+                  <p class="price"> € {{ appointment.price }} </p>
+              </div>
+          </div>
+
+      </div>
+
+      <div class="botones" *ngIf="term == 'notAsigned'">
+          <button (click)="showHideButtons = !showHideButtons">Asignar a
+
+              <ul class="desplegable" [ngClass]="{hideDesplegable: !showHideButtons}">
+                <li *ngFor="let employee of appointment.availableEmployee">
+                  <button (click)="asignEmployee(employee.id, appointment.id)">{{ employee.name }}</button>
+                </li>
+              </ul>
+
+          </button>
+          <button >Cancelar Cita</button>
+      </div>
+
+      <div class="botones" *ngIf="term == 'asigned'">
+          <button (click)="changeState( order.delivery.id, 'delivered', true )">Asignado a {{ appointment.employee_id }}</button>
+          <button (click)="changeState( order.delivery.id, 'ordered', false )">Cancelar asignación</button>
+      </div>
+
+      <div class="botones" *ngIf="term == 'past'">
+        <span class="badge bg-success p-2 px-4 fs-5">Servicio realizado por {{ appointment.employee_id }}</span>
+      </div>
+
+  </article>
+
+</div>
+

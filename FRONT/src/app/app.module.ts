@@ -59,6 +59,8 @@ import { PasarelaAppointmentsComponent } from './components/services-appointment
 import { UserAppointmentsComponent } from './components/user/user-appointments/user-appointments.component';
 import { PastOrNewAppointmentsPipe } from './pipes/past-or-new-appointments.pipe';
 import { EmployeeFormComponent } from './components/admin/utils/employee-form/employee-form.component';
+import { EmployeeCrudComponent } from './components/admin/pages/employee-crud/employee-crud.component';
+import { AppointmentsComponent } from './components/admin/pages/appointments/appointments.component';
 
 
 
@@ -108,6 +110,8 @@ import { EmployeeFormComponent } from './components/admin/utils/employee-form/em
     UserAppointmentsComponent,
     PastOrNewAppointmentsPipe,
     EmployeeFormComponent,
+    EmployeeCrudComponent,
+    AppointmentsComponent,
   ],
   imports: [
     BrowserModule,

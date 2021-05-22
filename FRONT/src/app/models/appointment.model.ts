@@ -1,3 +1,4 @@
+import { Employee } from './employee.model';
 export interface Appointment {
   id?: number;
   service_id: number;
@@ -7,4 +8,5 @@ export interface Appointment {
   employee_id?: number;
   price: number;
   address_id: number;
+  availableEmployee?: Employee[];
 }

@@ -22,6 +22,33 @@ class EmployeeController {
             res.status(404).json({ok: false, message: 'Server not working'});
         }
     }
+
+
+
+
+/*     public async indexOnCertainDateAndTime( req: Request, res: Response ){
+        const date: string = req.body.date; 
+
+        if(!date)return res.status(400).json({ok: false, message: 'Invalid info'});
+
+        try{
+            
+            const formatedDate = new Date(date);
+
+            const response = await db.query(`SELECT employee_id FROM appointment 
+                                             WHERE date_appointment_from LIKE = ?`,
+                                             [date+'%']);
+            
+            return res.status(200).json({ok: true, data: response});
+        } catch (error) {
+            console.log(error);
+            return res.status(400).json({ok: false, message: 'Server error'});
+        }
+    } */
+
+
+
+
     
     /**Funcion que devuelve un empleado por id y sus direcciones si las tiene */
     public async show (req: Request, res: Response) {
@@ -77,8 +104,6 @@ class EmployeeController {
             res.status(400).json({ok: false, error: error.errno});
             console.log(error);
         }
-
-
     }
 
     /**FUNCION que hace un borrado logico de un usuario */

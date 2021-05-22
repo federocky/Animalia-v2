@@ -30,7 +30,7 @@ export class AdminOrdersComponent implements OnInit {
   loadOrders(){
 
     this.showLoading();
-      
+
     this._orderService.getOrders()
       .subscribe( (res: any) => {
 
@@ -44,22 +44,22 @@ export class AdminOrdersComponent implements OnInit {
           icon: 'warning',
           text: 'Algo ha ido mal'
         });
-      })
+      });
   }
 
   changeState( id: number, state: string, fordward: boolean ){
 
     Swal.fire({
-          
+
       title: '¿Esta seguro que desea cambiar el estado?',
       showConfirmButton: true,
       confirmButtonText: `Continuar`,
       showCancelButton: true,
 
     }).then((result) => {
-      
+
       if (result.isConfirmed) {
-        
+
         if(fordward) this.onChange( id, state );
         else this.onReverse(id, state);
 
@@ -74,7 +74,7 @@ export class AdminOrdersComponent implements OnInit {
 
     this._orderService.changeDeliveryState( id, state )
     .subscribe( (res: any) => {
-      
+
       Swal.fire('Saved!', '', 'success');
       this.loadOrders();
 
@@ -88,7 +88,7 @@ export class AdminOrdersComponent implements OnInit {
 
     this._orderService.reverseDeliveryState( id, state )
     .subscribe( (res: any) => {
-      
+
       Swal.fire('Saved!', '', 'success');
       this.loadOrders();
 
