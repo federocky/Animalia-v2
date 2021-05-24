@@ -1,3 +1,4 @@
+import { ContactComponent } from './components/contact/contact.component';
 import { PetcareComponent } from './components/petcare/petcare.component';
 import { AppointmentsComponent } from './components/admin/pages/appointments/appointments.component';
 import { appointmentController } from './../../../BACK/server/src/controllers/AppointmentController';
@@ -49,12 +50,13 @@ const APP_ROUTES: Routes = [
         { path: "peluqueria", component: PeluqueriaComponent },
         { path: "guarderia", component: PetcareComponent },
         { path: "servicios/pasarela", component: PasarelaAppointmentsComponent },
+        { path: "contacto", component: ContactComponent },
 
         { path: "usuario", component: MainUserComponent, children: [
-            { path: "pedidos", component: OrdersComponent },
-            { path: "configuracion", component: SettingsComponent },
-            { path: "direccion", component: AddressComponent },
-            { path: "citas", component: UserAppointmentsComponent }
+            { path: "pedidos", component: OrdersComponent, canActivate: [AuthGuard] },
+            { path: "configuracion", component: SettingsComponent, canActivate: [AuthGuard] },
+            { path: "direccion", component: AddressComponent, canActivate: [AuthGuard] },
+            { path: "citas", component: UserAppointmentsComponent, canActivate: [AuthGuard] }
         ] },
 
         { path: '**', pathMatch: 'full', redirectTo: 'index' }

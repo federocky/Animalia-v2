@@ -20,11 +20,11 @@ export class OrdersComponent implements OnInit {
 
 
   constructor( private _orderService: OrderService,
-               private _router: Router    
+               private _router: Router
     ) { }
 
   ngOnInit(): void {
-    
+
     this.showLoading();
 
     let userId = JSON.parse(localStorage.getItem('user')).id;
@@ -36,9 +36,9 @@ export class OrdersComponent implements OnInit {
   loadOrders( id: number ){
     this._orderService.getOrdersByUser(id)
     .subscribe( (res:any) => {
-      
+
       Swal.close();
-      
+
       this.orders = res.data;
       console.log(this.orders);
 
@@ -69,10 +69,10 @@ export class OrdersComponent implements OnInit {
 
 
     /**
-   * Funcion que nos lleva a ver el detalle del producto.  
+   * Funcion que nos lleva a ver el detalle del producto.
    * @param id id del producto
    */
      viewProductDetails( id: number ):void {
-      this._router.navigate(['tienda', id]); 
+      this._router.navigate(['tienda', id]);
     }
 }

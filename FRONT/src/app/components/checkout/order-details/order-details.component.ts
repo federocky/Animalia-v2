@@ -70,12 +70,15 @@ export class OrderDetailsComponent implements OnInit {
     this._userService.setAddress( this.address )
       .subscribe( (res: any) => {
         this.address.id = res.address_id;
+        this.loadMoreAddresses();
       }, err => {
         console.log(err);
       });
   }
 
   changeAddress(){
+    //si no selecciona ninguna se guarda la primera
+    if(!this.address_id)this.address_id = this.addresses[0].id;
     this.address = this.addresses.find( address => address.id == this.address_id);
   }
 

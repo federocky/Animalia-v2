@@ -29,13 +29,14 @@ class AuthController {
 
         /**Si el email no existe guardamos los datos */
         try {
-            await db.query('INSERT INTO user (name, surname, email, password, phone) VALUES (?,?,?,?)', [user.name, user.surname, user.email, user.password, user.phone]);
+            await db.query('INSERT INTO user (name, surname, email, password, phone) VALUES (?,?,?,?,?)', [user.name, user.surname, user.email, user.password, user.phone]);
             res.status(200).json({ok: true, data: user.email });
 
         } catch (error) {
             /**si existe el email */
+            console.log(error);
            if(error.errno == 1062) return res.status(400).json({ok: false, message: 'the email already exists', code: 1});
-
+            
             /**cualquier otro error */
             return res.status(400).json({ok: false, message: 'Connection error'});
         }

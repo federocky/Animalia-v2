@@ -41,7 +41,7 @@
             <section *ngIf="addresses">
 
                 <label [for]="address.id" *ngFor="let address of addresses">
-                  <input  name="addressRadio" type="radio" [value]="address.id" [(ngModel)]="address_id">
+                  <input name="addressRadio" type="radio" [value]="address.id" [(ngModel)]="address_id">
                     {{ address.street_name}} Nº {{address.street_number}}, CP: {{ address.postcode }}
                 </label>
 
@@ -101,7 +101,9 @@
                 <p>No cuenta con datos de envío en el sistema</p>
             </div>
 
-            <button (click)="openAddressForm = true">Agregar dirección</button>
+            <div class="botones">
+              <button (click)="openAddressForm = true">Agregar dirección</button>
+            </div>
         </div>
 
 

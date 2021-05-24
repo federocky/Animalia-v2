@@ -12,7 +12,7 @@ header {
 }
 
 .header {
-    
+
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     align-items: center;
@@ -28,25 +28,25 @@ header {
             width: 100px;
         }
     }
-    
-    >a{        
+
+    >a{
         text-decoration: none;
         color: #fff;
-        
+
         h1 {
             font-family: $font_logo;
             font-size: 16px;
             letter-spacing: 2px;
             @include escritorio {font-size: 50px; letter-spacing: 6px;}
             justify-self: center;
-            
+
             span{
                 color: $green_primary;
             }
-        }   
+        }
     }
 
-    
+
     .contenedor-menu {
         justify-self: end;
         display: grid;
@@ -90,9 +90,14 @@ header {
                 color: #fff;
                 font-weight: bold;
                 font-size: 16px;
+                display: none;
+
+                @include tablet{
+                  display: inline;
+                }
             }
         }
-        
+
     }
 }
 
@@ -108,27 +113,27 @@ header {
 	top: 65px;
 	left: 0;
     z-index: 1;
-    
+
 	width: 100%;
 	height: 100vh; //AQUI ME SALE UN SCROLL RARO, EN PRINCIPIO NO SERA PROBLEMA.
 	background: rgba(51,51,51,0.9);
 
 	transition: all 0.5s;
     transform: translateX(-100%);
-    
-    
-    
+
+
+
     a {
         display: block;
         color: #fff;
         height: 40px;
         text-decoration: none;
         padding: 15px;
-        border-bottom: 1px solid rgba(255,255,255,0.3);	
+        border-bottom: 1px solid rgba(255,255,255,0.3);
         font-family: $font_contenido;
         font-size: 14px;
     }
-    
+
     a:hover {
         background: rgba(255,255,255,0.3);
     }
@@ -167,7 +172,7 @@ header {
     .cart-container:hover{
         display: grid;
         //meter animacion con delay
-       
+
     }
 }
 
@@ -175,7 +180,7 @@ header {
 .contenedor-menu-usuario{
 
     position: relative;
-    
+
     .menu-usuario {
         display: none;
         z-index: 1;
@@ -193,7 +198,7 @@ header {
         .menu-usuario:hover {display: grid;}
     }
 
-   
+
 }
 
 app-nav-bar{

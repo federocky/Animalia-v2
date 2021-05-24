@@ -62,6 +62,7 @@ import { EmployeeFormComponent } from './components/admin/utils/employee-form/em
 import { EmployeeCrudComponent } from './components/admin/pages/employee-crud/employee-crud.component';
 import { AppointmentsComponent } from './components/admin/pages/appointments/appointments.component';
 import { PetcareComponent } from './components/petcare/petcare.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 
 
@@ -114,6 +115,7 @@ import { PetcareComponent } from './components/petcare/petcare.component';
     EmployeeCrudComponent,
     AppointmentsComponent,
     PetcareComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserModule,

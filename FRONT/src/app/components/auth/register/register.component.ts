@@ -13,7 +13,7 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  
+
   //creamos el formulario y sus controles
   myForm: FormGroup;
 
@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
   constructor( private _authService: AuthService,
                 private router: Router,
                 private fb: FormBuilder
-    ) { 
+    ) {
     this.createForm();
   }
 
@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
   createForm(): void {
 
     this.myForm = this.fb.group({
-      name: new FormControl('', Validators.required), 
+      name: new FormControl('', Validators.required),
       surname: new FormControl('', Validators.required),
       phone: new FormControl('', [Validators.required, Validators.pattern('[0-9]{9}')]),
       email: new FormControl('', [Validators.required, Validators.pattern('[^ @]*@[^ @]+')]),
@@ -55,7 +55,7 @@ export class RegisterComponent implements OnInit {
    * sean iguales.
    */
   passwordsIguales( pass1Name: string, pass2Name: string){
-    
+
     return( formGroup: FormGroup ) => {
       const pass1Control = formGroup.controls[pass1Name];
       const pass2Control = formGroup.controls[pass2Name];
@@ -69,7 +69,7 @@ export class RegisterComponent implements OnInit {
   }
 
 
-  
+
   setFormControlsVariables(): void {
 
     const fgName: FormGroup = this.myForm.controls.name as FormGroup;
@@ -78,7 +78,7 @@ export class RegisterComponent implements OnInit {
     this.surname        = this.myForm.controls.surname         as FormControl;
     this.email          = this.myForm.controls.email           as FormControl;
     this.phone          = this.myForm.controls.phone           as FormControl;
-    this.password       = this.myForm.controls.password        as FormControl;    
+    this.password       = this.myForm.controls.password        as FormControl;
     this.repeatPassword = this.myForm.controls.repeatPassword  as FormControl;
 
   }
@@ -99,7 +99,7 @@ export class RegisterComponent implements OnInit {
       Swal.showLoading();
 
       //creamos un usuario aux
-      const user: User = { ... this.myForm.value } 
+      const user: User = { ... this.myForm.value }
 
 
       ///registramos el usuario en la bbdd
@@ -107,14 +107,14 @@ export class RegisterComponent implements OnInit {
         .subscribe( res => {
 
           Swal.close();
-          
+
           //si todo va bien nos vamos a login
           this.router.navigateByUrl('/login');
 
         }, err => {
-          
-          let errorMessage: string = err.error.code == 1 ? 'El email ya existe' : 'Error de conexion';
 
+          let errorMessage: string = err.error.code == 1 ? 'El email ya existe' : 'Error de conexion';
+          console.log(err);
           Swal.fire({
             allowOutsideClick: true,
             title: 'ERROR',
@@ -123,7 +123,7 @@ export class RegisterComponent implements OnInit {
           });
         })
     }
-    
+
     //si el form no es valido lo marca como touched para mostrar los errores.
     this.myForm.markAllAsTouched();
   }

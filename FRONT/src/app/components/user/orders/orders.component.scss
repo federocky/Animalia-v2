@@ -127,3 +127,14 @@
             }
     }
 }
+
+
+
+.noOrders{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  img{
+    max-width: 400px;
+  }
+}

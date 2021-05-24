@@ -3,18 +3,18 @@
     <h2>Mis direcciones</h2>
 
     <section *ngIf="user">
-        
+
         <div class="new info">
-            
-            <div>
+
+            <div (click)="onStoreNewAddress()">
                 <i class="fas fa-map-marked-alt"></i>
                 Agrega una nueva dirección
             </div>
-            
+
         </div>
-        
+
         <div class="info" *ngFor="let address of user.address">
-            
+
             <p class="title">Calle: <span> {{ address.street_name }}</span></p>
 
             <p class="title">Numero:<span> {{ address.street_number }}</span></p>
@@ -44,15 +44,15 @@
                 <a (click)="setMain(address.id)">Hacer principal</a>
                 <a (click)="deleteAddress(address.id)">Eliminar</a>
             </div>
-                        
+
         </div>
 
-        
+
     </section>
 
     <div class="address_form" *ngIf="openAddressForm">
-        <app-address-form 
-            (address)="addressRecived( $event )" 
+        <app-address-form
+            (address)="addressRecived( $event )"
             (close)="openAddressForm = false"
             [addressRecived]="address"
             ></app-address-form>

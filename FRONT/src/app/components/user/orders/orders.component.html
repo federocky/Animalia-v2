@@ -1,39 +1,46 @@
 
-    
+
     <div class="container container-gray" *ngIf="orders">
 
         <h2>Mis pedidos</h2>
-        
+
         <article class="order-container" *ngFor="let order of orders">
-            
+
             <div class="texto">
                 <h3>Nº de pedido {{ order.id }}</h3>
                 <p>Pedido el <small>{{ order.date }}</small></p>
                 <p>Entregado el <small>{{ order.delivery.date_delivered }}</small></p>
             </div>
-            
+
             <div class="product-container" *ngFor="let detail of order.details">
-                
+
                 <div class="info">
                     <img [src]=" imgRoute + detail.product.img" alt="">
-                    
+
                     <div class="details">
                         <h3> {{ detail.product.name }} </h3>
                         <p class="descripcion">{{ detail.product.description }}</p>
                         <p class="price"> €{{ detail.price }} <span> x {{ detail.qty }} </span> </p>
-                        
+
                         <div class="botones">
                             <button (click)="viewProductDetails(detail.product.id)">Volver a comprar</button>
                             <button href="">Valorar producto</button>
                         </div>
-                        
+
                     </div>
-                    
+
                 </div>
-                
+
             </div>
-            
+
         </article>
-        
+
+        <div class="noOrders" *ngIf="orders.length < 1">
+          <span>Todavia no tienes pedidos...</span>
+          <img src="assets/icons/order.png" alt="">
+        </div>
+
     </div>
-    
+
+
+

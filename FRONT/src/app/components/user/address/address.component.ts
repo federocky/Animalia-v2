@@ -15,6 +15,7 @@ export class AddressComponent implements OnInit {
 
   public user: User;
   public address: Address;
+  public saveNew = false;
 
   openAddressForm: boolean = false;
 
@@ -32,7 +33,7 @@ export class AddressComponent implements OnInit {
   loadUser( id: number ){
     this._userService.getUser(id)
     .subscribe( (res:any) => {
-      
+
       this.user = res.data[0];
       Swal.close();
 
@@ -41,7 +42,7 @@ export class AddressComponent implements OnInit {
     });
   }
 
-  
+
   deleteAddress( id: number ){
     this._userService.deleteAddress(id)
       .subscribe( (res:any) => {
@@ -82,19 +83,42 @@ export class AddressComponent implements OnInit {
 
     this.openAddressForm = false;
 
-    this._userService.updateAddress( address )
-      .subscribe( (res: any) => {
+    if(this.saveNew) this.storeNewAddress(address);
+    else this.updateAddress(address);
 
-        if(res.ok){
+
+  }
+
+  onStoreNewAddress(){
+    this.openAddressForm = true;
+    this.saveNew = true;
+  }
+
+  storeNewAddress( address: Address ){
+    this.saveNew = false;
+
+    this._userService.setAddress( address )
+
+      .subscribe( (res: any) => {
           this.showLoading();
           this.loadUser(this.user.id);
-        }
 
       }, err => {
         this.showError();
       });
   }
 
+  updateAddress( address: Address ){
+    this._userService.updateAddress( address )
+
+    .subscribe( (res: any) => {
+        this.showLoading();
+        this.loadUser(this.user.id);
+
+    }, err => {
+      this.showError();
+    });
+  }
 
   showLoading(){
     Swal.fire({
