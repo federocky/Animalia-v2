@@ -24,22 +24,22 @@
                 </div>
             </div>
 
-            <input type="checkbox" id="menu-bar" name="menubar">
+            <input type="checkbox" id="menu-bar" name="menubar" [(ngModel)]="checked">
 			<label class="icon-menu" for="menu-bar"><i class="fas fa-bars"></i></label>
 
             <nav class="menu">
-                <a routerLink="login" *ngIf="!signedIn">Iniciar sesión</a>
-                <a routerLink="registro" *ngIf="!signedIn">Registrarse</a>
-                <a routerLink="index">Inicio</a>
-                <a routerLink="guarderia">Guardería</a>
-                <a routerLink="paseos">Paseos</a>
-                <a routerLink="peluqueria">Peluquería</a>
-                <a routerLink="tienda">Tienda</a>
-                <a routerLink="contacto">Contacto</a>
-                <a routerLink="usuario/configuracion" *ngIf="signedIn">Ver perfíl</a>
-                <a routerLink="usuario/pedidos" *ngIf="signedIn">Mis pedidos</a>
-                <a routerLink="usuario/citas" *ngIf="signedIn">Mis citas</a>
-                <a routerLink="usuario/direccion" *ngIf="signedIn">Mis direcciones</a>
+                <a (click)="checked = false" routerLink="login" *ngIf="!signedIn">Iniciar sesión</a>
+                <a (click)="checked = false" routerLink="registro" *ngIf="!signedIn">Registrarse</a>
+                <a (click)="checked = false" routerLink="index">Inicio</a>
+                <a (click)="checked = false" routerLink="guarderia">Guardería</a>
+                <a (click)="checked = false" routerLink="paseos">Paseos</a>
+                <a (click)="checked = false" routerLink="peluqueria">Peluquería</a>
+                <a (click)="checked = false" routerLink="tienda">Tienda</a>
+                <a (click)="checked = false" routerLink="contacto">Contacto</a>
+                <a (click)="checked = false" routerLink="usuario/configuracion" *ngIf="signedIn">Ver perfíl</a>
+                <a (click)="checked = false" routerLink="usuario/pedidos" *ngIf="signedIn">Mis pedidos</a>
+                <a (click)="checked = false" routerLink="usuario/citas" *ngIf="signedIn">Mis citas</a>
+                <a (click)="checked = false" routerLink="usuario/direccion" *ngIf="signedIn">Mis direcciones</a>
                 <a (click)="logOut()" *ngIf="signedIn">Cerrar sesión</a>
             </nav>
 

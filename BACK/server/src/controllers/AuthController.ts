@@ -54,7 +54,7 @@ class AuthController {
         if( !email || !Function.validateEmail(email)) return res.status(200).json({ok: false, message: "invalid email"})
 
         let user = [];
-        user = await db.query('SELECT * FROM user WHERE email = ?', [email]);
+        user = await db.query('SELECT * FROM user WHERE email = ? AND active = 1', [email]);
         
         //si no encuentra el email en la bbdd
         if (user.length < 1) return res.status(400).json({ok: false, message: 'Email does not exists', code: 1});
@@ -120,7 +120,7 @@ class AuthController {
         let employee = [];
         employee = await db.query(`SELECT e.*, eh.salary, eh.details FROM employee e
                                    JOIN employee_history eh on e.id = eh.employee_id                             
-                                   WHERE email = ?`, [email]);
+                                   WHERE email = ? AND active = 1`, [email]);
         
         //si no encuentra el email en la bbdd
         if (employee.length < 1) return res.status(400).json({ok: false, message: 'Email does not exists', code: 1});

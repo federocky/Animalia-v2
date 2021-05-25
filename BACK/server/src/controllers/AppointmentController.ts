@@ -137,7 +137,7 @@ class AppointmentController {
     public async store (req: Request, res: Response) {
         
         //recibimos el desencriptado del token
-        //const user_id = req.user_id;
+        const user_id = req.user_id;
         //const id = 1;
 
         //recibimos los datos del servicio

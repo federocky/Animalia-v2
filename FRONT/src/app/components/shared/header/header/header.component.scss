@@ -112,10 +112,10 @@ header {
 	position: absolute;
 	top: 65px;
 	left: 0;
-    z-index: 1;
+  z-index: 1;
 
 	width: 100%;
-	height: 100vh; //AQUI ME SALE UN SCROLL RARO, EN PRINCIPIO NO SERA PROBLEMA.
+	min-height: 100vh; //AQUI ME SALE UN SCROLL RARO, EN PRINCIPIO NO SERA PROBLEMA.
 	background: rgba(51,51,51,0.9);
 
 	transition: all 0.5s;
@@ -125,6 +125,7 @@ header {
 
     a {
         display: block;
+        cursor: pointer;
         color: #fff;
         height: 40px;
         text-decoration: none;

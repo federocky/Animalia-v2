@@ -13,7 +13,8 @@ export class HeaderComponent implements OnInit {
 
   itemCount: BehaviorSubject<number>;
   signedIn: boolean;
-  
+  checked = false;
+
   constructor(private _cartService: CartService,
               private _authService: AuthService,
               private router: Router
@@ -25,10 +26,11 @@ export class HeaderComponent implements OnInit {
       .subscribe( res => {
         this.signedIn = res;
     });
-  }  
+  }
 
   logOut(){
     this._authService.logOut();
+    this.checked = false;
     this.router.navigateByUrl('index');
   }
 

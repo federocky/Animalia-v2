@@ -63,6 +63,7 @@ import { EmployeeCrudComponent } from './components/admin/pages/employee-crud/em
 import { AppointmentsComponent } from './components/admin/pages/appointments/appointments.component';
 import { PetcareComponent } from './components/petcare/petcare.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { StatisticChartComponent } from './components/admin/pages/statistic-chart/statistic-chart.component';
 
 
 
@@ -116,6 +117,7 @@ import { ContactComponent } from './components/contact/contact.component';
     AppointmentsComponent,
     PetcareComponent,
     ContactComponent,
+    StatisticChartComponent,
   ],
   imports: [
     BrowserModule,

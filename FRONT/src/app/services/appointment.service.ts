@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Appointment } from './../../../../BACK/server/src/models/appointment.model';
+import { Appointment } from '../models/appointment.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 

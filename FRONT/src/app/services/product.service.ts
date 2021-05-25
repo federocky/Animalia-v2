@@ -1,4 +1,4 @@
-import { Product } from './../../../../BACK/server/src/models/product.model';
+import { Product } from '../models/product';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -11,7 +11,7 @@ export class ProductService {
   private url: string   = 'http://localhost:3000/';
   private route: string = 'api/products';
 
-  constructor( private http: HttpClient ) { 
+  constructor( private http: HttpClient ) {
 
   }
 

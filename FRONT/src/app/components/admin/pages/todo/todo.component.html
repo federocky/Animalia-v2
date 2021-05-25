@@ -1,1 +1,35 @@
-<p>todo works!</p>
+<div class="container-blue">
+
+  <div class="container-tasks" *ngIf="orders && appointments">
+
+    <section class="task">
+      <h3>Tienes</h3>
+      <h4>{{ ordersOrdered.length }}</h4>
+      <h5>Pedidos pendientes</h5>
+      <a routerLink="/admin/pedidos">Ir a pedidos</a>
+    </section>
+
+    <section class="task">
+      <h3>Tienes</h3>
+      <h4>{{ ordersSent.length }}</h4>
+      <h5>Pedidos Enviados</h5>
+      <a routerLink="/admin/pedidos">Ir a pedidos</a>
+    </section>
+
+    <section class="task">
+      <h3>Tienes</h3>
+      <h4>{{ appointmentsNotAssigned.length }}</h4>
+      <h5>Citas sin asignar</h5>
+      <a routerLink="/admin/servicios">Ir a servicios</a>
+    </section>
+
+    <section class="task">
+      <h3>Tienes</h3>
+      <h4>{{ appointmentsAssigned.length }}</h4>
+      <h5>Citas asignadas</h5>
+      <a routerLink="/admin/servicios">Ir a servicios</a>
+    </section>
+
+  </div>
+
+</div>

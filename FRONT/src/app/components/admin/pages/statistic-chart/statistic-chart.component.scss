@@ -1,0 +1,18 @@
+@import '../../../../../assets/styles/mixins';
+@import '../../../../../assets/styles/variables';
+
+.container-blue{
+  background-color: $blue_light;
+  padding: 12px;
+  text-align: center;
+  min-height: 600px;
+
+  h1{
+    font-family: $font_titulos;
+    text-decoration: underline;
+  }
+
+  img{
+    max-width: 300px;
+  }
+}
