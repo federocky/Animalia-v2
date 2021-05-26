@@ -130,6 +130,8 @@ export class AuthService {
   loggedIn(): boolean {
 
     ///no hay token
+    if( !localStorage.getItem('auth-token') ) return false;
+
     if(this.userToken.length < 2 ) {
       return false;
     }

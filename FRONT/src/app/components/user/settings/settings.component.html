@@ -1,9 +1,9 @@
-<div class="wrapper container">
+<div class="wrapper container animated fadeIn fast">
 
     <h2>Mis pedidos</h2>
 
-    <div class="container_passowrd" *ngIf="showPasswordForm">
-                
+    <div class="container_passowrd animated fadeIn" *ngIf="showPasswordForm">
+
         <form [formGroup]="passwordForm">
             <i class="far fa-times-circle" (click)="showPasswordForm = false"></i>
             <div class="mb-3">
@@ -49,33 +49,33 @@
 
             <button type="submit" (click)="submitPassword()">Enviar</button>
         </form>
-            
 
-      
+
+
     </div>
 
     <section *ngIf="user">
 
         <div class="info">
-            
+
             <div class="label">
                 <p class="title">Nombre:</p>
                 <p  *ngIf="!changeName">{{ user.name }}</p>
-            
+
 
             <form [formGroup]="myForm" *ngIf="changeName">
 
             <div class="label" >
-                
-                    <input 
-                    type="text" 
+
+                    <input
+                    type="text"
                     class="form-control"
                     [(ngModel)]="user.name"
                     [ngClass]="{ 'is-invalid': name.invalid && ( name.dirty || name.touched),
                     'is-valid': name.valid     && ( name.dirty || name.touched)}"
-                    
+
                     formControlName="name">
-                    
+
                     <div class="invalid-feedback" *ngIf="name.errors && (name.dirty || name.touched)">
                         <span *ngIf="name.errors.required">Debe ingresar su nombre</span>
                     </div>
@@ -84,13 +84,13 @@
             </form>
 
             </div>
-            
+
             <button (click)="changeName = !changeName">Cambiar Nombre</button>
-            
+
         </div>
-        
+
         <div class="info">
-            
+
             <div class="label" >
                 <p class="title">Email:</p>
                 <p *ngIf="!changeEmail">{{ user.email }}</p>
@@ -98,34 +98,34 @@
             <form [formGroup]="myForm" *ngIf="changeEmail">
 
                 <div class="label" >
-                    
-                    <input 
-                    type="email" 
+
+                    <input
+                    type="email"
                     class="form-control"
                     [(ngModel)]="user.email"
                     [ngClass]="{ 'is-invalid': email.invalid && ( email.dirty || email.touched),
                     'is-valid': email.valid     && ( email.dirty || email.touched)}"
-                 
+
                     formControlName="email">
 
-                    
+
                     <div class="invalid-feedback" *ngIf="email.errors && (email.dirty || email.touched)">
                         <span *ngIf="email.errors.required">Debe ingresar su nombre</span>
                         <span *ngIf="email.errors.pattern">Email invalido</span>
 
                     </div>
                 </div>
-    
+
             </form>
 
         </div>
 
-            
+
             <button (click)="changeEmail = !changeEmail">Cambiar Email</button>
-            
+
         </div>
         <div class="info">
-            
+
             <div class="label">
                 <p class="title">Telefono:</p>
                 <p *ngIf="!changePhone">{{ user.phone }}</p>
@@ -133,44 +133,44 @@
                 <form [formGroup]="myForm" *ngIf="changePhone">
 
                     <div class="label" >
-                        
-                        <input 
-                            
-                            type="number" 
+
+                        <input
+
+                            type="number"
                             class="form-control"
                             [(ngModel)]="user.phone"
                             [ngClass]="{ 'is-invalid': phone.invalid && ( phone.dirty || phone.touched),
                             'is-valid': phone.valid     && ( phone.dirty || phone.touched)}"
-                            
+
                             formControlName="phone">
-                        
+
                         <div class="invalid-feedback" *ngIf="phone.errors && (phone.dirty || phone.touched)">
                             <span *ngIf="phone.errors.required">Debe ingresar su telefono</span>
                             <span *ngIf="phone.errors.pattern">Telefono invalido</span>
                         </div>
                     </div>
-        
+
                     </form>
             </div>
-            
+
             <button (click)="changePhone = !changePhone">Cambiar Movil</button>
-            
+
         </div>
 
 
         <div class="info">
-            
+
             <div class="label">
                 <p class="title">Password:</p>
                 <p>***********</p>
             </div>
-            
+
             <button (click)="showPasswordForm = true">Cambiar Password</button>
 
-                       
+
         </div>
 
         <button (click)="onSubmit()">Enviar Cambios</button>
-        
+
     </section>
 </div>

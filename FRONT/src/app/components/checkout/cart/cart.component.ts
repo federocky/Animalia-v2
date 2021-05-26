@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 export class CartComponent implements OnInit {
 
   //ruta de la imagen
-  imgRoute: string = Variables.imgRouteProducts;
+  imgRoute: string = Variables.imgRouteProductsDetails;
 
   //carro donde almacenamos los productos
   cart: Cart;
@@ -35,7 +35,7 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     //recibimos el carro
     this.getCart();
-    
+
     //recibimos la cantidad de artuculos que contiene el carro
     this.getCartItemCount();
   }
@@ -88,10 +88,10 @@ export class CartComponent implements OnInit {
 
 
   checkout(): void{
-  
+
       /**si esta logado */
       if(this._authService.loggedIn()) this.router.navigateByUrl('/main/checkout/detalles');
-      
+
       else {
         /**si no esta logado mostramos un alert con opcion de login o continuar como invitado */
         Swal.fire({
@@ -99,19 +99,19 @@ export class CartComponent implements OnInit {
         title: 'No esta logado',
         icon: 'info',
         showCloseButton: true,
-        
+
         showConfirmButton: true,
         showCancelButton: true,
         confirmButtonText: `Inicia sesión / Registrate`,
         cancelButtonText: 'Cancelar',
         confirmButtonColor: '#8BC34A',
-        
+
       }).then((result) => {
         //si se elige logar/registrar
         if(result.isConfirmed) this.router.navigateByUrl('/main/login');
       });
     }
-  
+
   }
-  
+
 }

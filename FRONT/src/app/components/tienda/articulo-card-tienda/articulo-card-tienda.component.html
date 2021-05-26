@@ -1,4 +1,4 @@
-<main class="animated fadeIn">
+<main class="animated fadeIn fast">
 
     <div class="container-gray" >
 
@@ -6,7 +6,7 @@
             <img (click)="showBigImg = false"  [src]="imgRouteBig + imgToShow" alt="">
         </div>
 
-        <div class="card container">
+        <div class="card container animated fadeIn">
 
             <div class="miniaturas" *ngIf="product">
                 <img [src]=" imgRoute + product.img " alt="" (click)="imgToShow = product.img">
@@ -20,7 +20,7 @@
                 <div class="details">
                     <h3>{{product.name}}</h3>
                     <p class="descripcion">{{product.description}}</p>
-                    
+
                     <!--ESTRELLAS-->
                     <div class="star-container" *ngIf="product.rating_average != null">
                         <div *ngFor="let i of cantidadEstrellas">
@@ -39,7 +39,7 @@
                     <p class="price">€{{ product.price.toFixed(2) }}</p>
 
                     <!--SI HAY STOCK MUESTRO-->
-                    <p class="cantidad" *ngIf="product.stock > 0"> 
+                    <p class="cantidad" *ngIf="product.stock > 0">
                         <i (click)="decreaseItem(product)" class="fas fa-arrow-alt-circle-left"></i>
                         {{ qtyOfProduct }}
                         <i (click)="increaseItem(product)" class="fas fa-arrow-alt-circle-right"></i>
@@ -48,7 +48,7 @@
                     </p>
                     <div class="botones" *ngIf="product.stock > 0">
                         <button class="btn1" (click)="addProduct(product)">Agregar al carro</button>
-                        <button class="btn2">Comprar Ya!</button>
+                        <button class="btn2" (click)="buyNow(product)">Comprar Ya!</button>
                     </div>
 
                     <!--SI NO HAY STOCK-->

@@ -5,7 +5,7 @@ import { Product } from './../../../models/product';
 import { Component, OnInit} from '@angular/core';
 
 //para recibir parametros
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 //sweet alert
 import Swal from 'sweetalert2';
@@ -34,7 +34,8 @@ export class ArticuloCardTiendaComponent implements OnInit {
 
   constructor( private _productService: ProductService,
               private _activatedRoute: ActivatedRoute,
-              private _cartService: CartService
+              private _cartService: CartService,
+              private _router: Router
     ) { }
 
   ngOnInit() {
@@ -59,6 +60,11 @@ export class ArticuloCardTiendaComponent implements OnInit {
 
   addProduct( product: Product ){
     this._cartService.addProduct(product, this.qtyOfProduct);
+  }
+
+  buyNow( product: Product ){
+    this._cartService.addProduct(product, this.qtyOfProduct);
+    this._router.navigateByUrl('main/checkout/carrito');
   }
 
   decreaseItem(product: Product): void{

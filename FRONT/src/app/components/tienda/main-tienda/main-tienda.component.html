@@ -1,9 +1,9 @@
-<main>
+<main class="animated fadeIn fast">
 
     <app-slider></app-slider>
 
-    
-    <div class="main container">
+
+    <div class="main container animated fadeIn">
 
         <h2>Nuestros Productos</h2>
 
@@ -16,18 +16,18 @@
                 <option value="precio-desc">Precio Descendente</option>
                 <option value="valoracion">Valoración</option>
             </select>
-        
+
             <select name="cantidad" [(ngModel)]="qtyProducts">
                 <option value="12">12</option>
                 <option value="24">24</option>
                 <option value="500">Todos</option>
             </select>
-        
+
             <input type="search" placeholder="Buscar juguetes, camas..." [(ngModel)]="toSearch">
         </div>
 
         <!--ARTICULOS-->
-        <app-articulos-tienda [qtyPerPage]="qtyProducts" [orderBy]="order" [termToSearch]=toSearch></app-articulos-tienda>
-        
+        <app-articulos-tienda class="animated fadeIn fast" [qtyPerPage]="qtyProducts" [orderBy]="order" [termToSearch]=toSearch></app-articulos-tienda>
+
     </div>
 </main>

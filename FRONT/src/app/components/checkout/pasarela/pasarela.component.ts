@@ -28,9 +28,17 @@ export class PasarelaComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+
+    if(! localStorage.getItem('cart') ) this._cartService.getCart();
+    else this.cart = JSON.parse(localStorage.getItem('cart'));
+
+    if(!localStorage.getItem('address') || !localStorage.getItem('user') || !this.cart || this.cart.total == 0) {
+      this.showError();
+      this.router.navigateByUrl("index");
+    }
+
     this.address = JSON.parse(localStorage.getItem('address'));
     this.user = JSON.parse(localStorage.getItem('user'));
-    this.cart = JSON.parse(localStorage.getItem('cart'));
   }
 
   pay(){
@@ -76,5 +84,13 @@ export class PasarelaComponent implements OnInit {
     localStorage.removeItem('cartItemCount');
     localStorage.removeItem('address');
     this._cartService.emptyCart();
+  }
+
+  showError(){
+    Swal.fire({
+      title: 'Oops!',
+      text: 'Pedimos algunos datos por el camino, por favor, vuelvete a logar e intentalo otra vez',
+      icon: 'error',
+    });
   }
 }

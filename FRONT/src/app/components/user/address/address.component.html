@@ -1,4 +1,4 @@
-<div class="wrapper container">
+<div class="wrapper container animated fadeIn fast">
 
     <h2>Mis direcciones</h2>
 
@@ -50,7 +50,7 @@
 
     </section>
 
-    <div class="address_form" *ngIf="openAddressForm">
+    <div class="address_form animated fadeIn" *ngIf="openAddressForm">
         <app-address-form
             (address)="addressRecived( $event )"
             (close)="openAddressForm = false"

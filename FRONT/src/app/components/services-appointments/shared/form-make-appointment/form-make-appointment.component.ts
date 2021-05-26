@@ -67,7 +67,7 @@ export class FormMakeAppointmentComponent implements OnInit {
         this.postcodes = res.data;
       }, err =>{
         console.log(err);
-        this.showError();
+        this.showError( "Tenemos un error momentaneo, danos 5 minutos e intentalo otra vez" );
       });
 
       this._servicesService.getService( this.serviceType == 'peluqueria' ? 5 : 6)
@@ -99,7 +99,7 @@ export class FormMakeAppointmentComponent implements OnInit {
 
       this.spin = false;
 
-    }, 50);
+    }, 250);
   }
 
   /*salta al escribir en el input del postcode*/
@@ -130,6 +130,13 @@ export class FormMakeAppointmentComponent implements OnInit {
 
   onReserve( hour: string = '' ){
     if(hour != '') this.selectedHour = +hour;
+
+    const cuttedDate = this.datePicked.split('-');
+    if(new Date(+cuttedDate[0], +cuttedDate[1]-1, +cuttedDate[2], this.selectedHour+2) < new Date( Date.now())){
+      this.showError("No puedes elegír una fecha anterior a la actual");
+      this._router.navigateByUrl("index");
+    };
+
     this._userService.getUserAddresses()
       .subscribe( (res:any) => {
         if(res.code == 2) {
@@ -138,7 +145,7 @@ export class FormMakeAppointmentComponent implements OnInit {
         }
       }, err => {
         console.log(err);
-        this.showError();
+        this.showError( "Hemos sufrido un error cogiendo tus direcciones, vuelvete a logar porfa" );
       });
 
     /**Si esta logado recupero los datos de usuario del local storage*/
@@ -154,7 +161,7 @@ export class FormMakeAppointmentComponent implements OnInit {
 
       }, err => {
         console.log(err);
-        this.showError();
+        this.showError( "Hemos sufrido un error guardando tu direccion, vuelvete a logar porfa." );
       })
   }
 
@@ -190,12 +197,12 @@ export class FormMakeAppointmentComponent implements OnInit {
     this._router.navigateByUrl('main/servicios/pasarela');
   }
 
-  showError(){
+  showError( message: string ){
     Swal.fire({
       allowOutsideClick: true,
       title: 'Oops...',
       icon: 'warning',
-      text: 'Algo ha id mal'
+      text: message
     });
   }
 

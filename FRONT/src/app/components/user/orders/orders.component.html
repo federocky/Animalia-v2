@@ -1,10 +1,10 @@
 
 
-    <div class="container container-gray" *ngIf="orders">
+    <div class="container container-gray animated fadeIn fast" *ngIf="orders">
 
         <h2>Mis pedidos</h2>
 
-        <article class="order-container" *ngFor="let order of orders">
+        <article class="order-container animated fadeIn" *ngFor="let order of orders">
 
             <div class="texto">
                 <h3>Nº de pedido {{ order.id }}</h3>

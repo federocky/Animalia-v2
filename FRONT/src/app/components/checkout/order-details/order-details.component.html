@@ -1,4 +1,4 @@
-<main>
+<main class="animated">
 
     <div class="address_form" *ngIf="openAddressForm">
         <app-address-form (address)="addressRecived( $event )" (close)="openAddressForm = false"></app-address-form>
@@ -75,7 +75,7 @@
         <button (click)="payNow()">Pagar ahora</button>
     </div>
 
-    <div class="container-general" >
+    <div class="container-general">
 
         <!--SI TIENE DIRECCION-->
         <div class="card container" *ngIf="hasAddress">

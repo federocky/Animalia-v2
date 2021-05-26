@@ -47,6 +47,7 @@ export class OrderDetailsComponent implements OnInit {
       }, err => {
         //si no tiene direccion
         this.hasAddress = false;
+        console.log(err);
         console.log(err.error.message);
       });
 
