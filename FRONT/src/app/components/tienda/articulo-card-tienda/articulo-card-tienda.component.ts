@@ -1,3 +1,4 @@
+import { SwalService } from './../../../services/swal.service';
 import { CartService } from './../../../services/cart.service';
 import { ProductService } from './../../../services/product.service';
 import { Variables } from './../../../common/utils';
@@ -35,7 +36,8 @@ export class ArticuloCardTiendaComponent implements OnInit {
   constructor( private _productService: ProductService,
               private _activatedRoute: ActivatedRoute,
               private _cartService: CartService,
-              private _router: Router
+              private _router: Router,
+              private _swalService: SwalService
     ) { }
 
   ngOnInit() {
@@ -54,7 +56,7 @@ export class ArticuloCardTiendaComponent implements OnInit {
         this.product = res.data[0];
         this.imgToShow = this.product.img;
       }, err => {
-        this.showError();
+        this._swalService.showError();
       });
   }
 
@@ -80,13 +82,4 @@ export class ArticuloCardTiendaComponent implements OnInit {
     }, 4000);
   }
 
-
-  showError(){
-    Swal.fire({
-      allowOutsideClick: true,
-      title: 'Oops...',
-      icon: 'warning',
-      text: 'Algo ha id mal'
-    });
-  }
 }

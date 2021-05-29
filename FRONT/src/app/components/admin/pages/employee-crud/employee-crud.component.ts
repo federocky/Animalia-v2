@@ -1,3 +1,4 @@
+import { SwalService } from './../../../../services/swal.service';
 import { EmployeeService } from './../../../../services/employee.service';
 import { Employee } from './../../../../models/employee.model';
 import { Component, OnInit } from '@angular/core';
@@ -18,10 +19,11 @@ export class EmployeeCrudComponent implements OnInit {
   term: string;
   order:string;
 
-  constructor( private _employeeService: EmployeeService) { }
+  constructor( private _employeeService: EmployeeService,
+              private _swalService: SwalService) { }
 
   ngOnInit(): void {
-    this.showLoading();
+    this._swalService.showLoading();
     this.loadEmployees();
   }
 
@@ -36,12 +38,7 @@ export class EmployeeCrudComponent implements OnInit {
       }, err => {
         console.log(err);
 
-        Swal.fire({
-          allowOutsideClick: true,
-          title: 'Oops...',
-          icon: 'warning',
-          text: 'Error en la conexión'
-        });
+        this._swalService.showError();
       })
   }
 
@@ -50,7 +47,7 @@ export class EmployeeCrudComponent implements OnInit {
       .subscribe( (res:any) => {
         this.loadEmployees();
       }, err => {
-        this.showError();
+        this._swalService.showError();
       })
   }
 
@@ -60,32 +57,13 @@ export class EmployeeCrudComponent implements OnInit {
         this.loadEmployees();
       }, err => {
         console.log(err);
-        this.showError();
+        this._swalService.showError();
       })
   }
 
   openNewForm(){
     this.employee = null;
     this.openForm = true;
-  }
-
-
-  showLoading(){
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor'
-    });
-    Swal.showLoading();
-  }
-
-  showError(){
-    Swal.fire({
-      allowOutsideClick: true,
-      title: 'Oops...',
-      icon: 'warning',
-      text: 'Algo ha ido mal, intentelo mas tarde'
-    });
   }
 
   showSuccess( message: string ){

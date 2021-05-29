@@ -1,3 +1,4 @@
+import { SwalService } from './../../../services/swal.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { AuthService } from './../../../services/auth.service';
@@ -19,7 +20,8 @@ export class AdminLoginComponent implements OnInit {
   password: FormControl;
 
   constructor( private _authService: AuthService,
-               private router: Router) { }
+               private router: Router,
+               private _swalService: SwalService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -47,12 +49,14 @@ export class AdminLoginComponent implements OnInit {
 
     if (this.myForm.valid){
 
-      Swal.fire({
+      /* Swal.fire({
         //para que no se cierre al hacer click fuera como un modal
         allowOutsideClick: false,
         icon: 'info',
         text: 'Espere por favor'
-      });
+      }); */
+      this._swalService.showLoading();
+
       Swal.showLoading();
 
       this._authService.employeeSignIn(this.email.value, this.password.value)
@@ -68,12 +72,7 @@ export class AdminLoginComponent implements OnInit {
           if(err.error.code == 1) errorMessage = 'El email no existe';
           else if( err.error.code == 2) errorMessage = 'Password incorrecto';
 
-          Swal.fire({
-            allowOutsideClick: true,
-            title: 'ERROR',
-            icon: 'error',
-            text: errorMessage
-          });
+          this._swalService.showError( 'Oops!', errorMessage);
         })
     }
 
@@ -93,12 +92,8 @@ export class AdminLoginComponent implements OnInit {
       }, err => {
 
         console.log(err);
-        Swal.fire({
-          allowOutsideClick: true,
-          title: 'ERROR',
-          icon: 'error',
-          text: 'Algo ha ido mal'
-        });
+
+        this._swalService.showError();
       } )
   }
 

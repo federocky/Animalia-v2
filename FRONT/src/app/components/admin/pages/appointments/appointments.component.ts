@@ -1,3 +1,4 @@
+import { SwalService } from './../../../../services/swal.service';
 import { Employee } from './../../../../models/employee.model';
 import { EmployeeService } from './../../../../services/employee.service';
 import { Appointment } from './../../../../models/appointment.model';
@@ -21,7 +22,8 @@ export class AppointmentsComponent implements OnInit {
   employees: Employee[] = [];
 
   constructor( private _appointmentService: AppointmentService,
-               private _employeeService: EmployeeService
+               private _employeeService: EmployeeService,
+               private _swalService: SwalService
     ) { }
 
   ngOnInit(): void {
@@ -31,7 +33,7 @@ export class AppointmentsComponent implements OnInit {
 
   loadAppointments(){
 
-    this.showLoading();
+    this._swalService.showLoading();
 
     this._appointmentService.getAppointments()
       .subscribe( (res: any) => {
@@ -44,12 +46,7 @@ export class AppointmentsComponent implements OnInit {
 
       }, err => {
 
-        Swal.fire({
-          allowOutsideClick: true,
-          title: 'Oops...',
-          icon: 'warning',
-          text: 'Algo ha ido mal'
-        });
+        this._swalService.showError();
       })
   }
 
@@ -94,7 +91,7 @@ export class AppointmentsComponent implements OnInit {
           this.loadAppointments();
         }, err => {
           console.log(err);
-          this.showError();
+          this._swalService.showError();
         })
 
   }
@@ -108,28 +105,8 @@ export class AppointmentsComponent implements OnInit {
           console.log(res);
         }, err => {
           console.log(err);
-          this.showError();
+          this._swalService.showError();
         });
-  }
-
-
-
-  showError(){
-    Swal.fire({
-      allowOutsideClick: true,
-      title: 'Oops...',
-      icon: 'warning',
-      text: 'Algo ha id mal'
-    });
-  }
-
-  showLoading(){
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor'
-    });
-    Swal.showLoading();
   }
 
 }

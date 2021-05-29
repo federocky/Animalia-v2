@@ -8,8 +8,10 @@
 
             <div class="texto">
                 <h3>Nº de pedido {{ order.id }}</h3>
-                <p>Pedido el <small>{{ order.date }}</small></p>
-                <p>Entregado el <small>{{ order.delivery.date_delivered }}</small></p>
+                <p>Pedido el <small>{{ order.date | date }}</small></p>
+                <p *ngIf="!order.delivery[0].date_delivered && !order.delivery[0].date_sent">En proceso de envío</p>
+                <p *ngIf="!order.delivery[0].date_delivered && order.delivery[0].date_sent">Enviado el {{ order.delivery[0].date_sent | date }}</p>
+                <p *ngIf="order.delivery[0].date_delivered">Entregado el {{ order.delivery[0].date_delivered | date }}</p>
             </div>
 
             <div class="product-container" *ngFor="let detail of order.details">

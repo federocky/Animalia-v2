@@ -1,3 +1,4 @@
+import { SwalService } from './../../../../services/swal.service';
 import { UserService } from './../../../../services/user.service';
 import { User } from './../../../../models/user.model';
 import { Component, OnInit } from '@angular/core';
@@ -18,10 +19,12 @@ export class UsersCrudComponent implements OnInit {
   term: string;
   order:string;
 
-  constructor( private _userService: UserService) { }
+  constructor( private _userService: UserService,
+               private _swalService: SwalService
+    ) { }
 
   ngOnInit(): void {
-    this.showLoading();
+    this._swalService.showLoading();
     this.loadUsers();
   }
 
@@ -49,7 +52,7 @@ export class UsersCrudComponent implements OnInit {
       .subscribe( (res:any) => {
         this.loadUsers();
       }, err => {
-        this.showError();
+        this._swalService.showError();
       })
   }
 
@@ -60,31 +63,13 @@ export class UsersCrudComponent implements OnInit {
         this.loadUsers();
       }, err => {
         console.log(err);
-        this.showError();
+        this._swalService.showError();
       })
   }
 
   openNewForm(){
     this.user = null;
     this.openForm = true;
-  }
-
-  showLoading(){
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor'
-    });
-    Swal.showLoading();
-  }
-
-  showError(){
-    Swal.fire({
-      allowOutsideClick: true,
-      title: 'Oops...',
-      icon: 'warning',
-      text: 'Algo ha ido mal, intentelo mas tarde'
-    });
   }
 
   showSuccess( message: string ){

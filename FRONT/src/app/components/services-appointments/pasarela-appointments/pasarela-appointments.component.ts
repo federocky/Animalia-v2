@@ -1,3 +1,4 @@
+import { SwalService } from './../../../services/swal.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AppointmentService } from 'src/app/services/appointment.service';
@@ -16,7 +17,8 @@ export class PasarelaAppointmentsComponent implements OnInit {
   appointment: Appointment;
 
   constructor( private _router: Router,
-               private _appointmentService: AppointmentService
+               private _appointmentService: AppointmentService,
+               private _swalService: SwalService
     ) { }
 
   ngOnInit(): void {
@@ -24,7 +26,7 @@ export class PasarelaAppointmentsComponent implements OnInit {
       this.appointment = JSON.parse(localStorage.getItem('appointment'));
       localStorage.removeItem('appointment');
     } catch (error) {
-      this.showError();
+      this._swalService.showError();
     }
   }
 
@@ -64,13 +66,5 @@ export class PasarelaAppointmentsComponent implements OnInit {
       });
   }
 
-  showError(){
-    Swal.fire({
-      allowOutsideClick: true,
-      title: 'Oops...',
-      icon: 'warning',
-      text: 'Algo ha id mal'
-    });
-  }
 
 }

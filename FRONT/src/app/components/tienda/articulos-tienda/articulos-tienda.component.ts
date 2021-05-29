@@ -1,3 +1,4 @@
+import { SwalService } from './../../../services/swal.service';
 import { CartService } from './../../../services/cart.service';
 import { Product } from './../../../models/product';
 import { Variables } from './../../../common/utils';
@@ -44,7 +45,8 @@ export class ArticulosTiendaComponent implements OnInit, OnChanges {
 
   constructor( private productService: ProductService,
                private _router: Router,
-               private _cartService: CartService
+               private _cartService: CartService,
+               private _swalService: SwalService
     ) { }
 
   ngOnInit(): void {
@@ -58,16 +60,16 @@ export class ArticulosTiendaComponent implements OnInit, OnChanges {
 
     /**
      * Si el cambio es en order by y no es la primera vez que se ejecuta
-     * salta la funcion de ordenar. Con la segunda condicion evitamos hacer un orden 
+     * salta la funcion de ordenar. Con la segunda condicion evitamos hacer un orden
      * cuando se carga la pagina por primera vez.
      */
-    if(changes['orderBy'] && !changes['orderBy'].firstChange) this.orderProducts(); 
+    if(changes['orderBy'] && !changes['orderBy'].firstChange) this.orderProducts();
 
 
     /**
      * Si el cambio es en el termino de busqueda llamaremos al metodo para buscar productos.
      */
-    if(changes['termToSearch'] && !changes['termToSearch'].firstChange) this.searchProducts(); 
+    if(changes['termToSearch'] && !changes['termToSearch'].firstChange) this.searchProducts();
 
   }
 
@@ -78,16 +80,11 @@ export class ArticulosTiendaComponent implements OnInit, OnChanges {
 
         this.products = res.data;
         this.productsToShow = [...res.data];
-        
+
         this.productsToShow = this.productsToShow.filter( product => product.active);
         this.products = this.products.filter( product => product.active);
       }, err => {
-        Swal.fire({
-          allowOutsideClick: true,
-          title: 'Oops...',
-          icon: 'warning',
-          text: 'Estamos actualizando nuestra tienda, por favor, vuelva mas tarde'
-        });
+        this._swalService.showError( "Oops!", "Estamos actualizando nuestra tienda, por favor, vuelva mas tarde");
       });
   }
 
@@ -126,7 +123,7 @@ export class ArticulosTiendaComponent implements OnInit, OnChanges {
 
       //primero filtramos todos los productos que contengan el termino de busqueda en el titulo.
       let prod = this.productsToShow.filter( product => product.name.toLowerCase().includes(this.termToSearch.toLowerCase()));
-      
+
       //En segundo lugar almacenamos aquellos que no contienen el termino de busqueda.
       let prodSin = this.productsToShow.filter( product => !product.name.toLowerCase().includes(this.termToSearch.toLowerCase()));
 
@@ -142,16 +139,16 @@ export class ArticulosTiendaComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Funcion que nos lleva a ver el detalle del producto.  
+   * Funcion que nos lleva a ver el detalle del producto.
    * @param id id del producto
    */
   viewProductDetails( id: number ):void {
-    this._router.navigate(['main/tienda', id]); 
+    this._router.navigate(['main/tienda', id]);
   }
 
 
   addProduct(product: Product){
     this._cartService.addProduct(product);
   }
-  
+
 }

@@ -1,3 +1,4 @@
+import { SwalService } from './../../../../services/swal.service';
 import { Appointment } from './../../../../models/appointment.model';
 import { Order } from './../../../../models/order.model';
 import { OrderService } from './../../../../services/order.service';
@@ -22,7 +23,8 @@ export class TodoComponent implements OnInit {
   appointmentsAssigned: Appointment[];
 
   constructor(private _orderService: OrderService,
-              private _appointmentService: AppointmentService
+              private _appointmentService: AppointmentService,
+              private _swalService: SwalService
     ) { }
 
   ngOnInit(): void {
@@ -32,7 +34,7 @@ export class TodoComponent implements OnInit {
 
   loadOrders(){
 
-    this.showLoading();
+    this._swalService.showLoading();
 
     this._orderService.getOrders()
       .subscribe( (res: any) => {
@@ -43,13 +45,13 @@ export class TodoComponent implements OnInit {
         Swal.close();
 
       }, err => {
-        this.showError();
+        this._swalService.showError();
       });
   }
 
   loadAppointments(){
 
-    this.showLoading();
+    this._swalService.showLoading();
 
     this._appointmentService.getAppointments()
       .subscribe( (res: any) => {
@@ -61,26 +63,7 @@ export class TodoComponent implements OnInit {
 
         Swal.close();
       }, err => {
-        this.showError();
+        this._swalService.showError();
       })
-  }
-
-
-  showError(){
-    Swal.fire({
-      allowOutsideClick: true,
-      title: 'Oops...',
-      icon: 'warning',
-      text: 'Algo ha id mal'
-    });
-  }
-
-  showLoading(){
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor'
-    });
-    Swal.showLoading();
   }
 }

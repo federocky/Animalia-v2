@@ -1,3 +1,4 @@
+import { SwalService } from './../../../../services/swal.service';
 import { Product } from './../../../../models/product';
 import { ProductService } from './../../../../services/product.service';
 import { Component, OnInit } from '@angular/core';
@@ -17,13 +18,14 @@ export class ProductsCrudComponent implements OnInit {
   product: Product;
   term: string;
   order:string;
-  
 
-  constructor( private _productService: ProductService) { }
+
+  constructor( private _productService: ProductService,
+               private _swalService: SwalService) { }
 
   ngOnInit(): void {
 
-    this.showLoading();
+    this._swalService.showLoading();
     this.loadProducts();
 
   }
@@ -46,13 +48,13 @@ export class ProductsCrudComponent implements OnInit {
         });
       })
   }
-  
+
   delete( id: number){
     this._productService.deleteProduct( id )
       .subscribe( (res:any) => {
         this.loadProducts();
       }, err => {
-        this.showError();
+        this._swalService.showError();
       })
   }
 
@@ -62,7 +64,7 @@ export class ProductsCrudComponent implements OnInit {
         this.loadProducts();
       }, err => {
         console.log(err);
-        this.showError();
+        this._swalService.showError();
       })
   }
 
@@ -72,9 +74,9 @@ export class ProductsCrudComponent implements OnInit {
   }
 
   productRecived( product: Product ){
-    
+
     this.openForm = false;
-    this.showLoading();
+    this._swalService.showLoading();
 
     if(product.id) this.updateProduct(product);
     else this.saveNewProduct(product);
@@ -93,38 +95,19 @@ export class ProductsCrudComponent implements OnInit {
         console.log(product);
       }, err => {
         console.log(err);
-        this.showError();
+        this._swalService.showError();
       })
   }
 
   saveNewProduct(product: Product){
-    
+
     this._productService.setNewProduct( product )
       .subscribe( (res: any) => {
         this.showSuccess('Producto creado con exito.');
         this.loadProducts();
       }, err => {
-        this.showError();
+        this._swalService.showError();
       })
-  }
-
-
-  showLoading(){
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor'
-    });
-    Swal.showLoading();
-  }
-
-  showError(){
-    Swal.fire({
-      allowOutsideClick: true,
-      title: 'Oops...',
-      icon: 'warning',
-      text: 'Algo ha ido mal, intentelo mas tarde'
-    });
   }
 
   showSuccess( message: string ){

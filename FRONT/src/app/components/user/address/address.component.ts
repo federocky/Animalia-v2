@@ -1,3 +1,4 @@
+import { SwalService } from './../../../services/swal.service';
 import { Component, OnInit } from '@angular/core';
 import { Address } from 'src/app/models/address.model';
 import { User } from 'src/app/models/user.model';
@@ -20,10 +21,12 @@ export class AddressComponent implements OnInit {
   openAddressForm: boolean = false;
 
 
-  constructor(private _userService: UserService) { }
+  constructor(private _userService: UserService,
+              private _swalService: SwalService
+    ) { }
 
   ngOnInit(): void {
-    this.showLoading();
+    this._swalService.showLoading();
 
     let userId = JSON.parse(localStorage.getItem('user')).id;
 
@@ -38,7 +41,7 @@ export class AddressComponent implements OnInit {
       Swal.close();
 
     }, err => {
-      this.showError();
+      this._swalService.showError();
     });
   }
 
@@ -49,11 +52,11 @@ export class AddressComponent implements OnInit {
 
         if(!res.ok) throw new Error;
 
-        this.showLoading();
+        this._swalService.showLoading();
         this.loadUser(this.user.id);
 
       }, err => {
-        this.showError();
+        this._swalService.showError();
       });
   }
 
@@ -63,12 +66,12 @@ export class AddressComponent implements OnInit {
 
         if(!res.ok) throw new Error;
 
-        this.showLoading();
+        this._swalService.showLoading();
         this.loadUser(this.user.id);
 
       }, err => {
 
-        this.showError();
+        this._swalService.showError();
         console.log(err);
 
       });
@@ -100,11 +103,11 @@ export class AddressComponent implements OnInit {
     this._userService.setAddress( address )
 
       .subscribe( (res: any) => {
-          this.showLoading();
+          this._swalService.showLoading();
           this.loadUser(this.user.id);
 
       }, err => {
-        this.showError();
+        this._swalService.showError();
       });
   }
 
@@ -112,29 +115,11 @@ export class AddressComponent implements OnInit {
     this._userService.updateAddress( address )
 
     .subscribe( (res: any) => {
-        this.showLoading();
+        this._swalService.showLoading();
         this.loadUser(this.user.id);
 
     }, err => {
-      this.showError();
-    });
-  }
-
-  showLoading(){
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor'
-    });
-    Swal.showLoading();
-  }
-
-  showError(){
-    Swal.fire({
-      allowOutsideClick: true,
-      title: 'Oops...',
-      icon: 'warning',
-      text: 'Algo ha ido mal, intentelo mas tarde'
+      this._swalService.showError();
     });
   }
 

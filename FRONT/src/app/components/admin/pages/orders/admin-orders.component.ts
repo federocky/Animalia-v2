@@ -1,3 +1,4 @@
+import { SwalService } from './../../../../services/swal.service';
 import { Order } from './../../../../models/order.model';
 import { OrderService } from './../../../../services/order.service';
 import { Component, OnInit } from '@angular/core';
@@ -19,7 +20,8 @@ export class AdminOrdersComponent implements OnInit {
   //ruta de las imagenes correspodientes a los productos
   imgRoute: string = Variables.imgRouteProducts;
 
-  constructor( private _orderService: OrderService) { }
+  constructor( private _orderService: OrderService,
+              private _swalService: SwalService) { }
 
   ngOnInit(): void {
 
@@ -29,7 +31,7 @@ export class AdminOrdersComponent implements OnInit {
 
   loadOrders(){
 
-    this.showLoading();
+    this._swalService.showLoading();
 
     this._orderService.getOrders()
       .subscribe( (res: any) => {
@@ -38,12 +40,7 @@ export class AdminOrdersComponent implements OnInit {
         Swal.close();
 
       }, err => {
-        Swal.fire({
-          allowOutsideClick: true,
-          title: 'Oops...',
-          icon: 'warning',
-          text: 'Algo ha ido mal'
-        });
+        this._swalService.showError();
       });
   }
 
@@ -96,25 +93,6 @@ export class AdminOrdersComponent implements OnInit {
       console.log(err);
     });
 
-  }
-
-
-  showError(){
-    Swal.fire({
-      allowOutsideClick: true,
-      title: 'Oops...',
-      icon: 'warning',
-      text: 'Algo ha id mal'
-    });
-  }
-
-  showLoading(){
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor'
-    });
-    Swal.showLoading();
   }
 
 }

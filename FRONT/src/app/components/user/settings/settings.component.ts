@@ -1,3 +1,4 @@
+import { SwalService } from './../../../services/swal.service';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from './../../../services/user.service';
 import { Component, OnInit } from '@angular/core';
@@ -20,7 +21,7 @@ export class SettingsComponent implements OnInit {
   changePhone = false;
 
   showPasswordForm = false;
-  
+
 
   myForm: FormGroup;
   passwordForm: FormGroup;
@@ -36,17 +37,18 @@ export class SettingsComponent implements OnInit {
 
 
   constructor( private _userService: UserService,
-               private fb: FormBuilder
-    ) { 
-   
+               private fb: FormBuilder,
+               private _swalService: SwalService
+    ) {
+
   }
 
 
-  
+
   ngOnInit(): void {
-    
-    this.showLoading();
-    
+
+    this._swalService.showLoading();
+
     let userId = JSON.parse(localStorage.getItem('user')).id;
 
     this.loadUser(userId);
@@ -56,13 +58,13 @@ export class SettingsComponent implements OnInit {
   loadUser( id: number ){
     this._userService.getUser(id)
     .subscribe( (res:any) => {
-      
+
       this.user = res.data[0];
       Swal.close();
       this.createForm();
 
     }, err => {
-      this.showError();
+      this._swalService.showError( "Oops!", "Estamos actualizando nuestra tienda, por favor, vuelva mas tarde");
 
     });
   }
@@ -94,7 +96,7 @@ export class SettingsComponent implements OnInit {
    * sean iguales.
    */
    passwordsIguales( pass1Name: string, pass2Name: string){
-    
+
     return( formGroup: FormGroup ) => {
       const pass1Control = formGroup.controls[pass1Name];
       const pass2Control = formGroup.controls[pass2Name];
@@ -109,9 +111,9 @@ export class SettingsComponent implements OnInit {
 
 
   setFormControlsVariables(): void {
-  
+
     const fgName: FormGroup = this.myForm.controls.name as FormGroup;
-  
+
     this.name          = this.myForm.controls.name           as FormControl;
     this.email          = this.myForm.controls.email           as FormControl;
     this.phone          = this.myForm.controls.phone           as FormControl;
@@ -119,17 +121,17 @@ export class SettingsComponent implements OnInit {
     const fgPassword: FormGroup = this.passwordForm.controls.name as FormGroup;
 
     this.oldPassword          = this.passwordForm.controls.oldPassword     as FormControl;
-    this.newPassword          = this.passwordForm.controls.newPassword     as FormControl;    
+    this.newPassword          = this.passwordForm.controls.newPassword     as FormControl;
     this.repeatPassword       = this.passwordForm.controls.repeatPassword  as FormControl;
   }
 
-  
+
   onSubmit(): void{
 
     if (this.myForm.valid){
 
       //mostramos un mensaje de procesando
-      this.showLoading();
+      this._swalService.showLoading();
 
       ///registramos el usuario en la bbdd
       this._userService.updateUser( this.user )
@@ -157,7 +159,7 @@ export class SettingsComponent implements OnInit {
           });
         });
     }
-    
+
     //si el form no es valido lo marca como touched para mostrar los errores.
     this.myForm.markAllAsTouched();
     this.changeEmail = true;
@@ -168,9 +170,9 @@ export class SettingsComponent implements OnInit {
 
   submitPassword(): void{
     if (this.passwordForm.valid){
-      
+
       //mostramos un mensaje de procesando
-      this.showLoading();
+      this._swalService.showLoading();
 
       this._userService.updatePassword(this.user.id, this.oldPassword.value, this.newPassword.value)
         .subscribe( (res: any) => {
@@ -188,38 +190,14 @@ export class SettingsComponent implements OnInit {
           let msg = 'Algo ha ido mal, intentelo mas tarde.';
           if(err.error.code == 1) msg = 'Usuario no encontrado, vuelva a logarse';
           else if (err.error.code == 2) msg = 'Password incorrecto, vuelva a intentarlo';
-          
-          Swal.fire({
-            allowOutsideClick: true,
-            title: 'ERROR',
-            icon: 'error',
-            text: `Oops... ${msg}`
-          });
+
+          this._swalService.showError( "Oops!", msg);
         })
 
 
     }else {
       this.passwordForm.markAllAsTouched();
     }
-  }
-
-
-  showLoading(){
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor'
-    });
-    Swal.showLoading();
-  }
-
-  showError(){
-    Swal.fire({
-      allowOutsideClick: true,
-      title: 'Oops...',
-      icon: 'warning',
-      text: 'Estamos actualizando nuestra tienda, por favor, vuelva mas tarde'
-    });
   }
 
 }

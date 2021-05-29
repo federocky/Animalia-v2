@@ -1,3 +1,4 @@
+import { SwalService } from './../../../../services/swal.service';
 import { Router } from '@angular/router';
 import { Service } from './../../../../models/service.model';
 import { User } from './../../../../models/user.model';
@@ -58,7 +59,8 @@ export class FormMakeAppointmentComponent implements OnInit {
   constructor( private _servicesService: ServiceService,
                private _appointmentService: AppointmentService,
                private _userService: UserService,
-               private _router: Router
+               private _router: Router,
+               private _swalService: SwalService
     ) { }
 
   ngOnInit(): void {
@@ -67,7 +69,7 @@ export class FormMakeAppointmentComponent implements OnInit {
         this.postcodes = res.data;
       }, err =>{
         console.log(err);
-        this.showError( "Tenemos un error momentaneo, danos 5 minutos e intentalo otra vez" );
+        this._swalService.showError( "Oops!" ,"Tenemos un error momentaneo, danos 5 minutos e intentalo otra vez" );
       });
 
       this._servicesService.getService( this.serviceType == 'peluqueria' ? 5 : 6)
@@ -133,7 +135,7 @@ export class FormMakeAppointmentComponent implements OnInit {
 
     const cuttedDate = this.datePicked.split('-');
     if(new Date(+cuttedDate[0], +cuttedDate[1]-1, +cuttedDate[2], this.selectedHour+2) < new Date( Date.now())){
-      this.showError("No puedes elegír una fecha anterior a la actual");
+      this._swalService.showError( "Oops!", "No puedes elegír una fecha anterior a la actual");
       this._router.navigateByUrl("index");
     };
 
@@ -145,7 +147,7 @@ export class FormMakeAppointmentComponent implements OnInit {
         }
       }, err => {
         console.log(err);
-        this.showError( "Hemos sufrido un error cogiendo tus direcciones, vuelvete a logar porfa" );
+        this._swalService.showError( "Oops!", "Hemos sufrido un error cogiendo tus direcciones, vuelvete a logar porfa" );
       });
 
     /**Si esta logado recupero los datos de usuario del local storage*/
@@ -161,7 +163,7 @@ export class FormMakeAppointmentComponent implements OnInit {
 
       }, err => {
         console.log(err);
-        this.showError( "Hemos sufrido un error guardando tu direccion, vuelvete a logar porfa." );
+        this._swalService.showError( "Oops!", "Hemos sufrido un error guardando tu direccion, vuelvete a logar porfa." );
       })
   }
 
@@ -195,15 +197,6 @@ export class FormMakeAppointmentComponent implements OnInit {
 
     localStorage.setItem('appointment', JSON.stringify(appointment));
     this._router.navigateByUrl('main/servicios/pasarela');
-  }
-
-  showError( message: string ){
-    Swal.fire({
-      allowOutsideClick: true,
-      title: 'Oops...',
-      icon: 'warning',
-      text: message
-    });
   }
 
 }

@@ -1,3 +1,4 @@
+import { SwalService } from './../../../services/swal.service';
 import { Component, OnInit } from '@angular/core';
 
 //sweet alert
@@ -11,14 +12,14 @@ import { AppointmentService } from 'src/app/services/appointment.service';
 })
 export class UserAppointmentsComponent implements OnInit {
 
-  appointmentWithAddress: any[] = [];
+  appointmentWithAddress: any[];
   orderTerm: string = 'new';
 
-  constructor( private _appointmentService: AppointmentService ) {  }
+  constructor( private _appointmentService: AppointmentService,
+               private _swalService: SwalService
+    ) {  }
 
   ngOnInit(): void {
-
-    //this.showLoading();
 
     this.loadAppointmentInfo();
 
@@ -33,29 +34,8 @@ export class UserAppointmentsComponent implements OnInit {
         console.log(res);
       }, err => {
         console.log(err);
-        this.showError();
+        this._swalService.showError();
       })
-  }
-
-
-
-
-  showLoading(){
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor'
-    });
-    Swal.showLoading();
-  }
-
-  showError(){
-    Swal.fire({
-      allowOutsideClick: true,
-      title: 'Oops...',
-      icon: 'warning',
-      text: 'Algo ha id mal'
-    });
   }
 
 }

@@ -14,7 +14,7 @@ import { Order } from 'src/app/models/order.model';
 })
 export class OrdersComponent implements OnInit {
 
-  orders: Order;
+  orders: Order[];
 
   imgRoute: string = Variables.imgRouteProducts;
 
@@ -41,10 +41,28 @@ export class OrdersComponent implements OnInit {
 
       this.orders = res.data;
       console.log(this.orders);
+      this.sortOrders();
 
     }, err => {
       this.showError();
       console.log(err);
+    });
+  }
+
+  sortOrders(){
+    this.orders.sort( (a, b) => {
+
+      let fa = a.date,
+      fb = b.date;
+
+      if (fa < fb) {
+        return 1;
+      }
+      if (fa > fb) {
+        return -1;
+      }
+      return 0;
+
     });
   }
 
@@ -73,6 +91,6 @@ export class OrdersComponent implements OnInit {
    * @param id id del producto
    */
      viewProductDetails( id: number ):void {
-      this._router.navigate(['tienda', id]);
+      this._router.navigate(['/main/tienda', id]);
     }
 }

@@ -1,3 +1,4 @@
+import { SwalService } from './../../../services/swal.service';
 import { CartService } from './../../../services/cart.service';
 import { OrderService } from './../../../services/order.service';
 import { Cart } from './../../../models/cart.model';
@@ -24,7 +25,8 @@ export class PasarelaComponent implements OnInit {
 
   constructor( private _orderService: OrderService,
                private router: Router,
-               private _cartService: CartService
+               private _cartService: CartService,
+               private _swalService: SwalService
     ) { }
 
   ngOnInit(): void {
@@ -33,7 +35,7 @@ export class PasarelaComponent implements OnInit {
     else this.cart = JSON.parse(localStorage.getItem('cart'));
 
     if(!localStorage.getItem('address') || !localStorage.getItem('user') || !this.cart || this.cart.total == 0) {
-      this.showError();
+      this._swalService.showError();
       this.router.navigateByUrl("index");
     }
 
@@ -86,11 +88,4 @@ export class PasarelaComponent implements OnInit {
     this._cartService.emptyCart();
   }
 
-  showError(){
-    Swal.fire({
-      title: 'Oops!',
-      text: 'Pedimos algunos datos por el camino, por favor, vuelvete a logar e intentalo otra vez',
-      icon: 'error',
-    });
-  }
 }

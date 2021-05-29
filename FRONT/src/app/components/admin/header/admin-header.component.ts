@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminHeaderComponent implements OnInit {
 
+  checked = false;
+
   constructor() { }
 
   ngOnInit(): void {
