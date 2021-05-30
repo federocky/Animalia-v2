@@ -37,8 +37,8 @@ export class RegisterComponent implements OnInit {
   createForm(): void {
 
     this.myForm = this.fb.group({
-      name: new FormControl('', Validators.required),
-      surname: new FormControl('', Validators.required),
+      name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      surname: new FormControl('', [Validators.required, Validators.minLength(3)]),
       phone: new FormControl('', [Validators.required, Validators.pattern('[0-9]{9}')]),
       email: new FormControl('', [Validators.required, Validators.pattern('[^ @]*@[^ @]+')]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
@@ -104,12 +104,13 @@ export class RegisterComponent implements OnInit {
 
       ///registramos el usuario en la bbdd
       this._authService.signUp(user)
-        .subscribe( res => {
+        .subscribe( (res: any) => {
 
           Swal.close();
 
-          //si todo va bien nos vamos a login
-          this.router.navigateByUrl('/login');
+          //guardamos el email y nos vamos a login
+          localStorage.setItem('email', res.data);
+          this.router.navigateByUrl('main/login');
 
         }, err => {
 

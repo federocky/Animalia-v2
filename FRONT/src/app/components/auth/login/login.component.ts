@@ -45,7 +45,13 @@ setFormControlsVariables(): void {
   const fgName: FormGroup = this.myForm.controls.name as FormGroup;
 
   this.email          = this.myForm.controls.email           as FormControl;
-  this.password       = this.myForm.controls.password        as FormControl;    
+  this.password       = this.myForm.controls.password        as FormControl;
+
+  //pintamos el email si venimos de registro
+  if(localStorage.getItem('email')) {
+    this.myForm.setValue({email: localStorage.getItem('email'), password: ''});
+    localStorage.removeItem('email');
+  }
 }
 
 onSubmit(): void{
@@ -80,7 +86,7 @@ onSubmit(): void{
         });
       })
   }
-  
+
   //lo marca como touched para mostrar los errores.
   this.myForm.markAllAsTouched();
 }

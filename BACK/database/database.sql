@@ -121,7 +121,7 @@ CREATE TABLE employee_history (
 	employee_id INT(10),
 	salary DECIMAL (8,2),
 	details VARCHAR(200),
-	date DATE DEFAULT CURRENT_TIMESTAMP
+	date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE service (

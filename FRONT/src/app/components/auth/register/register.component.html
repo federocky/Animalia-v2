@@ -7,8 +7,8 @@
             <!--NOMBRE-->
             <div class="form-group">
                 <label>Nombre:</label>
-                <input 
-                    type="text" 
+                <input
+                    type="text"
                     class="form-control"
                     [ngClass]="{ 'is-invalid': name.invalid && ( name.dirty || name.touched),
                             'is-valid': name.valid       && ( name.dirty || name.touched)}"
@@ -23,13 +23,13 @@
             <!--APELLIDOS-->
             <div class="form-group">
                 <label>Apellidos:</label>
-                <input 
-                    type="text" 
+                <input
+                    type="text"
                     class="form-control"
                     [ngClass]="{ 'is-invalid': surname.invalid && ( surname.dirty || surname.touched),
                             'is-valid': surname.valid       && ( surname.dirty || surname.touched)}"
                     formControlName="surname">
-                    
+
                 <div class="invalid-feedback" *ngIf="surname.errors && (surname.dirty || surname.touched)">
                     <span *ngIf="surname.errors.required">Debe rellenar algún apellido</span>
                 </div>
@@ -38,13 +38,13 @@
             <!--TELEFONO-->
             <div class="form-group">
                 <label>Movil:</label>
-                <input 
-                    type="text" 
+                <input
+                    type="text"
                     class="form-control"
                     [ngClass]="{ 'is-invalid': phone.invalid && ( phone.dirty || phone.touched),
                             'is-valid': phone.valid       && ( phone.dirty || phone.touched)}"
                     formControlName="phone">
-                    
+
                 <div class="invalid-feedback" *ngIf="phone.errors && (phone.dirty || phone.touched)">
                     <span *ngIf="phone.errors.required">Debe rellenar su telefono</span>
                 </div>
@@ -53,8 +53,8 @@
             <!--EMAIL-->
             <div class="form-group">
                 <label>Email:</label>
-                <input 
-                    type="email" 
+                <input
+                    type="email"
                     class="form-control"
                     [ngClass]="{ 'is-invalid': email.invalid && ( email.dirty || email.touched),
                               'is-valid': email.valid     && ( email.dirty || email.touched)}"
@@ -70,8 +70,8 @@
             <!--PASSWORD-->
             <div class="form-group">
                 <label>Contraseña:</label>
-                <input 
-                    type="password" 
+                <input
+                    type="password"
                     class="form-control"
                     [ngClass]="{ 'is-invalid': password.invalid && ( password.dirty || password.touched),
                               'is-valid': password.valid     && ( password.dirty || password.touched)}"
@@ -86,8 +86,8 @@
             <!--PASSWORD REPEAT-->
             <div class="form-group">
                 <label>Confirmar contraseña:</label>
-                <input 
-                    type="password" 
+                <input
+                    type="password"
                     class="form-control"
                     [ngClass]="{ 'is-invalid': repeatPassword.invalid && ( repeatPassword.dirty || repeatPassword.touched),
                               'is-valid': repeatPassword.valid     && ( repeatPassword.dirty || repeatPassword.touched)}"
@@ -101,7 +101,7 @@
 
             <button type="submit">Registrarse</button>
 
-            <p>¿Ya estas registrado? <a [routerLink]="['/login']">Inicia sesión</a></p>
+            <p>¿Ya estas registrado? <a routerLink="/main/login">Inicia sesión</a></p>
         </form>
 
     </div>

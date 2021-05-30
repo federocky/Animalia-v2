@@ -8,6 +8,8 @@ import morgan from 'morgan';
 //cors permite recibir peticiones desde otro servidor
 import cors from 'cors';
 
+//TODO:para el deploy
+//import path from 'path';
 
 //ARCHIVOS DE RUTAS
 import productRoutes from './routes/productRoutes';
@@ -41,6 +43,13 @@ class Server {
 
         //permitimos al servidor entender json
         this.app.use(express.json());
+
+        //TODO:para el deploy
+/*         this.app.use(express.static(path.join(__dirname, 'bin')));
+
+        this.app.get('*', (req, res) => {
+            res.sendFile(path.join(__dirname, 'bin/index.html'));
+        }); */
     }
 
     routes(): void {
