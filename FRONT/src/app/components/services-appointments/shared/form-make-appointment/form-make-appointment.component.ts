@@ -1,3 +1,4 @@
+import { AuthService } from './../../../../services/auth.service';
 import { SwalService } from './../../../../services/swal.service';
 import { Router } from '@angular/router';
 import { Service } from './../../../../models/service.model';
@@ -33,6 +34,7 @@ export class FormMakeAppointmentComponent implements OnInit {
   noHoursMessage = false;
   openAddressForm = false;
   addressError = false;
+  isLoggedIn = false;
 
   today = new Date().toISOString().slice(0, 10);
 
@@ -60,7 +62,8 @@ export class FormMakeAppointmentComponent implements OnInit {
                private _appointmentService: AppointmentService,
                private _userService: UserService,
                private _router: Router,
-               private _swalService: SwalService
+               private _swalService: SwalService,
+               private _authService: AuthService
     ) { }
 
   ngOnInit(): void {
@@ -72,10 +75,12 @@ export class FormMakeAppointmentComponent implements OnInit {
         this._swalService.showError( "Oops!" ,"Tenemos un error momentaneo, danos 5 minutos e intentalo otra vez" );
       });
 
-      this._servicesService.getService( this.serviceType == 'peluqueria' ? 5 : 6)
+      this._servicesService.getService( this.serviceType == 'peluqueria' ? 1 : 2)
         .subscribe( (res:any) => {
           this.service = res.data;
       });
+
+      if(this._authService.loggedIn()) this.isLoggedIn = true;
 
   }
 
@@ -131,6 +136,9 @@ export class FormMakeAppointmentComponent implements OnInit {
   }
 
   onReserve( hour: string = '' ){
+
+    if(!this.isLoggedIn) return false;
+
     if(hour != '') this.selectedHour = +hour;
 
     const cuttedDate = this.datePicked.split('-');
@@ -140,18 +148,18 @@ export class FormMakeAppointmentComponent implements OnInit {
     };
 
     this._userService.getUserAddresses()
-      .subscribe( (res:any) => {
-        if(res.code == 2) {
-          this.addresses = res.data;
-          this.addresses = this.addresses.filter( address => address.postcode == this.userAddress.postcode);
-        }
-      }, err => {
-        console.log(err);
-        this._swalService.showError( "Oops!", "Hemos sufrido un error cogiendo tus direcciones, vuelvete a logar porfa" );
-      });
+    .subscribe( (res:any) => {
+      if(res.code == 2) {
+        this.addresses = res.data;
+        this.addresses = this.addresses.filter( address => address.postcode == this.userAddress.postcode);
+      }
+    }, err => {
+      console.log(err);
+      this._swalService.showError( "Oops!", "Hemos sufrido un error cogiendo tus direcciones, vuelvete a logar porfa" );
+    });
 
-    /**Si esta logado recupero los datos de usuario del local storage*/
     this.user = JSON.parse(localStorage.getItem('user'));
+
 
   }
 

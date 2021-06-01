@@ -32,9 +32,9 @@
 
 <!-- Modal -->
 <div class="modal fade" id="confirmModal" *ngIf="service" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog" >
 
-      <div class="modal-content">
+      <div class="modal-content" *ngIf="isLoggedIn">
 
         <div class="modal-header">
           <h5 class="modal-title" id="confirmModalLabel">Confirma tu reserva</h5>
@@ -85,6 +85,14 @@
           (address)="setAddress($event)"
           (close)="openAddressForm = false">
         </app-address-form>
+      </div>
+
+      <div class="modal-content" *ngIf="!isLoggedIn">
+        <div class="modal-body">
+          <h5 class="modal-title" id="confirmModalLabel">Necesitas logarte para contratar servicios.</h5>
+          <button type="button" class="cancelModal" data-bs-dismiss="modal">Cerrar</button>
+          <a type="button" routerLink="/main/login" class="confirmModal" data-bs-dismiss="modal">Ir a login</a>
+        </div>
       </div>
 
 
