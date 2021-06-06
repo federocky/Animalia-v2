@@ -33,24 +33,25 @@ export class OrderDetailsComponent implements OnInit {
     /**Si esta logado recupero los datos de usuario del local storage*/
     this.user = JSON.parse(localStorage.getItem('user'));
 
-    //recuperamos  direccion de la bbdd.
-    this._userService.getAddress( this.user.id )
-      .subscribe( (res:any) => {
+    this.getAddress();
+  }
 
-        //si tiene direccion
-        this.hasAddress = true;
-        this.address = res.data;
+  getAddress(){
+        //recuperamos  direccion de la bbdd.
+        this._userService.getAddress( this.user.id )
+        .subscribe( (res:any) => {
 
-        //pedimos las direcciones secundarias
-        this.loadMoreAddresses();
+          //si tiene direccion
+          this.hasAddress = true;
+          this.address = res.data;
 
-      }, err => {
-        //si no tiene direccion
-        this.hasAddress = false;
-        console.log(err);
-        console.log(err.error.message);
-      });
+          //pedimos las direcciones secundarias
+          this.loadMoreAddresses();
 
+        }, err => {
+          //si no tiene direccion
+          this.hasAddress = false;
+        });
   }
 
   loadMoreAddresses(){

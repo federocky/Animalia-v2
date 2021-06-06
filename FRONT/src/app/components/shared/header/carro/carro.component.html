@@ -1,35 +1,35 @@
-<div class="contenedor-principal" *ngIf="cart.productQty.length > 0">
+<div class="contenedor-principal  animated fade-in" *ngIf="cart.productQty.length > 0">
 
-    
+
     <div class="contenedor-articulos">
-        
-        <article *ngFor="let product of cart.productQty">
+
+        <article *ngFor="let product of cart.productQty" >
             <img [src]="imgRoute + product.product.img" alt="">
-            
+
             <div class="informacion">
                 <p class="nombre-item">{{product.product.name}}</p>
                 <i class="far fa-trash-alt papelera" (click)="deleteProduct(product.product)"></i>
                 <p class="outOfStock" *ngIf="product.qty === product.product.stock">Últimos {{ product.qty }} en el almacen</p>
-                <p class="cantidad"> 
+                <p class="cantidad">
                     <i (click)="decreaseItem(product.product)" class="fas fa-arrow-alt-circle-left"></i>
-                    {{product.qty}} 
+                    {{product.qty}}
                     <i (click)="increaseItem(product)" class="fas fa-arrow-alt-circle-right"></i>
-                    
+
                     X {{ product.product.price }}€
                 </p>
                 <p class="precio">{{ (product.qty * product.product.price).toFixed(2) }}</p>
             </div>
         </article>
-        
+
     </div>
-    
+
     <section>
         <p>TOTAL:</p>
         <p>{{ cart.total.toFixed(2) }} €</p>
     </section>
-    
+
     <button [routerLink]="['checkout/carrito']"><i class="fas fa-cart-arrow-down"></i> Terminar compra</button>
-    
+
 </div>
 
 <div *ngIf="cart.productQty.length == 0" class="contenedor-principal p-2 d-flex justify-content-center align-items-center">

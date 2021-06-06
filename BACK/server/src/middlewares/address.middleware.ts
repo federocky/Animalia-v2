@@ -3,9 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 
 export const addressValidation = (req: Request, res: Response, next: NextFunction) => {
 
-    //TODO: meter alguna validación 
-
-
+ 
     let errors = new Array();
 
     const {street_name, street_number, province, locality, town, postcode} = req.body;
@@ -22,7 +20,6 @@ export const addressValidation = (req: Request, res: Response, next: NextFunctio
     if( !town ) errors.push('town is required');
 
     if( !postcode ) errors.push('postcode is required');
-    //else if(typeof postcode != 'number') errors.push('postcode must be a number');
     else if( !/[0-9]{5}/.test(postcode.toString()) ) errors.push('postcode must be five numbers');
 
 

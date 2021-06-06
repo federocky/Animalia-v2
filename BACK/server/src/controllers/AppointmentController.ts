@@ -37,7 +37,7 @@ class AppointmentController {
                                                  ORDER BY appointment.date_appointment_from`, [+id]);
     
             /**si no encuentra ningún appointment devolvemos el resultado*/
-            if (appointments.length < 1) return res.status(200).json({ok: true, message: 'The user has no appointments'});
+            if (appointments.length < 1) return res.status(200).json({ok: true, data: appointments,  message: 'The user has no appointments'});
             
         
 

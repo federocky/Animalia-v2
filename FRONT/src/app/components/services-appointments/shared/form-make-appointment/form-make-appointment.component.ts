@@ -106,7 +106,7 @@ export class FormMakeAppointmentComponent implements OnInit {
 
       this.spin = false;
 
-    }, 250);
+    }, 500);
   }
 
   /*salta al escribir en el input del postcode*/

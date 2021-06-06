@@ -1,12 +1,17 @@
 
 
-<div class="container container-gray animated fadeIn fast" *ngIf="appointmentWithAddress">
+<div class="container container-gray animated fadeIn fast" *ngIf="appointmentWithAddress.length > 0">
 
   <h2>Mis Citas</h2>
 
   <div class="changeApp animated fadeIn">
     <a *ngIf="orderTerm != 'old'" (click)="orderTerm = 'old'"><i class="far fa-hand-point-left"></i> Ver Citas pasadas</a>
     <a *ngIf="orderTerm == 'old'" (click)="orderTerm = 'new'">Ver Citas pendientes <i class="far fa-hand-point-right"></i></a>
+  </div>
+
+  <div class="container container-gray noAppointments animated fadeIn" *ngIf="orderTerm == 'old' && !haveOld">
+    <span>No tienes citas pasadas</span>
+    <img src="assets/icons/appointment.png" alt="">
   </div>
 
   <article  class="appointment-container animated fadeIn" *ngFor="let appointment of appointmentWithAddress | pastOrNewAppointments : orderTerm ">
@@ -19,8 +24,8 @@
       <div class="detail-container">
 
           <div class="info">
-               <img *ngIf="appointment.service_id == 5" src="/assets/img/peluqueria1.jpg" alt="">
-               <img *ngIf="appointment.service_id == 6" src="/assets/img/index-paseo2.jpg" alt="">
+               <img *ngIf="appointment.service_id == 1" src="/assets/img/peluqueria1.jpg" alt="">
+               <img *ngIf="appointment.service_id == 2" src="/assets/img/index-paseo2.jpg" alt="">
 
               <div class="details">
                   <h3> {{ appointment.service_id == 6 ? 'Paseos' : 'Peluquería' }} </h3>
@@ -43,7 +48,7 @@
 
 </div>
 
-<div class="container container-gray noAppointments" *ngIf="!appointmentWithAddress">
+<div class="container container-gray noAppointments" *ngIf="appointmentWithAddress.length <= 0">
   <h2>Mis Citas</h2>
   <span>No tienes citas...</span>
   <img src="assets/icons/appointment.png" alt="">

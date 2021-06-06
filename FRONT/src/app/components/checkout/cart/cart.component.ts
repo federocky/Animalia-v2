@@ -108,7 +108,10 @@ export class CartComponent implements OnInit {
 
       }).then((result) => {
         //si se elige logar/registrar
-        if(result.isConfirmed) this.router.navigateByUrl('/main/login');
+        if(result.isConfirmed) {
+          localStorage.setItem('from', 'checkout');
+          this.router.navigateByUrl('/main/login');
+        }
       });
     }
 

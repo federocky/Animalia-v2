@@ -1,3 +1,4 @@
+import { Appointment } from 'src/app/models/appointment.model';
 import { SwalService } from './../../../services/swal.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -12,8 +13,9 @@ import { AppointmentService } from 'src/app/services/appointment.service';
 })
 export class UserAppointmentsComponent implements OnInit {
 
-  appointmentWithAddress: any[];
+  appointmentWithAddress: any[] = [];
   orderTerm: string = 'new';
+  haveOld = false;
 
   constructor( private _appointmentService: AppointmentService,
                private _swalService: SwalService
@@ -30,12 +32,27 @@ export class UserAppointmentsComponent implements OnInit {
 
     this._appointmentService.getAppointmentsByUser()
       .subscribe( (res:any) => {
+
         this.appointmentWithAddress = res.data;
-        console.log(res);
+        this.checkForOld();
+
       }, err => {
         console.log(err);
         this._swalService.showError();
       })
+  }
+
+  checkForOld(){
+
+    if(this.appointmentWithAddress.length <= 0 ) return false;
+
+    this.appointmentWithAddress.forEach( appointment => {
+      if(new Date(appointment.date_appointment_from) < new Date(Date.now())) this.haveOld = true;
+    });
+
+    console.log(this.haveOld);
+    console.log(new Date(this.appointmentWithAddress[0].date_appointment_from) );
+    console.log (new Date(Date.now()));
   }
 
 }

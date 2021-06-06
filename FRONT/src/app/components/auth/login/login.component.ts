@@ -70,7 +70,13 @@ onSubmit(): void{
       .subscribe( res => {
 
         Swal.close();
-        this.router.navigateByUrl('/tienda');
+
+        if(localStorage.getItem('from') == 'checkout'){
+          console.log(localStorage.getItem('from'));
+          this.router.navigateByUrl('/main/checkout/detalles');
+        } else {
+          this.router.navigateByUrl('/main/tienda');
+        }
 
       }, err => {
 
