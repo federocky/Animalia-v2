@@ -21,44 +21,68 @@
       <div class="product-container">
 
           <div class="info">
-              <img *ngIf="appointment.service_id == 6" src="/assets/img/index-paseo2.jpg" alt="">
-              <img *ngIf="appointment.service_id != 6" src="/assets/img/peluqueria2.jpg" alt="">
-
               <div class="details">
-                  <h3 *ngIf="appointment.service_id == 6"> Paseo </h3>
-                  <h3 *ngIf="appointment.service_id != 6"> Peluquería </h3>
+                  <h3 *ngIf="appointment.service_id == 2"> Paseo </h3>
+                  <h3 *ngIf="appointment.service_id != 2"> Peluquería </h3>
 
-                  <p class="descripcion" *ngIf="appointment.service_id == 6">Paseo por horas para relajar a tu mascota</p>
-                  <p class="descripcion" *ngIf="appointment.service_id != 6">Peluquería de mascotas, servicio a domicilio</p>
+                  <p class="descripcion" *ngIf="appointment.service_id == 2">Paseo por horas para relajar a tu mascota</p>
+                  <p class="descripcion" *ngIf="appointment.service_id != 2">Peluquería de mascotas, servicio a domicilio</p>
                   <p class="price"> € {{ appointment.price }} </p>
+              </div>
+
+              <div class="address">
+                <p>Calle: <span>{{ appointment.street_name }}</span></p>
+                <p>Numero: <span>{{ appointment.street_number }}</span></p>
+                <p>Piso: <span>{{ appointment.floor }} {{ appointment.letter }}</span></p>
+                <p>Lugar: <span> {{ appointment.postcode }}, {{ appointment.locality }} {{ appointment.town }} </span></p>
+                <p>Cliente: <span>{{ appointment.name }} {{ appointment.surname }} {{ appointment.phone }}</span></p>
               </div>
           </div>
 
       </div>
 
       <div class="botones" *ngIf="term == 'notAsigned'">
-          <button (click)="showHideButtons = !showHideButtons">Asignar a
-
-              <ul class="desplegable" [ngClass]="{hideDesplegable: !showHideButtons}">
-                <li *ngFor="let employee of appointment.availableEmployee">
-                  <button (click)="asignEmployee(employee.id, appointment.id)">{{ employee.name }}</button>
-                </li>
-              </ul>
-
-          </button>
-          <button >Cancelar Cita</button>
+          <button data-bs-toggle="modal" data-bs-target="#employeeModal" (click)="listEemployees(appointment)">Asignar</button>
+          <button>Cancelar Cita</button>
       </div>
 
       <div class="botones" *ngIf="term == 'asigned'">
-          <button disabled>Asignado a {{ appointment.employee_id }}</button>
+          <button disabled>Asignado a {{ appointment.employee_id == 1 ? 'jefe' : 'jefazo' }}</button>
           <button (click)="cancelEmployeeEncharge( appointment.id )">Cancelar asignación</button>
       </div>
 
       <div class="botones" *ngIf="term == 'past'">
-        <span class="badge bg-success p-2 px-4 fs-5">Servicio realizado por {{ appointment.employee_id }}</span>
+        <span class="badge bg-success p-2 px-4 fs-5">Servicio realizado por {{ appointment.employee_id == 1 ? 'jefe' : 'jefazo' }}</span>
       </div>
 
   </article>
 
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Elegir empleado</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <section *ngIf="employees">
+
+          <label [for]="employeeRadio" *ngFor="let employee of employees">
+            <input name="employeeRadio" type="radio" [value]="employee.id" [(ngModel)]="selectedEmployee" >
+              {{ employee.name }}
+          </label>
+
+      </section>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="asignEmployee()" data-bs-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

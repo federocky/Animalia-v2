@@ -2,12 +2,11 @@ import { SwalService } from './../../../../services/swal.service';
 import { Employee } from './../../../../models/employee.model';
 import { EmployeeService } from './../../../../services/employee.service';
 import { Appointment } from './../../../../models/appointment.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 //sweet alert
 import Swal from 'sweetalert2';
 import { AppointmentService } from 'src/app/services/appointment.service';
-import { faThumbsDown } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-appointments',
@@ -18,8 +17,10 @@ export class AppointmentsComponent implements OnInit {
 
   appointments: Appointment[] = [];
   term: string;
-  showHideButtons = false;
   employees: Employee[] = [];
+
+  selectedEmployee: number;
+  selectedAppointment: Appointment;
 
   constructor( private _appointmentService: AppointmentService,
                private _employeeService: EmployeeService,
@@ -43,7 +44,7 @@ export class AppointmentsComponent implements OnInit {
 
         Swal.close();
 
-
+        console.log(this.appointments);
       }, err => {
 
         this._swalService.showError();
@@ -83,11 +84,20 @@ export class AppointmentsComponent implements OnInit {
 
   }
 
-  asignEmployee(employee_id: number, appointment_id: number){
+  listEemployees(appointment: Appointment){
+    this.employees = appointment.availableEmployee;
+    this.selectedAppointment = appointment;
+  }
 
-    this._appointmentService.asignEmployeeToAppointment( employee_id, appointment_id )
+
+  asignEmployee(){
+
+    if(!this.selectedEmployee) return false;
+
+    this._appointmentService.asignEmployeeToAppointment( this.selectedEmployee, this.selectedAppointment.id )
         .subscribe( (res:any) => {
           Swal.fire('Saved!', '', 'success');
+          this.selectedEmployee = 0;
           this.loadAppointments();
         }, err => {
           console.log(err);

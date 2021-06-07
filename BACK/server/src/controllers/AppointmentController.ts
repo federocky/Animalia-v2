@@ -10,12 +10,21 @@ class AppointmentController {
     public async index (req: Request, res: Response) {
 
         try{
-            const appointments = await db.query(`SELECT * FROM appointment ORDER BY date_appointment_from`);
+            const appointments = await db.query(`SELECT appointment.*, service.name, address.street_name, address.street_number,
+                                                 address.postcode, address.floor, address.letter, address.town, address.locality,
+                                                 user.name, user.surname, user.phone 
+                                                 FROM service 
+                                                 JOIN appointment on service.id = appointment.service_id
+                                                 JOIN address on appointment.address_id = address.id
+                                                 JOIN user_address on address.id = user_address.address_id
+                                                 JOIN user on user_address.user_id = user.id
+                                                 ORDER BY date_appointment_from`);
     
             
             res.status(200).json({ok:true, data: appointments});
 
         } catch(error){
+            console.log(error);
             res.status(404).json({ok: false, message: 'Server not working'});
         }
     }

@@ -6,32 +6,32 @@
                 <li><a (click)="term = 'sent'">Enviados</a></li>
                 <li><a (click)="term = 'delivered'">Entregados</a></li>
             </ul>
-        </div>    
+        </div>
     </nav>
-    
+
     <div class="container container-gray" *ngIf="orders">
-        
+
         <article class="order-container" *ngFor="let order of orders | orderFilter: term">
-            
+
             <div class="texto">
                 <h3>Nº de pedido {{ order.id }}</h3>
                 <p>Pedido el <small>{{ order.delivery.date_ordered | date}}</small></p>
-                <p>Enviado el <small>{{ order.delivery.date_sent | date}}</small></p>
-                <p>Entregado el <small>{{ order.delivery.date_delivered | date }}</small></p>
+                <p *ngIf="order.delivery.date_sent">Enviado el <small>{{ order.delivery.date_sent | date}}</small></p>
+                <p *ngIf="order.delivery.date_delivered">Entregado el <small>{{ order.delivery.date_delivered | date }}</small></p>
             </div>
-            
+
             <div class="product-container" *ngFor="let detail of order.details">
-                
+
                 <div class="info">
                     <img [src]=" imgRoute + detail.product.img">
-                    
+
                     <div class="details">
                         <h3> {{ detail.product.name }} </h3>
                         <p class="descripcion">{{ detail.product.description }}</p>
-                        <p class="price"> € {{ detail.price }} <span> x {{ detail.qty }} </span> </p>                                                
+                        <p class="price"> € {{ detail.price }} <span> x {{ detail.qty }} </span> </p>
                     </div>
                 </div>
-                
+
             </div>
 
             <div class="botones" *ngIf="term == 'ordered'">
@@ -50,6 +50,6 @@
             </div>
 
         </article>
-        
+
     </div>
-    
+

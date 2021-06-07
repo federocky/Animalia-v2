@@ -59,7 +59,6 @@ export class TodoComponent implements OnInit {
         this.appointments = res.data;
         this.appointmentsNotAssigned = this.appointments.filter( app => !app.employee_id && new Date(app.date_appointment_from) > new Date(Date.now()));
         this.appointmentsAssigned = this.appointments.filter( app => app.employee_id && new Date(app.date_appointment_from) > new Date(Date.now()));
-        console.log(this.appointments);
 
         Swal.close();
       }, err => {

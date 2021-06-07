@@ -129,6 +129,14 @@ nav {
                     }
 
                 }
+
+                .address p{
+                  font-weight: bold;
+                  margin: 0px;
+                  span{
+                    font-weight: normal;
+                  }
+                }
             }
 
             .botones{
@@ -136,37 +144,6 @@ nav {
 
                 button{
                   position: relative;
-
-                  .hideDesplegable{
-                    display: none;
-                  }
-
-                  .desplegable{
-                    position: absolute;
-                    list-style: none;
-                    width: 100%;
-                    padding: 0px;
-                    top: 100%;
-                    left: 0px;
-                    z-index: 1;
-                    border-radius: 8px;
-
-                    background-color: rgba($color: #3c3c3c, $alpha: 0.8);
-                    padding-top: 20px;
-                    li{
-                      margin-bottom: 8px;
-
-                      button{
-                        background-color: $blue_dark;
-                        transition: all 500ms;
-                        width: 100%;
-
-                        &:hover {
-                          background-color: $blue_light;
-                        }
-                      }
-                    }
-                  }
                 }
 
                 @include escritorio{
@@ -186,4 +163,14 @@ nav {
                 @include crearBoton($orange_secondary)
             }
     }
+}
+
+#employeeModal{
+  h5{
+    font-family: $font_titulos;
+  }
+
+  label{
+    display: block;
+  }
 }
