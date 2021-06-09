@@ -20,4 +20,10 @@
     text-decoration: none; // a veces lo aplico a un enlace
     color: #fff;
     cursor: pointer;
+    transition: all 500ms;
+    opacity: 0.9;
+    &:hover{
+      opacity: 1;
+      box-shadow: 1px 1px 5px #3c3c3c;
+    }
 }

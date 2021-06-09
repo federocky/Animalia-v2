@@ -52,6 +52,7 @@ export class UsersCrudComponent implements OnInit {
       .subscribe( (res:any) => {
         this.loadUsers();
       }, err => {
+        console.log(err);
         this._swalService.showError();
       })
   }

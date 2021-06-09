@@ -23,7 +23,13 @@ nav {
                     padding: 12px;
                     font-weight: bold;
                     display: block;
-                }
+                    transition: 750ms;
+                    &:hover{
+                       /* background: linear-gradient(0.25turn, $green_primary, #6aa53c, $green_primary); */
+                       background-color: #71b33f;
+                       text-shadow: 1px 1px 6px #3c3c3c;
+                    }
+                  }
             }
         }
     }

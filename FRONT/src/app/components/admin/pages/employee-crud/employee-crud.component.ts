@@ -47,6 +47,7 @@ export class EmployeeCrudComponent implements OnInit {
       .subscribe( (res:any) => {
         this.loadEmployees();
       }, err => {
+        console.log(err);
         this._swalService.showError();
       })
   }
