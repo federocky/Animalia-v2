@@ -4,7 +4,7 @@
 main{
     background-color: $gray_light;
 
-    
+
     .main{
         display: grid;
         grid-template-columns: 1fr;
@@ -22,7 +22,7 @@ main{
 /*FILTROS TIENDA*/
 
 .contenedor-filtros{
-    
+
     font-family: $font_contenido;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -50,8 +50,7 @@ main{
         justify-self: end;
     }
 
-    //teoricamente quita la flecha pero sin esto tampoco esta
-    //lo dejo ya que puede ser valido en otros navegadores.
+    //quita las flechas
     select::-ms-expand {
         display: none;
     }
@@ -71,6 +70,5 @@ main{
         }
     }
 
-    
+
 }
- 

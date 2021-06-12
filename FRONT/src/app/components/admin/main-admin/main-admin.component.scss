@@ -26,41 +26,6 @@ li{
     }
 }
 
-/* #contenedor-menu{
-    position: relative;
-
-    .menu-user {
-        position: absolute;
-        left: 0;
-        z-index: 1;
-
-        width: 100%;
-        height: 100vh; //AQUI ME SALE UN SCROLL RARO, EN PRINCIPIO NO SERA PROBLEMA.
-        background: rgba($color: $blue_light, $alpha: 0.8);
-
-
-        transition: all 0.5s;
-        //transform: translateX(-100%);
-
-
-
-        a {
-            display: block;
-            color: #fff;
-            height: 40px;
-            text-decoration: none;
-            padding: 15px;
-            border-bottom: 1px solid $dark_header;
-            font-family: $font_contenido;
-            font-size: 14px;
-        }
-
-        a:hover {
-            background: rgba(255,255,255,0.3);
-        }
-
-    }
-} */
 
 
 .wrapper{

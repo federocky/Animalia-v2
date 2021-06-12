@@ -26,8 +26,9 @@ nav {
                     transition: 750ms;
                     &:hover{
                        /* background: linear-gradient(0.25turn, $green_primary, #6aa53c, $green_primary); */
-                       background-color: #71b33f;
-                       text-shadow: 1px 1px 6px #3c3c3c;
+                       background:  linear-gradient(0.25turn, $green_primary, #94e656, $green_primary);
+                       //background-color: #84bb45;
+                       text-shadow: 1px 1px 8px #3c3c3c;
                     }
                   }
             }

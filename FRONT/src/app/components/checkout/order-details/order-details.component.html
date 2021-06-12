@@ -67,64 +67,65 @@
 
     <h2>Detalles del pedido</h2>
 
+    <div class="container">
 
-    <div class="side_container container">
-        <h3>Resumen de compra</h3>
-        <p class="subtotal">Subtotal( 3 productos )</p>
-        <p class="price">29.99 €</p>
-        <button (click)="payNow()">Pagar ahora</button>
-    </div>
+      <div class="side_container">
+          <h3>Resumen de compra</h3>
+          <p class="subtotal">Subtotal( 3 productos )</p>
+          <p class="price">29.99 €</p>
+          <button (click)="payNow()">Pagar ahora</button>
+      </div>
 
-    <div class="container-general">
+      <div class="container-general">
 
-        <!--SI TIENE DIRECCION-->
-        <div class="card container" *ngIf="hasAddress">
+          <!--SI TIENE DIRECCION-->
+          <div class="card container" *ngIf="hasAddress">
 
-            <div class="addres_info">
-                <h3>Datos de envío</h3>
-                <p>{{ address.street_name }} Nº{{ address.street_number }} <span>letra:{{ address.letter }} Piso:{{ address.floor }}</span> </p>
-                <p>{{ address.postcode }} {{ address.town }} {{ address.locality }} {{ address.province }}</p>
-                <p>{{ address.details }}</p>
-            </div>
+              <div class="addres_info">
+                  <h3>Datos de envío</h3>
+                  <p>{{ address.street_name }} Nº{{ address.street_number }} <span>letra:{{ address.letter }} Piso:{{ address.floor }}</span> </p>
+                  <p>{{ address.postcode }} {{ address.town }} {{ address.locality }} {{ address.province }}</p>
+                  <p>{{ address.details }}</p>
+              </div>
 
-            <div class="botones">
-              <button data-bs-toggle="modal" data-bs-target="#modal_cambiar_direccion">Elegír otra dirección</button>
-              <button (click)="openAddressForm = true">Agregar dirección</button>
-            </div>
+              <div class="botones">
+                <button data-bs-toggle="modal" data-bs-target="#modal_cambiar_direccion">Elegír otra dirección</button>
+                <button (click)="openAddressForm = true">Agregar dirección</button>
+              </div>
 
-        </div>
+          </div>
 
-        <!--SI NO TIENE DIRECCION-->
-        <div class="card container" *ngIf="!hasAddress">
-            <div>
-                <h3>Datos de envío</h3>
-                <p>No cuenta con datos de envío en el sistema</p>
-            </div>
+          <!--SI NO TIENE DIRECCION-->
+          <div class="card container" *ngIf="!hasAddress">
+              <div>
+                  <h3>Datos de envío</h3>
+                  <p>No cuenta con datos de envío en el sistema</p>
+              </div>
 
-            <div class="botones">
-              <button (click)="openAddressForm = true">Agregar dirección</button>
-            </div>
-        </div>
-
-
-
-        <!-- DATOS USUARIO-->
-        <div class="card container">
-            <div>
-                <h3>Datos personales</h3>
-                <p>{{ user.name}} {{ user.surname}}</p>
-                <p>Telefono: {{ user.phone || 'No tenemos su telefono' }}</p>
-            </div>
-
-            <div class="botones">
-              <button *ngIf="user.phone" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Cambiar teléfono</button>
-              <button *ngIf="!user.phone" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Agregar teléfono</button>
-            </div>
-
-        </div>
-
-    </div>
+              <div class="botones">
+                <button (click)="openAddressForm = true">Agregar dirección</button>
+              </div>
+          </div>
 
 
+
+          <!-- DATOS USUARIO-->
+          <div class="card container">
+              <div>
+                  <h3>Datos personales</h3>
+                  <p>{{ user.name}} {{ user.surname}}</p>
+                  <p>Telefono: {{ user.phone || 'No tenemos su telefono' }}</p>
+              </div>
+
+              <div class="botones">
+                <button *ngIf="user.phone" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Cambiar teléfono</button>
+                <button *ngIf="!user.phone" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Agregar teléfono</button>
+              </div>
+
+          </div>
+
+      </div>
+
+  </div>
 
 </main>

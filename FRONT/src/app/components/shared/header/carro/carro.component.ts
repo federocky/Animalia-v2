@@ -16,7 +16,7 @@ export class CarroComponent implements OnInit {
   cart: Cart;
 
   //ruta de las imagenes correspodientes a los productos
-  imgRoute: string = Variables.imgRouteProducts;
+  imgRoute: string = Variables.imgRouteProductsMini;
 
   constructor(private _cartService: CartService) { }
 
@@ -44,7 +44,7 @@ export class CarroComponent implements OnInit {
   decreaseItem( product: Product ): void{
     this._cartService.decreaseProduct(product);
   }
-  
+
 
 
   /**

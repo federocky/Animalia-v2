@@ -5,14 +5,16 @@ main{
 
     padding: 12px;
 
-    display: grid;
-    grid-gap: 12px;
-    
-    @include tablet{
-        grid-template-columns: 1fr 2fr;
-    }
+    .container{
+      display: grid;
+      grid-gap: 12px;
+      grid-template-columns: 1fr;
 
-    .datos{
+      @include tablet{
+        grid-template-columns: 1fr 2fr;
+      }
+
+      .datos{
         h3{color: $blue_light;}
 
         table{
@@ -23,66 +25,66 @@ main{
                 padding: 12px;
             }
         }
-    }
+      }
 
-    .pago{
+      .pago{
 
-        >div{
-            background-color: rgb(218, 218, 218);
-            display: flex;
-            h3{
-                margin-right: 8px;
-            }
-            img{
-                width: 42px;
-                margin-right: 6px;
-            }
-        }
+          >div{
+              background-color: rgb(218, 218, 218);
+              display: flex;
+              h3{
+                  margin-right: 8px;
+              }
+              img{
+                  width: 42px;
+                  margin-right: 6px;
+              }
+          }
 
-        form{
-            display: grid;
-            padding: 8px;
+          form{
+              display: grid;
+              padding: 8px;
 
-            label{
-                font-weight: bold;
-                margin-top: 8px;
-            }
+              label{
+                  font-weight: bold;
+                  margin-top: 8px;
+              }
 
-            div{
+              div{
 
-                i{
-                    color: rgb(65, 65, 65);
-                    font-size: 18px;
-                    margin-right: 12px;
-                }
+                  i{
+                      color: rgb(65, 65, 65);
+                      font-size: 18px;
+                      margin-right: 12px;
+                  }
 
-                .date{
-                    max-width: 100px;
-                }
-            }
+                  .date{
+                      max-width: 100px;
+                  }
+              }
 
-            .botones{
-                display: flex;
+              .botones{
+                  display: flex;
 
-                button{
-                    padding: 6px 14px;
-                    border-radius: 4px;
-                    color: #fff;
-                    width: 150px;
-                    margin-top: 10px;
-                    margin-left: 12px;
-                }
+                  button{
+                      padding: 6px 14px;
+                      border-radius: 4px;
+                      color: #fff;
+                      width: 150px;
+                      margin-top: 10px;
+                      margin-left: 12px;
+                  }
 
-                :first-child{
-                    background-color: rgb(148, 148, 156);
-                }
+                  :first-child{
+                      background-color: rgb(148, 148, 156);
+                  }
 
-                :last-child{
-                    background-color: rgb(72, 72, 206);
-                }
-            }
-        }
-    }
+                  :last-child{
+                      background-color: rgb(72, 72, 206);
+                  }
+              }
+          }
+      }
 
-    
+  }
 }
