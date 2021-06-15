@@ -17,17 +17,6 @@ import { ArticulosTiendaComponent } from './components/tienda/articulos-tienda/a
 import { ArticuloCardTiendaComponent } from './components/tienda/articulo-card-tienda/articulo-card-tienda.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MainIndexComponent } from './components/index/main-index/main-index.component';
-
-//FORMULARIOS
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-//RUTAS
-import { app_routing } from './app.routes';
-
-//PAGINACION
-import {NgxPaginationModule} from 'ngx-pagination';
-
-//para el [(ngModel)]
 import { CartComponent } from './components/checkout/cart/cart.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { LoginComponent } from './components/auth/login/login.component';
@@ -44,26 +33,39 @@ import { UserSideComponent }  from './components/main-user/user-side-component';
 import { AdminHeaderComponent } from './components/admin/header/admin-header.component';
 import { TodoComponent } from './components/admin/pages/todo/todo.component';
 import { AdminOrdersComponent } from './components/admin/pages/orders/admin-orders.component'
-import { OrdersFilterPipe } from './pipes/orders.pipe';
 import { ProductsCrudComponent } from './components/admin/pages/products-crud/products-crud.component';
 import { UsersCrudComponent } from './components/admin/pages/users-crud/users-crud.component';
 import { CrudFiltersComponent } from './components/admin/pages/crud-filters/crud-filters.component';
 import { ProductFormComponent } from './components/admin/utils/product-form/product-form.component';
-import { SearchPipe } from './pipes/search.pipe';
-import { OrderByPipe } from './pipes/order-by.pipe';
 import { PaseosComponent } from './components/services-appointments/paseos/paseos.component';
 import { PeluqueriaComponent } from './components/services-appointments/peluqueria/peluqueria.component';
 import { FormMakeAppointmentComponent } from './components/services-appointments/shared/form-make-appointment/form-make-appointment.component';
 import { AreaComponent } from './components/services-appointments/shared/area/area.component';
 import { PasarelaAppointmentsComponent } from './components/services-appointments/pasarela-appointments/pasarela-appointments.component';
 import { UserAppointmentsComponent } from './components/user/user-appointments/user-appointments.component';
-import { PastOrNewAppointmentsPipe } from './pipes/past-or-new-appointments.pipe';
 import { EmployeeFormComponent } from './components/admin/utils/employee-form/employee-form.component';
 import { EmployeeCrudComponent } from './components/admin/pages/employee-crud/employee-crud.component';
 import { AppointmentsComponent } from './components/admin/pages/appointments/appointments.component';
 import { PetcareComponent } from './components/petcare/petcare.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { StatisticChartComponent } from './components/admin/pages/statistic-chart/statistic-chart.component';
+
+
+//FORMULARIOS
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+//RUTAS
+import { app_routing } from './app.routes';
+
+//PAGINACION
+import {NgxPaginationModule} from 'ngx-pagination';
+
+//PIPES
+import { OrdersFilterPipe } from './pipes/orders.pipe';
+import { SearchPipe } from './pipes/search.pipe';
+import { OrderByPipe } from './pipes/order-by.pipe';
+import { PastOrNewAppointmentsPipe } from './pipes/past-or-new-appointments.pipe';
+
 
 
 

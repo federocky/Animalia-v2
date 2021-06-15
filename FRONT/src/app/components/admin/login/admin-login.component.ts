@@ -49,12 +49,6 @@ export class AdminLoginComponent implements OnInit {
 
     if (this.myForm.valid){
 
-      /* Swal.fire({
-        //para que no se cierre al hacer click fuera como un modal
-        allowOutsideClick: false,
-        icon: 'info',
-        text: 'Espere por favor'
-      }); */
       this._swalService.showLoading();
 
       Swal.showLoading();

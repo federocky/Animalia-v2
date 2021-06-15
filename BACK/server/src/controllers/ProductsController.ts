@@ -8,8 +8,6 @@ import db from '../database';
 class ProductsController {
 
 
-
-
     /**devuelve todos los productos con su rating y numero de votos. */
     public async index (req: Request, res: Response) {
 
@@ -29,8 +27,6 @@ class ProductsController {
 
     }
     
-
-
 
 
     /**Funcion para guardar un nuevo producto
@@ -56,9 +52,6 @@ class ProductsController {
     } 
 
 
-
-    
-
     /**devuelve un producto por id asi como su rating y numero de votos */
     public async show (req: Request, res: Response) {
         
@@ -73,8 +66,7 @@ class ProductsController {
                                                 GROUP BY p.id`);
             
 
-            /**si no encuentra ningún producto devolvemos el error
-             * el return es necesario para evitar error ERR_HTTP_HEADERS_SENT*/            
+            /**si no encuentra ningún producto devolvemos el error */            
             if (product.length < 1) return res.status(404).json({ok: false, message: 'Product not found'});
                 
             
@@ -89,7 +81,6 @@ class ProductsController {
             res.status(404).json({ok: false, message: 'Server not working'});
         }
     }
-
 
 
 
@@ -121,8 +112,6 @@ class ProductsController {
             return res.status(400).json({ok: false, message: "Connection error", code: 2});
         }
     }
-
-
 
 
     /**Funcion que elimina un producto por id */

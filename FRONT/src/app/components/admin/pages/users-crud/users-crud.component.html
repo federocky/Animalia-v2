@@ -4,10 +4,6 @@
 
         <app-crud-filters [filterType]="'user'" (search)="term = $event" (orderBy)="order = $event" (createNew)="openNewForm()"></app-crud-filters>
 
-<!--         <div class="form" *ngIf="openForm">
-            <app-product-form (product)="productRecived( $event )" (close)="openForm = false" [productRecived]="product"></app-product-form>
-        </div> -->
-
         <div class="form" *ngIf="openForm">
 
         </div>

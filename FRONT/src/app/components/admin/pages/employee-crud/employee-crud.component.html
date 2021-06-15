@@ -4,10 +4,6 @@
 
       <app-crud-filters [filterType]="'user'" (search)="term = $event" (orderBy)="order = $event" (createNew)="openNewForm()"></app-crud-filters>
 
-<!--         <div class="form" *ngIf="openForm">
-          <app-product-form (product)="productRecived( $event )" (close)="openForm = false" [productRecived]="product"></app-product-form>
-      </div> -->
-
       <div class="form" *ngIf="openForm">
 
       </div>
@@ -22,7 +18,8 @@
                   <th scope="col">Acciones</th>
               </tr>
           </thead>
-          <!--  -->
+
+
           <tbody>
               <tr *ngFor="let employee of employees | search: term | orderBy: order" >
                   <th scope="row"> {{ employee.id }} </th>
@@ -30,7 +27,6 @@
                   <td class="hide">{{ employee.email }}</td>
                   <td class="hide">{{ employee.phone }}</td>
                   <td>
-                      <!-- <button class="btn btn-success me-1"><i class="fas fa-edit"></i></button> -->
                       <button *ngIf="employee.active" class="btn btn-danger" (click)="delete(employee.id)"><i class="far fa-trash-alt"></i></button>
                       <button *ngIf="!employee.active" class="btn btn-primary" (click)="activate(employee.id)"><i class="fas fa-check"></i></button>
                   </td>

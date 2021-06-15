@@ -9,7 +9,7 @@ import db from '../database';
 
 class OrderController {
 
-    /**devuelve todos los productos con su rating y numero de votos. */
+    /**devuelve todos los pedidos */
     public async index (req: Request, res: Response) {
 
         try{
@@ -45,9 +45,6 @@ class OrderController {
         }
     }
 
-    public async create(req: Request, res: Response) {
-        
-    }
     
     /**Funcion que recibe un carro y una direccion asi como el usuario encriptado en el token
      * Se comprueba si el stock es correcto. De ser asi se guarda el pedido y actualiza el stock
@@ -58,7 +55,7 @@ class OrderController {
         //recibimos el desencriptado del token
         const user_id = req.user_id;
 
-        //TODO:validacion al carro???
+        //TODO:ampliación, validar el carro
         //recibimos la direccion de envío y el carro
         const address_id = req.body.address_id;
         const cart: Cart = req.body.cart;
@@ -68,7 +65,7 @@ class OrderController {
         if(!await updateStock(user_id, cart)) return res.status(400).json({ok:false, message: 'Invalid stock'});
 
 
-        //TODO: esto deberia ser una transaction, pero esta complicada la cosa.
+        //TODO: ampliacion, meter transacciones.
 
         try{
             const response = await db.query(`INSERT INTO orders (user_id, address_id, total) VALUES (?,?,?)`, 
@@ -94,27 +91,6 @@ class OrderController {
 
     } 
 
-    
-
-    /**devuelve un producto por id asi como su rating y numero de votos */
-    public async show (req: Request, res: Response) {
-    }
-
-    public async edit(req: Request, res: Response) {
-        
-    }
-    
-    /**Funcioin que recibe un producto en el body u su id en la cabecera 
-     * Actualiza el producto almacenado en el id con los nuevos datos.
-     * Si no encuentra devuelve error
-    */
-    public async update (req: Request, res: Response) {
-        
-    }
-
-    public async destroy (req: Request, res: Response) {
-
-    }
 
     /**Funcion que devuelve todos los pedidos de un usuario */
     public async indexByUser( req: Request, res: Response){
@@ -152,6 +128,7 @@ class OrderController {
     
     }
 
+    /**Funcion para actualizar el estado de un pedido */
     public async changeState( req: Request, res: Response) {
 
         const state = req.body.state;
@@ -160,8 +137,6 @@ class OrderController {
         let date = '';
 
         if( !id || !state ) return res.status(400).json({ok: false, message: 'Invalid parameters', code: 1});
-
-       
         
         if( state != 'sent' && state != 'delivered') return res.status(400).json({ok: false, message: 'Invalid state', code: 2});
 
@@ -185,6 +160,7 @@ class OrderController {
 
     }
 
+    /**Funcion que revierte el estado de un pedido a un estado anterior. */
     public async reverseState( req: Request, res: Response) {
 
         const state = req.body.state;
@@ -193,8 +169,6 @@ class OrderController {
         let date = '';    
 
         if( !id || !state ) return res.status(400).json({ok: false, message: 'Invalid parameters', code: 1});
-
-       
         
         if( state != 'ordered' && state != 'sent') return res.status(400).json({ok: false, message: 'Invalid state', code: 2});
 
@@ -223,7 +197,7 @@ class OrderController {
 /**Funcion en la que actualizamos el stock de los productos comprados. */
 async function updateStock( user_id: number, cart: Cart): Promise<boolean>{
 
-    //TODO: esto deberia ser una transacción.
+    //TODO: ampliacion, meter transaccion
 
     if(!await recorreProducto(user_id, cart)) return false;
 

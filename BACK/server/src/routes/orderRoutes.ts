@@ -17,13 +17,7 @@ class OrderRoutes {
 
     config(): void {
         this.router.get('/', orderController.index);
-        this.router.get('/create', orderController.create);
         this.router.post('/', tokenValidation, orderController.store);
-        this.router.get('/:id', orderController.show);
-        this.router.get('/edit/:id', orderController.edit);
-        this.router.put('/:id', orderController.update);
-        this.router.delete('/:id', orderController.destroy);
-
         this.router.get('/user/:id', tokenValidation, orderController.indexByUser);
         this.router.post('/delivery/:id', orderController.changeState);
         this.router.post('/deliveryReverse/:id', orderController.reverseState);

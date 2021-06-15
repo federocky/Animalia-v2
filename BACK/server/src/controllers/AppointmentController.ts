@@ -35,7 +35,7 @@ class AppointmentController {
     public async indexByUser (req: Request, res: Response) {
 
         const id = req.user_id;
-        //const id = 1;
+
         try{
             const appointments = await db.query(`SELECT appointment.*, service.name, address.street_name, address.street_number,
                                                 address.postcode, address.floor, address.letter, address.town, address.locality
@@ -49,7 +49,6 @@ class AppointmentController {
             if (appointments.length < 1) return res.status(200).json({ok: true, data: appointments,  message: 'The user has no appointments'});
             
         
-
             res.status(200).json({ok:true, data: appointments});
 
         } catch(error){
@@ -71,13 +70,14 @@ class AppointmentController {
             
             let response = await db.query(`SELECT DATE_FORMAT(hour_start, '%H:%i') AS hour_from, DATE_FORMAT(hour_end, '%H:%i') AS hour_to FROM service WHERE name = ?`, [service]);
             
-            let from:           string = response[0].hour_from;
-            let to:             string = response[0].hour_to;
+            let from:     string = response[0].hour_from;
+            let to:       string = response[0].hour_to;
 
-                        
+            //nos quedamos con la hora, sin minutos            
             from = from.slice(0, 2);
             to = to.slice(0,2);
             
+            //casteamos a number
             let numberFrom: number = +from;
             let numberTo: number = +to;
             
@@ -90,11 +90,11 @@ class AppointmentController {
             if(isToday( formatedDate )) {
                 const hourNow = new Date().getHours();
 
+                //si son mas de las 19 no hay mas servicios hoy
                 if(hourNow >= 19) return res.status(200).json({ok: true, data: []});
                 numberFrom = hourNow + 1;
             }
             
-
             for(let i = numberFrom; i <= numberTo; i++){
                 serviceHours.push(i);
             }
@@ -104,7 +104,7 @@ class AppointmentController {
                                                     ORDER BY hour_from`, [date+'%']);
     
                    
-            //if no appointments all the hours are available
+            //sin citas todas las horas estan disponibles.
             if (response.length < 1) return res.status(200).json({ok: true, data: serviceHours});
 
             let bookedFrom: string;
@@ -135,29 +135,19 @@ class AppointmentController {
         }
     }
 
-
-    public async create(req: Request, res: Response) {
-        
-    }
     
 
-    /**Funcion para almacenar una nueva cita.
-     */
+    /**Funcion para almacenar una nueva cita. */
     public async store (req: Request, res: Response) {
         
-        //recibimos el desencriptado del token
+        //recibimos el id desencriptado del token
         const user_id = req.user_id;
-        //const id = 1;
 
         //recibimos los datos del servicio
         const { ...appointment }: Appointment = req.body;
-        //const {service_id, date_appointment_from, date_appointment_to, address_id, price } = req.body;
-
 
         try{
             const checkAvailability = await db.query(`SELECT id FROM appointment WHERE date_appointment_from = ?`, [appointment.date_appointment_from]);
-
-            //TODO: meter validacion que la hora debe ser una posterior y no inferior o cosas raras. tambien que sea la misma fecha.
 
             if (checkAvailability.length >= 2) return res.status(400).json({ok: false, message: 'Date and time already reserved'});
             
@@ -178,7 +168,7 @@ class AppointmentController {
 
     
 
-    /**devuelve un producto por id asi como su rating y numero de votos */
+    /**devuelve una cita especifica*/
     public async show (req: Request, res: Response) {
 
         const id = req.params.id;
@@ -195,18 +185,7 @@ class AppointmentController {
         }
     }
 
-    public async edit(req: Request, res: Response) {
-        
-    }
-    
-    /**Funcioin que recibe un producto en el body u su id en la cabecera 
-     * Actualiza el producto almacenado en el id con los nuevos datos.
-     * Si no encuentra devuelve error
-    */
-    public async update (req: Request, res: Response) {
-        
-    }
-
+    /**Funcion para asignar un empleado a una cita */
     public async asignEmployee(req: Request, res: Response){
 
         const employee_id: string = req.body.employee_id;

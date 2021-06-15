@@ -58,8 +58,7 @@ export class PasarelaAppointmentsComponent implements OnInit {
 
         }).then((result) => {
 
-          //TODO: seria mejor saber que producto tiro el error y actualizarlo en el carro.
-          //Lo dejo como posible mejora.
+          //TODO: ampliacion, seria mejor saber que producto tiro el error y actualizarlo en el carro.
           this._router.navigateByUrl('tienda');
 
         });

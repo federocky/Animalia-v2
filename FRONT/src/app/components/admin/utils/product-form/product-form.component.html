@@ -2,14 +2,14 @@
 
     <h2>Producto</h2>
     <i class="far fa-times-circle" (click)="close.emit(true)"></i>
-    
+
     <form novalidate *ngIf="myForm" [formGroup]="myForm" (ngSubmit)="onSubmit()">
 
         <!--NOMBRE-->
         <div class="form-group">
             <label>Nombre:</label>
-            <input 
-                type="text" 
+            <input
+                type="text"
                 class="form-control"
                 [ngClass]="{ 'is-invalid': name.invalid && ( name.dirty || name.touched),
                         'is-valid': name.valid       && ( name.dirty || name.touched)}"
@@ -24,13 +24,13 @@
         <!--DESCRIPCION-->
         <div class="form-group">
             <label>Descripción:</label>
-            <input 
-                type="text" 
+            <input
+                type="text"
                 class="form-control"
                 [ngClass]="{ 'is-invalid': description.invalid && ( description.dirty || description.touched),
                         'is-valid': description.valid       && ( description.dirty || description.touched)}"
                 formControlName="description">
-                
+
             <div class="invalid-feedback" *ngIf="description.errors && (description.dirty || description.touched)">
                 <span *ngIf="description.errors.required">Debe rellenar algúna descripción</span>
             </div>
@@ -39,8 +39,8 @@
         <!--PRECIO-->
         <div class="form-group">
             <label>Precio:</label>
-            <input 
-                type="text" 
+            <input
+                type="text"
                 class="form-control"
                 [ngClass]="{ 'is-invalid': price.invalid && ( price.dirty || price.touched),
                           'is-valid': price.valid     && ( price.dirty || price.touched)}"
@@ -55,8 +55,8 @@
         <!--IMG-->
         <div class="form-group">
             <label>Imagen:</label>
-            <input 
-                type="text" 
+            <input
+                type="text"
                 class="form-control"
                 [ngClass]="{ 'is-invalid': img.invalid && ( img.dirty || img.touched),
                           'is-valid': img.valid     && ( img.dirty || img.touched)}"
@@ -70,8 +70,8 @@
         <!--BRAND-->
         <div class="form-group">
             <label>Marca:</label>
-            <input 
-                type="text" 
+            <input
+                type="text"
                 class="form-control"
                 [ngClass]="{ 'is-invalid': brand.invalid && ( brand.dirty || brand.touched),
                           'is-valid': brand.valid     && ( brand.dirty || brand.touched)}"
@@ -90,7 +90,7 @@
 
                 <option [value]="category.id" *ngFor="let category of categories">{{ category.name }}</option>
             </select>
-        </div> 
+        </div>
 
         <!-- PROVEEDOR -->
         <div class="form-group" *ngIf="providers">
@@ -99,13 +99,13 @@
             <select class="form-control is-valid" formControlName="provider_id">
                 <option [value]="provider.id" *ngFor="let provider of providers">{{ provider.name }}</option>
             </select>
-        </div> 
+        </div>
 
         <!--STOCK-->
         <div class="form-group">
             <label>Stock:</label>
-            <input 
-                type="number" 
+            <input
+                type="number"
                 class="form-control"
                 [ngClass]="{ 'is-invalid': stock.invalid && ( stock.dirty || stock.touched),
                           'is-valid': stock.valid     && ( stock.dirty || stock.touched)}"
@@ -121,13 +121,12 @@
             <label>Activo:
                 <input class="form-check-input form-check-inlin" type="checkbox" formControlName="active">
             </label>
-        </div> 
+        </div>
 
         <button type="submit">Guardar Producto</button>
 
-        
     </form>
 
-    
+
 
 </div>

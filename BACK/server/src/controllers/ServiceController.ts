@@ -8,8 +8,6 @@ import db from '../database';
 class ServiceController {
 
 
-
-
     /**devuelve todos los servicios */
     public async index (req: Request, res: Response) {
 
@@ -24,20 +22,9 @@ class ServiceController {
 
     }
     
-
-
-
-
-
-    public async store (req: Request, res: Response) {
-        
-    } 
-
-
-
     
 
-    /**devuelve un servicio por id asi*/
+    /**devuelve un servicio por id*/
     public async show (req: Request, res: Response) {
         
         const { id } = req.params;
@@ -61,8 +48,6 @@ class ServiceController {
             res.status(404).json({ok: false, message: 'Server not working'});
         }
     }
-
-
 
 
     /**Funcioin que recibe un servicio en el body u su id en la cabecera 
@@ -90,8 +75,6 @@ class ServiceController {
             return res.status(400).json({ok: false, message: "Connection error", code: 2});
         }
     }
-
-
 
 
     /**Funcion que elimina un servicio por id */
@@ -134,6 +117,7 @@ class ServiceController {
         }
     }
 
+    /**Devuelve los codigos postales validos para ofrecer servicios */
     public async indexPostcode (req: Request, res: Response){
 
         try{

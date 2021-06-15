@@ -15,14 +15,11 @@ class ProductRoutes {
 
     config(): void {
         this.router.get('/', productsController.index);
-        //this.router.get('/create', productsController.create);
         this.router.post('/', productValidation ,productsController.store);
         this.router.get('/:id', productsController.show);
-        //this.router.get('/edit/:id', productsController.edit);
         this.router.put('/:id', productValidation ,productsController.update);
         this.router.delete('/:id', productsController.destroy);
         this.router.get('/recover/:id', productsController.unDestroy);
-
         this.router.get('/category/index', productsController.indexCategory);
         this.router.get('/provider/index', productsController.indexCategory);
     }

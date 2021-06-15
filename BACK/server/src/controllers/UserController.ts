@@ -15,7 +15,6 @@ class UserController {
             const users = await db.query(`SELECT * FROM user`);
 
             /**Funcion que por cada usuario carga sus direcciones
-             * tenemos que poner la funcion asi porque si no no funciona la asincronia.
              */
             async function loadAddress() {
 
@@ -37,10 +36,6 @@ class UserController {
         }
     }
     
-
-    public async store (req: Request, res: Response) {
-    
-    } 
 
     /**Funcion que devuelve un usuario por id y sus direcciones si las tiene */
     public async show (req: Request, res: Response) {
@@ -77,8 +72,7 @@ class UserController {
 
     }
 
-    /**Funcion para cambio de contraseña.
-     */
+    /**Funcion para cambio de contraseña.*/
     public async updatePassword (req: Request, res: Response) {
 
         //recibimos el id encriptado jwt

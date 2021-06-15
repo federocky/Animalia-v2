@@ -15,7 +15,7 @@ section{
         grid-template-columns: 1fr 1fr;
         justify-items: start;
     }
-    
+
 
     .order{
         label{
@@ -32,17 +32,17 @@ section{
             cursor: pointer;
             padding: 2px 10px;
             border-color: $gray_dark;
-    
+
             /*quitamos la flechita por defecto*/
             appearance: none;
             -webkit-appearance: none;
             -moz-appearance: none;
             min-width: 115px;
-    
+
         }
-    
-        //teoricamente quita la flecha pero sin esto tampoco esta
-        //lo dejo ya que puede ser valido en otros navegadores.
+
+        //quita la flecha pero
+        //valido en otros navegadores.
         select::-ms-expand {
             display: none;
         }
@@ -74,7 +74,7 @@ section{
             background-position: right;
             background-size: 40px;
             min-width: 200px;
-    
+
             &:focus{
                 border: none;
             }

@@ -1,14 +1,12 @@
 import express, {Application} from 'express';
 
-
 //morgan nos da informacion sobre las peticiones
 import morgan from 'morgan';
-
 
 //cors permite recibir peticiones desde otro servidor
 import cors from 'cors';
 
-//TODO:para el deploy
+//TODO: para el deploy
 //import path from 'path';
 
 //ARCHIVOS DE RUTAS

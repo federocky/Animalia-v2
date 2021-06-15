@@ -2,30 +2,27 @@
 
     <div class="header container">
 
-
-
         <img src="assets/icons/logo-administracion.png" alt="logo-animalia" title="logo">
 
         <a href="#" class="h1">
             <h1>Mimascota</h1>
         </a>
 
-
         <div class="contenedor-menu">
 
+          <input type="checkbox" id="menu-bar" name="menubar" [(ngModel)]="checked">
 
-            <input type="checkbox" id="menu-bar" name="menubar" [(ngModel)]="checked">
-			<label class="icon-menu" for="menu-bar"><i class="fas fa-bars"></i></label>
+          <label class="icon-menu" for="menu-bar"><i class="fas fa-bars"></i></label>
 
-            <nav class="menu">
-                <a (click)="checked = false;" routerLink="/admin/pendiente">Pendientes</a>
-                <a (click)="checked = false;" routerLink="/admin/pedidos">Pedidos</a>
-                <a (click)="checked = false;" routerLink="/admin/servicios">Servicios</a>
-                <a (click)="checked = false;" routerLink="/admin/productos">Productos</a>
-                <a (click)="checked = false;" routerLink="/admin/usuarios">Usuarios</a>
-                <a (click)="checked = false;" routerLink="/admin/empleados">Empleados</a>
-                <a (click)="checked = false;" routerLink="/admin/estadisticas">Estadisticas</a>
-            </nav>
+          <nav class="menu">
+              <a (click)="checked = false;" routerLink="/admin/pendiente">Pendientes</a>
+              <a (click)="checked = false;" routerLink="/admin/pedidos">Pedidos</a>
+              <a (click)="checked = false;" routerLink="/admin/servicios">Servicios</a>
+              <a (click)="checked = false;" routerLink="/admin/productos">Productos</a>
+              <a (click)="checked = false;" routerLink="/admin/usuarios">Usuarios</a>
+              <a (click)="checked = false;" routerLink="/admin/empleados">Empleados</a>
+              <a (click)="checked = false;" routerLink="/admin/estadisticas">Estadisticas</a>
+          </nav>
 
         </div>
 

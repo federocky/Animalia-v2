@@ -5,8 +5,10 @@ import { Request, Response } from 'express';
 //importamos la bbdd
 import db from '../database';
 
+//bcryptjs para encriptar las contraseñas
 import bcrypt from 'bcryptjs';
 
+//jwt para los tokens
 import jwt from 'jsonwebtoken';
 
 //importamos funciones necesarias.
@@ -49,7 +51,6 @@ class AuthController {
 
         const { email, password } = req.body;
 
-        //TODO: validador de password.
         //validamos el email
         if( !email || !Function.validateEmail(email)) return res.status(200).json({ok: false, message: "invalid email"})
 
@@ -66,10 +67,9 @@ class AuthController {
         if(!correct) return res.status(400).json({ok: false, message: 'incorrect password', code: 2});
 
 
-        /*FIXME: comprobar que se deberia poner en tokentest y tambien en el .env 
-        Tambien mirar el tema del id si esta bien ahi.*/
+        /*FIXME: comprobar que se deberia poner en tokentest y tambien en el .env .*/
         const token: string = jwt.sign({id: user[0].id}, process.env.TOKEN_SECRET || 'tokentest', {
-            expiresIn: 60 * 60 * 24     //caduca despues de un día 
+            expiresIn: 60 * 60 * 24    
         });
 
         return res.status(200).json({ok: true, data: user[0], token});
@@ -88,7 +88,7 @@ class AuthController {
         //encriptamos la contraseña
         employee.password = await encriptPassword( employee.password );
 
-        //TODO:transaccion porque tenemos dos insert into?
+        //TODO: ampliación. Necesita transaccion.
 
         /**Si el email no existe guardamos los datos */
         try {
@@ -113,7 +113,6 @@ class AuthController {
 
         const { email, password } = req.body;
 
-        //TODO: validador de password.
         //validamos el email
         if( !email || !Function.validateEmail(email)) return res.status(200).json({ok: false, message: "invalid email"})
 
@@ -132,10 +131,9 @@ class AuthController {
         if(!correct) return res.status(400).json({ok: false, message: 'incorrect password', code: 2});
 
 
-        /*FIXME: comprobar que se deberia poner en tokentest y tambien en el .env 
-        Tambien mirar el tema del id si esta bien ahi.*/
+        /*TODO: ampliacion, mejorar el tokentest*/
         const token: string = jwt.sign({id: employee[0].id, admin: employee[0].is_admin}, process.env.TOKEN_SECRET || 'tokentest', {
-            expiresIn: 60 * 60 * 24     //caduca despues de un día 
+            expiresIn: 60 * 60 * 24     
         });
 
         return res.status(200).json({ok: true, data: employee[0], token});
@@ -145,7 +143,6 @@ class AuthController {
 }
 
 
-//FIXME: mirar como poner esto como metodos privados de la clase.
 /**Encriptamos el password */
 export async function encriptPassword( password: string ): Promise<string> {
     

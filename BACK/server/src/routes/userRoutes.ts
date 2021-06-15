@@ -16,10 +16,7 @@ class UserRoutes {
 
     config(): void {
         this.router.get('/', userController.index);
-        //this.router.get('/create', userController.create);
-        this.router.post('/', userController.store);
         this.router.get('/:id', userController.show);
-        //this.router.get('/edit/:id', userController.edit);
         this.router.put('/:id', tokenValidation, userValidation, userController.update);
         this.router.put('/password/:id', tokenValidation, userController.updatePassword); 
         this.router.delete('/:id', userController.destroy);
