@@ -23,7 +23,7 @@ And an admin side to control deliveries, appointments and needed CRUDS.
     * ```npm run dev``` in BACK/server folder to run the back in localhost.
 
 3. Frontend:
-    * ```npm install``` in FRON folder to install the needed packages.
+    * ```npm install``` in FRONT folder to install the needed packages.
     * ```ng serve -o``` to run and open the application in a browser.
 ---
 
